@@ -1003,7 +1003,6 @@ function RayfieldLibrary:CreateWindow(Settings)
 			TweenService:Create(TabButton, TweenInfo.new(0.7, Enum.EasingStyle.Quint), {Transparency = 0}):Play()
 			TweenService:Create(TabButton.Title, TweenInfo.new(0.7, Enum.EasingStyle.Quint), {TextTransparency = 0.2}):Play()
 			TweenService:Create(TabButton.Image, TweenInfo.new(0.7, Enum.EasingStyle.Quint), {ImageTransparency = 0.2}):Play()
-			TweenService:Create(TabButton.UIStroke, TweenInfo.new(0.7, Enum.EasingStyle.Quint), {Color = Color3.fromRGB(114, 1, 184)}):Play()
 		else
 			FirstTab = Name
 			TabButton.BackgroundColor3 = Color3.fromRGB(27, 27, 27)
@@ -1238,12 +1237,12 @@ function RayfieldLibrary:CreateWindow(Settings)
 
 			Input.MouseEnter:Connect(function()
 				TweenService:Create(Input, TweenInfo.new(0.6, Enum.EasingStyle.Quint), {BackgroundColor3 = Color3.fromRGB(30,30,30)}):Play()
-				TweenService:Create(Input.UIStroke, TweenInfo.new(0.6, Enum.EasingStyle.Quint), {Color3 = Color3.fromRGB(114, 1, 184)}):Play()
+				TweenService:Create(Input.UIStroke, TweenInfo.new(0.6, Enum.EasingStyle.Quint), {Color = Color3.fromRGB(114, 1, 184)}):Play()
 			end)
 
 			Input.MouseLeave:Connect(function()
 				TweenService:Create(Input, TweenInfo.new(0.6, Enum.EasingStyle.Quint), {BackgroundColor3 = Color3.fromRGB(25,25,25)}):Play()
-				TweenService:Create(Input.UIStroke, TweenInfo.new(0.6, Enum.EasingStyle.Quint), {Color3 = Color3.fromRGB(35,35,35)}):Play()
+				TweenService:Create(Input.UIStroke, TweenInfo.new(0.6, Enum.EasingStyle.Quint), {Color = Color3.fromRGB(35,35,35)}):Play()
 			end)
 
 			Input.InputFrame.InputBox:GetPropertyChangedSignal("Text"):Connect(function()
@@ -1286,7 +1285,7 @@ function RayfieldLibrary:CreateWindow(Settings)
 			Dropdown.Toggle.Rotation = 180
 
 			Dropdown.Interact.MouseButton1Click:Connect(function()
-				TweenService:Create(Dropdown, TweenInfo.new(0.4, Enum.EasingStyle.Quint), {BackgroundColor3 = Color3.fromRGB(45, 45, 45)}):Play()
+				TweenService:Create(Dropdown, TweenInfo.new(0.4, Enum.EasingStyle.Quint), {BackgroundColor3 = Color3.fromRGB(25, 25, 25)}):Play()
 				TweenService:Create(Dropdown.UIStroke, TweenInfo.new(0.4, Enum.EasingStyle.Quint), {Transparency = 1}):Play()
 				wait(0.1)
 				TweenService:Create(Dropdown, TweenInfo.new(0.4, Enum.EasingStyle.Quint), {BackgroundColor3 = Color3.fromRGB(35, 35, 35)}):Play()
@@ -1324,12 +1323,12 @@ function RayfieldLibrary:CreateWindow(Settings)
 
 			Dropdown.MouseEnter:Connect(function()
 				if not Dropdown.List.Visible then
-					TweenService:Create(Dropdown, TweenInfo.new(0.6, Enum.EasingStyle.Quint), {BackgroundColor3 = Color3.fromRGB(40, 40, 40)}):Play()
+					TweenService:Create(Dropdown, TweenInfo.new(0.6, Enum.EasingStyle.Quint), {BackgroundColor3 = Color3.fromRGB(30, 30, 30)}):Play()
 				end
 			end)
 
 			Dropdown.MouseLeave:Connect(function()
-				TweenService:Create(Dropdown, TweenInfo.new(0.6, Enum.EasingStyle.Quint), {BackgroundColor3 = Color3.fromRGB(35, 35, 35)}):Play()
+				TweenService:Create(Dropdown, TweenInfo.new(0.6, Enum.EasingStyle.Quint), {BackgroundColor3 = Color3.fromRGB(25, 25, 25)}):Play()
 			end)
 
 			for _, Option in ipairs(DropdownSettings.Options) do
@@ -1340,7 +1339,7 @@ function RayfieldLibrary:CreateWindow(Settings)
 				DropdownOption.Visible = true
 
 				if DropdownSettings.CurrentOption == Option then
-					DropdownOption.BackgroundColor3 = Color3.fromRGB(40, 40, 40)
+					DropdownOption.BackgroundColor3 = Color3.fromRGB(25, 25, 25)
 				end
 
 				DropdownOption.BackgroundTransparency = 1
@@ -1362,7 +1361,7 @@ function RayfieldLibrary:CreateWindow(Settings)
 							print("Rayfield | "..DropdownSettings.Name.." Callback Error " ..tostring(Response))
 							wait(0.5)
 							Dropdown.Title.Text = DropdownSettings.Name
-							TweenService:Create(Dropdown, TweenInfo.new(0.6, Enum.EasingStyle.Quint), {BackgroundColor3 = Color3.fromRGB(35, 35, 35)}):Play()
+							TweenService:Create(Dropdown, TweenInfo.new(0.6, Enum.EasingStyle.Quint), {BackgroundColor3 = Color3.fromRGB(25, 25, 25)}):Play()
 							TweenService:Create(Dropdown.UIStroke, TweenInfo.new(0.6, Enum.EasingStyle.Quint), {Transparency = 0}):Play()
 						end
 						DropdownSettings.CurrentOption = Option
@@ -1419,7 +1418,7 @@ function RayfieldLibrary:CreateWindow(Settings)
 							droption.BackgroundColor3 = Color3.fromRGB(30, 30, 30)
 						end
 					else
-						droption.BackgroundColor3 = Color3.fromRGB(40, 40, 40)
+						droption.BackgroundColor3 = Color3.fromRGB(25, 25, 25)
 					end
 
 				end
@@ -1467,11 +1466,11 @@ function RayfieldLibrary:CreateWindow(Settings)
 			end)
 
 			Keybind.MouseEnter:Connect(function()
-				TweenService:Create(Keybind, TweenInfo.new(0.6, Enum.EasingStyle.Quint), {BackgroundColor3 = Color3.fromRGB(40, 40, 40)}):Play()
+				TweenService:Create(Keybind, TweenInfo.new(0.6, Enum.EasingStyle.Quint), {BackgroundColor3 = Color3.fromRGB(30, 30, 30)}):Play()
 			end)
 
 			Keybind.MouseLeave:Connect(function()
-				TweenService:Create(Keybind, TweenInfo.new(0.6, Enum.EasingStyle.Quint), {BackgroundColor3 = Color3.fromRGB(35, 35, 35)}):Play()
+				TweenService:Create(Keybind, TweenInfo.new(0.6, Enum.EasingStyle.Quint), {BackgroundColor3 = Color3.fromRGB(25, 25, 25)}):Play()
 			end)
 
 			UserInputService.InputBegan:Connect(function(input, processed)
@@ -1563,12 +1562,12 @@ function RayfieldLibrary:CreateWindow(Settings)
 				Toggle.Switch.Indicator.Position = UDim2.new(1, -40, 0.5, 0)
 				Toggle.Switch.Indicator.UIStroke.Color = Color3.fromRGB(114, 1, 184)
 				Toggle.Switch.Indicator.BackgroundColor3 = Color3.fromRGB(114, 1, 184)
-				Toggle.Switch.UIStroke.Color = Color3.fromRGB(114, 1, 184)
+				Toggle.Switch.UIStroke.Color = Color3.fromRGB(35,35,35)
 			else
 				Toggle.Switch.Indicator.Position = UDim2.new(1, -20, 0.5, 0)
 				Toggle.Switch.Indicator.UIStroke.Color = Color3.fromRGB(114, 1, 184)
 				Toggle.Switch.Indicator.BackgroundColor3 = Color3.fromRGB(114, 1, 184)
-				Toggle.Switch.UIStroke.Color = Color3.fromRGB(35,35,35)
+				Toggle.Switch.UIStroke.Color = Color3.fromRGB(114, 1, 184)
 			end
 
 			Toggle.MouseEnter:Connect(function()
