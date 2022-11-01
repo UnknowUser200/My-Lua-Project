@@ -1468,7 +1468,7 @@ function RayfieldLibrary:CreateWindow(Settings)
 			end)
 
 			Keybind.MouseEnter:Connect(function()
-				TweenService:Create(Keybind, TweenInfo.new(0.6, Enum.EasingStyle.Quint), {BackgroundColor3 = Color3.fromRGB(40, 40, 40)}):Play()
+				TweenService:Create(Keybind, TweenInfo.new(0.6, Enum.EasingStyle.Quint), {BackgroundColor3 = Color3.fromRGB(25,25,25)}):Play()
 			end)
 
 			Keybind.MouseLeave:Connect(function()
@@ -1564,12 +1564,12 @@ function RayfieldLibrary:CreateWindow(Settings)
 				Toggle.Switch.Indicator.Position = UDim2.new(1, -40, 0.5, 0)
 				Toggle.Switch.Indicator.UIStroke.Color = Color3.fromRGB(114, 1, 184)
 				Toggle.Switch.Indicator.BackgroundColor3 = Color3.fromRGB(114, 1, 184)
-				Toggle.Switch.UIStroke.Color = Color3.fromRGB(114, 1, 184)
+				Toggle.Switch.UIStroke.Color = Color3.fromRGB(35,35,35)
 			else
 				Toggle.Switch.Indicator.Position = UDim2.new(1, -20, 0.5, 0)
 				Toggle.Switch.Indicator.UIStroke.Color = Color3.fromRGB(114, 1, 184)
 				Toggle.Switch.Indicator.BackgroundColor3 = Color3.fromRGB(114, 1, 184)
-				Toggle.Switch.UIStroke.Color = Color3.fromRGB(35,35,35)
+				Toggle.Switch.UIStroke.Color = Color3.fromRGB(114, 1, 184)
 			end
 
 			Toggle.MouseEnter:Connect(function()
@@ -1714,11 +1714,11 @@ function RayfieldLibrary:CreateWindow(Settings)
 
 
 			Slider.MouseEnter:Connect(function()
-				TweenService:Create(Slider, TweenInfo.new(0.6, Enum.EasingStyle.Quint), {BackgroundColor3 = Color3.fromRGB(40, 40, 40)}):Play()
+				TweenService:Create(Slider, TweenInfo.new(0.6, Enum.EasingStyle.Quint), {BackgroundColor3 = Color3.fromRGB(25,25,25)}):Play()
 			end)
 
 			Slider.MouseLeave:Connect(function()
-				TweenService:Create(Slider, TweenInfo.new(0.6, Enum.EasingStyle.Quint), {BackgroundColor3 = Color3.fromRGB(35, 35, 35)}):Play()
+				TweenService:Create(Slider, TweenInfo.new(0.6, Enum.EasingStyle.Quint), {BackgroundColor3 = Color3.fromRGB(25,25,25)}):Play()
 			end)
 			
 			Slider.Main.Interact.InputBegan:Connect(function(Input)
@@ -1779,7 +1779,7 @@ function RayfieldLibrary:CreateWindow(Settings)
 								print("Rayfield | "..SliderSettings.Name.." Callback Error " ..tostring(Response))
 								wait(0.5)
 								Slider.Title.Text = SliderSettings.Name
-								TweenService:Create(Slider, TweenInfo.new(0.6, Enum.EasingStyle.Quint), {BackgroundColor3 = Color3.fromRGB(35, 35, 35)}):Play()
+								TweenService:Create(Slider, TweenInfo.new(0.6, Enum.EasingStyle.Quint), {BackgroundColor3 = Color3.fromRGB(25, 25, 25)}):Play()
 								TweenService:Create(Slider.UIStroke, TweenInfo.new(0.6, Enum.EasingStyle.Quint), {Transparency = 0}):Play()
 							end
 							
