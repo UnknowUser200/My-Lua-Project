@@ -1062,6 +1062,7 @@ function RayfieldLibrary:CreateWindow(Settings)
 			Button.BackgroundTransparency = 1
 			Button.UIStroke.Transparency = 1
 			Button.Title.TextTransparency = 1
+			Button.BackgroundColor3 = Color3.fromRGB(25,25,25)
 
 			TweenService:Create(Button, TweenInfo.new(0.7, Enum.EasingStyle.Quint), {BackgroundTransparency = 0}):Play()
 			TweenService:Create(Button.UIStroke, TweenInfo.new(0.7, Enum.EasingStyle.Quint), {Transparency = 0}):Play()
@@ -1208,6 +1209,7 @@ function RayfieldLibrary:CreateWindow(Settings)
 			Input.BackgroundTransparency = 1
 			Input.UIStroke.Transparency = 1
 			Input.Title.TextTransparency = 1
+			Input.BackgroundColor3 = Color3.fromRGB(25,25,25)
 
 			TweenService:Create(Input, TweenInfo.new(0.7, Enum.EasingStyle.Quint), {BackgroundTransparency = 0}):Play()
 			TweenService:Create(Input.UIStroke, TweenInfo.new(0.7, Enum.EasingStyle.Quint), {Transparency = 0}):Play()
@@ -1273,6 +1275,7 @@ function RayfieldLibrary:CreateWindow(Settings)
 			Dropdown.BackgroundTransparency = 1
 			Dropdown.UIStroke.Transparency = 1
 			Dropdown.Title.TextTransparency = 1
+			Dropdown.BackgroundColor3 = Color3.fromRGB(25,25,25)
 
 			Dropdown.Size = UDim2.new(1, -10, 0, 45)
 
@@ -1451,6 +1454,7 @@ function RayfieldLibrary:CreateWindow(Settings)
 			Keybind.BackgroundTransparency = 1
 			Keybind.UIStroke.Transparency = 1
 			Keybind.Title.TextTransparency = 1
+			Keybind.BackgroundColor3 = Color3.fromRGB(25,25,25)
 
 			TweenService:Create(Keybind, TweenInfo.new(0.7, Enum.EasingStyle.Quint), {BackgroundTransparency = 0}):Play()
 			TweenService:Create(Keybind.UIStroke, TweenInfo.new(0.7, Enum.EasingStyle.Quint), {Transparency = 0}):Play()
@@ -1561,21 +1565,22 @@ function RayfieldLibrary:CreateWindow(Settings)
 			Toggle.BackgroundTransparency = 1
 			Toggle.UIStroke.Transparency = 1
 			Toggle.Title.TextTransparency = 1
+			Toggle.BackgroundColor3 = Color3.fromRGB(25,25,25)
 
 			TweenService:Create(Toggle, TweenInfo.new(0.7, Enum.EasingStyle.Quint), {BackgroundTransparency = 0}):Play()
 			TweenService:Create(Toggle.UIStroke, TweenInfo.new(0.7, Enum.EasingStyle.Quint), {Transparency = 0}):Play()
 			TweenService:Create(Toggle.Title, TweenInfo.new(0.7, Enum.EasingStyle.Quint), {TextTransparency = 0}):Play()	
 
 			if not ToggleSettings.CurrentValue then
+			    Toggle.Switch.Indicator.Position = UDim2.new(1, -20, 0.5, 0)
+				Toggle.Switch.Indicator.UIStroke.Color = Color3.fromRGB(114, 1, 184)
+				Toggle.Switch.Indicator.BackgroundColor3 = Color3.fromRGB(114, 1, 184)
+				Toggle.Switch.UIStroke.Color = Color3.fromRGB(114, 1, 184)
+			else
 				Toggle.Switch.Indicator.Position = UDim2.new(1, -40, 0.5, 0)
 				Toggle.Switch.Indicator.UIStroke.Color = Color3.fromRGB(114, 1, 184)
 				Toggle.Switch.Indicator.BackgroundColor3 = Color3.fromRGB(114, 1, 184)
 				Toggle.Switch.UIStroke.Color = Color3.fromRGB(35,35,35)
-			else
-				Toggle.Switch.Indicator.Position = UDim2.new(1, -20, 0.5, 0)
-				Toggle.Switch.Indicator.UIStroke.Color = Color3.fromRGB(114, 1, 184)
-				Toggle.Switch.Indicator.BackgroundColor3 = Color3.fromRGB(114, 1, 184)
-				Toggle.Switch.UIStroke.Color = Color3.fromRGB(114, 1, 184)
 			end
 
 			Toggle.MouseEnter:Connect(function()
@@ -1707,6 +1712,7 @@ function RayfieldLibrary:CreateWindow(Settings)
 			Slider.BackgroundTransparency = 1
 			Slider.UIStroke.Transparency = 1
 			Slider.Title.TextTransparency = 1
+			Slider.BackgroundColor3 = Color3.fromRGB(25,25,25)
 
 			TweenService:Create(Slider, TweenInfo.new(0.7, Enum.EasingStyle.Quint), {BackgroundTransparency = 0}):Play()
 			TweenService:Create(Slider.UIStroke, TweenInfo.new(0.7, Enum.EasingStyle.Quint), {Transparency = 0}):Play()
