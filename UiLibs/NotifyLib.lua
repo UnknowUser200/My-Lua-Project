@@ -1,4 +1,8 @@
 -- 11449025131
+local NotificationHolder = Instance.new("ScreenGui")
+NotificationHolder.Name = "notiHolder"
+NotificationHolder.Parent = game.CoreGui
+NotificationHolder.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
 
 local UserInputService = game:GetService("UserInputService")
 local TweenService = game:GetService("TweenService")
