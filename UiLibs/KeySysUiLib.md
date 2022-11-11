@@ -6,6 +6,8 @@
 
 # Info
 Information on how to use this lib
+pls join on officiall server discord: https://discord.gg/cn7HAncu55 <img src="https://cdn.discordapp.com/emojis/1038875387826020352.webp?size=96&quality=lossless" width="2%" height="2%">
+
 
 ## Eng
 
