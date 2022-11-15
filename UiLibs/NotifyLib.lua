@@ -11,7 +11,7 @@ local LocalPlayer = game:GetService("Players").LocalPlayer
 local Mouse = LocalPlayer:GetMouse()
 local http = game:GetService("HttpService")
 
-local NotificationFrame = game:GetObjects("rbxassetid://11449390925")[1]
+local NotificationFrame = game:GetObjects("rbxassetid://11504353766")[1]
 NotificationFrame.ZIndex = 4
 NotificationFrame.Parent = NotificationHolder
 script = NotificationFrame.NotifScript
