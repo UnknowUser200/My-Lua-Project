@@ -1,6 +1,6 @@
-local lib = { 
-    RainbowColorValue = 0, 
-    HueSelectionPosition = 0, 
+local lib = {
+    RainbowColorValue = 0,
+    HueSelectionPosition = 0,
     Flags = {},
     CurrentTab
 }
@@ -156,22 +156,19 @@ function lib:Window(text, preset, closebind)
 
     SearchBar.Name = "SearchBar"
     SearchBar.Parent = Main
-    SearchBar.BackgroundColor3 = Color3.fromRGB(22, 22, 22)
-    SearchBar.BorderColor3 = Color3.fromRGB(27, 42, 53)
-    SearchBar.BorderSizePixel = 0
+    SearchBar.BackgroundColor3 = Color3.fromRGB(34,34,34)
     SearchBar.Position = UDim2.new(0.433333337, 0, 0, 0)
     SearchBar.Size = UDim2.new(0, 176, 0, 40)
-    SearchBar.Visible = false
 
     UICorner.CornerRadius = UDim.new(0, 5)
     UICorner.Parent = SearchBar
 
     SearchBox.Name = "SearchBox"
     SearchBox.Parent = SearchBar
-    SearchBox.BackgroundColor3 = Color3.fromRGB(30, 30, 30)
+    SearchBox.BackgroundColor3 = Color3.fromRGB(37,37,37)
     SearchBox.BorderSizePixel = 0
     SearchBox.Position = UDim2.new(0.0454545468, 0, 0.174999997, 0)
-    SearchBox.Size = UDim2.new(0, 100, 0, 26)
+    SearchBox.Size = UDim2.new(0, 126, 0, 26)
     SearchBox.Font = Enum.Font.SourceSans
     SearchBox.PlaceholderColor3 = Color3.fromRGB(150, 150, 150)
     SearchBox.PlaceholderText = "Search"
@@ -183,21 +180,29 @@ function lib:Window(text, preset, closebind)
     UICorner_2.CornerRadius = UDim.new(0, 3)
     UICorner_2.Parent = SearchBox
 
-    local UIS = game:GetService('UserInputService') --Gets the UserInputService
-    local bool = false
-    UIS.InputBegan:Connect(function(input) --connects a function to the input
-        if input.KeyCode == Enum.KeyCode.F then -- Detects if the player pressed Q. The keycode doesnt have to be Q it can be whatever you want as long as its on your keyboard
-            if bool == false then
-                SearchBar.Visible = true
-                SearchBox.Visible = true
-                bool = true
-            else
-                SearchBar.Visible = false
-                SearchBox.Visible = true
-                bool = false
-            end
-        end
-    end)
+    Reload.Name = "Reload"
+    Reload.Parent = SearchBar
+    Reload.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+    Reload.BackgroundTransparency = 1.000
+    Reload.BorderSizePixel = 0
+    Reload.Position = UDim2.new(0.806666613, 0, 0.174999997, 0)
+    Reload.Size = UDim2.new(0, 26, 0, 26)
+    Reload.AutoButtonColor = false
+    Reload.Font = Enum.Font.SourceSans
+    Reload.Text = ""
+    Reload.TextColor3 = Color3.fromRGB(0, 0, 0)
+    Reload.TextSize = 14.000
+
+    settings.Name = "settings"
+    settings.Parent = Reload
+    settings.BackgroundTransparency = 1.000
+    settings.Position = UDim2.new(-0.139560476, 6, 0.0703296587, 0)
+    settings.Size = UDim2.new(0, 21, 0, 21)
+    settings.ZIndex = 2
+    settings.Image = "rbxassetid://3926305904"
+    settings.ImageColor3 = Color3.fromRGB(132, 131, 134)
+    settings.ImageRectOffset = Vector2.new(244, 684)
+    settings.ImageRectSize = Vector2.new(36, 36)
 
     function SearchConstructor()
         function StitchElements()
@@ -333,7 +338,6 @@ function lib:Window(text, preset, closebind)
             TabBtnIndicator.Size = UDim2.new(0, 13, 0, 2)
             TabTitle.TextColor3 = Color3.fromRGB(255, 255, 255)
             Tab.Visible = true
-            lib.CurrentTab = Tab
         end
 
 
@@ -402,7 +406,7 @@ function lib:Window(text, preset, closebind)
                 local ButtonCorner = Instance.new("UICorner")
                 local ButtonTitle = Instance.new("TextLabel")
 
-                Button.Name = "Button"
+                Button.Name = text .. "element"
                 Button.Parent = Section
                 Button.BackgroundColor3 = Color3.fromRGB(34, 34, 34)
                 Button.Size = UDim2.new(0, 363, 0, 42)
@@ -472,7 +476,7 @@ function lib:Window(text, preset, closebind)
                 local FrameToggleCircle = Instance.new("Frame")
                 local FrameToggleCircleCorner = Instance.new("UICorner")
 
-                Toggle.Name = "Toggle"
+                Toggle.Name = text .. "element"
                 Toggle.Parent = Section
                 Toggle.BackgroundColor3 = Color3.fromRGB(34, 34, 34)
                 Toggle.Position = UDim2.new(0.215625003, 0, 0.446271926, 0)
@@ -666,7 +670,7 @@ function lib:Window(text, preset, closebind)
                 local CurrentValueFrame = Instance.new("Frame")
                 local SlideCircle = Instance.new("ImageButton")
 
-                Slider.Name = "Slider"
+                Slider.Name = text .. "element"
                 Slider.Parent = Section
                 Slider.BackgroundColor3 = Color3.fromRGB(34, 34, 34)
                 Slider.Position = UDim2.new(-0.48035714, 0, -0.570532918, 0)
@@ -797,7 +801,7 @@ function lib:Window(text, preset, closebind)
                 local DropItemHolder = Instance.new("ScrollingFrame")
                 local DropLayout = Instance.new("UIListLayout")
 
-                Dropdown.Name = "Dropdown"
+                Dropdown.Name = text .. "element"
                 Dropdown.Parent = Section
                 Dropdown.BackgroundColor3 = Color3.fromRGB(34, 34, 34)
                 Dropdown.ClipsDescendants = true
@@ -1001,7 +1005,7 @@ function lib:Window(text, preset, closebind)
                 local HueGradient = Instance.new("UIGradient")
                 local HueSelection = Instance.new("ImageLabel")
 
-                Colorpicker.Name = "Colorpicker"
+                Colorpicker.Name = text .. "element"
                 Colorpicker.Parent = Section
                 Colorpicker.BackgroundColor3 = Color3.fromRGB(34, 34, 34)
                 Colorpicker.ClipsDescendants = true
@@ -1451,7 +1455,7 @@ function lib:Window(text, preset, closebind)
                 local LabelCorner = Instance.new("UICorner")
                 local LabelTitle = Instance.new("TextLabel")
 
-                Label.Name = "Button"
+                Label.Name = text .. "element"
                 Label.Parent = Section
                 Label.BackgroundColor3 = Color3.fromRGB(34, 34, 34)
                 Label.Size = UDim2.new(0, 363, 0, 42)
@@ -1488,7 +1492,7 @@ function lib:Window(text, preset, closebind)
                 local TextboxFrameCorner = Instance.new("UICorner")
                 local TextBox = Instance.new("TextBox")
 
-                Textbox.Name = "Textbox"
+                Textbox.Name = text .. "element"
                 Textbox.Parent = Section
                 Textbox.BackgroundColor3 = Color3.fromRGB(34, 34, 34)
                 Textbox.ClipsDescendants = true
@@ -1553,7 +1557,7 @@ function lib:Window(text, preset, closebind)
                 local BindTitle = Instance.new("TextLabel")
                 local BindText = Instance.new("TextLabel")
 
-                Bind.Name = "Bind"
+                Bind.Name = text .. "element"
                 Bind.Parent = Section
                 Bind.BackgroundColor3 = Color3.fromRGB(34, 34, 34)
                 Bind.Size = UDim2.new(0, 363, 0, 42)
