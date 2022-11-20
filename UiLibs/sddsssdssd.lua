@@ -2,7 +2,7 @@ local lib = {
     RainbowColorValue = 0,
     HueSelectionPosition = 0,
     Flags = {},
-    CurrentTab
+    Elements = {},
 }
 local UserInputService = game:GetService("UserInputService")
 local TweenService = game:GetService("TweenService")
@@ -16,6 +16,25 @@ local ui = Instance.new("ScreenGui")
 ui.Name = "VapeUI Like U Nigga"
 ui.Parent = game.CoreGui
 ui.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
+
+local function MakeElement(ElementName, ...)
+    local NewElement = lib.Elements[ElementName](...)
+    return NewElement
+end
+
+local function SetProps(Element, Props)
+    table.foreach(Props, function(Property, Value)
+        Element[Property] = Value
+    end)
+    return Element
+end
+
+local function SetChildren(Element, Children)
+    table.foreach(Children, function(_, Child)
+        Child.Parent = Element
+    end)
+    return Element
+end
 
 coroutine.wrap(
     function()
@@ -89,9 +108,92 @@ local function MakeDraggable(topbarobject, object)
     )
 end
 
-function lib:Window(text, preset, closebind)
-    CloseBind = closebind or Enum.KeyCode.RightControl
-    PresetColor = preset or Color3.fromRGB(44, 120, 224)
+local NotificationHolder = SetProps(SetChildren(MakeElement("TFrame"), {
+    SetProps(MakeElement("List"), {
+        HorizontalAlignment = Enum.HorizontalAlignment.Center,
+        SortOrder = Enum.SortOrder.LayoutOrder,
+        VerticalAlignment = Enum.VerticalAlignment.Bottom,
+        Padding = UDim.new(0, 5)
+    })
+}), {
+    Position = UDim2.new(1, -25, 1, -25),
+    Size = UDim2.new(0, 300, 1, -25),
+    AnchorPoint = Vector2.new(1, 1),
+    Parent = Orion
+})
+
+function lib:MakeNotification(NotificationConfig)
+    spawn(function()
+        NotificationConfig.Name = NotificationConfig.Name or "Notification"
+        NotificationConfig.Content = NotificationConfig.Content or "Test"
+        NotificationConfig.Image = NotificationConfig.Image or "rbxassetid://4384403532"
+        NotificationConfig.Time = NotificationConfig.Time or 15
+
+        local NotificationParent = SetProps(MakeElement("TFrame"), {
+            Size = UDim2.new(1, 0, 0, 0),
+            AutomaticSize = Enum.AutomaticSize.Y,
+            Parent = NotificationHolder
+        })
+
+        local NotificationFrame = SetChildren(SetProps(MakeElement("RoundFrame", Color3.fromRGB(30, 30, 30), 0, 5), {
+            Parent = NotificationParent,
+            Size = UDim2.new(1, 0, 0, 0),
+            Position = UDim2.new(1, -55, 0, 0),
+            BackgroundTransparency = 0,
+            AutomaticSize = Enum.AutomaticSize.Y
+        }), {
+            MakeElement("Padding", 12, 12, 12, 12),
+            SetProps(MakeElement("Image", NotificationConfig.Image), {
+                Size = UDim2.new(0, 20, 0, 20),
+                ImageColor3 = Color3.fromRGB(240, 240, 240),
+                Name = "Icon"
+            }),
+            SetProps(MakeElement("Label", NotificationConfig.Name, 15), {
+                Size = UDim2.new(1, -30, 0, 20),
+                Position = UDim2.new(0, 30, 0, 0),
+                Font = Enum.Font.GothamBold,
+                Name = "Title"
+            }),
+            SetProps(MakeElement("Label", NotificationConfig.Content, 14), {
+                Size = UDim2.new(1, 0, 0, 0),
+                Position = UDim2.new(0, 0, 0, 25),
+                Font = Enum.Font.GothamSemibold,
+                Name = "Content",
+                AutomaticSize = Enum.AutomaticSize.Y,
+                TextColor3 = Color3.fromRGB(200, 200, 200),
+                TextWrapped = true
+            })
+        })
+
+        TweenService:Create(NotificationFrame, TweenInfo.new(0.5, Enum.EasingStyle.Quint),
+            { Position = UDim2.new(0, 0, 0, 0) }):Play()
+
+        wait(NotificationConfig.Time - 0.88)
+        TweenService:Create(NotificationFrame.Icon, TweenInfo.new(0.4, Enum.EasingStyle.Quint), { ImageTransparency = 1 })
+            :Play()
+        TweenService:Create(NotificationFrame, TweenInfo.new(0.8, Enum.EasingStyle.Quint),
+            { BackgroundTransparency = 0.6 })
+            :Play()
+        wait(0.3)
+        TweenService:Create(NotificationFrame.UIStroke, TweenInfo.new(0.6, Enum.EasingStyle.Quint),
+            { Transparency = 0.9 })
+            :Play()
+        TweenService:Create(NotificationFrame.Title, TweenInfo.new(0.6, Enum.EasingStyle.Quint),
+            { TextTransparency = 0.4 })
+            :Play()
+        TweenService:Create(NotificationFrame.Content, TweenInfo.new(0.6, Enum.EasingStyle.Quint),
+            { TextTransparency = 0.5 }):Play()
+        wait(0.05)
+
+        NotificationFrame:TweenPosition(UDim2.new(1, 20, 0, 0), 'In', 'Quint', 0.8, true)
+        wait(1.35)
+        NotificationFrame:Destroy()
+    end)
+end
+
+function lib:Window(WindowConfig)
+    CloseBind = WindowConfig.Bind or Enum.KeyCode.RightControl
+    PresetColor = Color3.fromRGB(44, 120, 224)
     fs = false
     local SectionPreset = game:GetObjects("rbxassetid://7121846230")[1]
     local Main = Instance.new("Frame")
@@ -130,7 +232,7 @@ function lib:Window(text, preset, closebind)
     Title.Position = UDim2.new(0.0339285731, 0, 0.0564263314, 0)
     Title.Size = UDim2.new(0, 200, 0, 23)
     Title.Font = Enum.Font.GothamSemibold
-    Title.Text = text
+    Title.Text = WindowConfig.Title or "Set title stupid nigga"
     Title.TextColor3 = Color3.fromRGB(68, 68, 68)
     Title.TextSize = 12.000
     Title.TextXAlignment = Enum.TextXAlignment.Left
@@ -171,10 +273,6 @@ function lib:Window(text, preset, closebind)
 
     TabFolder.Name = "TabFolder"
     TabFolder.Parent = Main
-
-    function lib:ChangePresetColor(toch)
-        PresetColor = toch
-    end
 
     local tabhold = {}
     function tabhold:Tab(text)
@@ -372,8 +470,9 @@ function lib:Window(text, preset, closebind)
 
             end
 
-            function tabcontent:Toggle(text, default, callback)
-                local toggled = false
+            function tabcontent:Toggle(ToggleConfig)
+                local toggled = ToggleConfig.Default
+                ToggleConfig.Flag = ToggleConfig.Flag or nil
 
                 local Toggle = Instance.new("TextButton")
                 local ToggleCorner = Instance.new("UICorner")
@@ -387,7 +486,7 @@ function lib:Window(text, preset, closebind)
                 local FrameToggleCircle = Instance.new("Frame")
                 local FrameToggleCircleCorner = Instance.new("UICorner")
 
-                Toggle.Name = text .. "element"
+                Toggle.Name = ToggleConfig.Text
                 Toggle.Parent = Section
                 Toggle.BackgroundColor3 = Color3.fromRGB(34, 34, 34)
                 Toggle.Position = UDim2.new(0.215625003, 0, 0.446271926, 0)
@@ -409,7 +508,7 @@ function lib:Window(text, preset, closebind)
                 ToggleTitle.Position = UDim2.new(0.0358126722, 0, 0, 0)
                 ToggleTitle.Size = UDim2.new(0, 187, 0, 42)
                 ToggleTitle.Font = Enum.Font.Gotham
-                ToggleTitle.Text = text
+                ToggleTitle.Text = ToggleConfig.Text
                 ToggleTitle.TextColor3 = Color3.fromRGB(255, 255, 255)
                 ToggleTitle.TextSize = 14.000
                 ToggleTitle.TextXAlignment = Enum.TextXAlignment.Left
@@ -528,11 +627,13 @@ function lib:Window(text, preset, closebind)
                             )
                         end
                         toggled = not toggled
-                        pcall(callback, toggled)
+                        pcall(function()
+                            ToggleConfig.Callback(ToggleConfig.Default)
+                        end)
                     end
                 )
 
-                if default == true then
+                if ToggleConfig.Default == true then
                     TweenService:Create(
                         Toggle,
                         TweenInfo.new(.3, Enum.EasingStyle.Quad, Enum.EasingDirection.Out),
@@ -568,50 +669,79 @@ function lib:Window(text, preset, closebind)
                     toggled = not toggled
                 end
 
-
             end
 
-            function tabcontent:Slider(text, min, max, start, inc, callback)
-                local Slider,SliderMain = {Value = start}, game:GetObjects("rbxassetid://6967573727")[1]
+            function tabcontent:Slider(SliderConfig)
+                SliderConfig.Flag = SliderConfig.Flag or nil
+                local Slider, SliderMain = { Value = start }, game:GetObjects("rbxassetid://6967573727")[1]
                 SliderMain.Parent = Section
                 SliderMain.Size = UDim2.new(0, 363, 0, 42)
-                SliderMain.SliderText.Text = text
-                SliderMain.Name = text .. "element"
+                SliderMain.SliderText.Text = SliderConfig.Text
+                SliderMain.Name = SliderConfig.Text
                 SliderMain.BackgroundColor3 = Color3.fromRGB(34, 34, 34)
                 SliderMain.SliderFrame.BackgroundColor3 = Color3.fromRGB(50, 50, 50)
                 SliderMain.SliderFrame.SliderCurrentFrame.BackgroundColor3 = PresetColor
                 SliderMain.SliderText.TextColor3 = Color3.fromRGB(255, 255, 255)
                 SliderMain.SliderVal.TextColor3 = Color3.fromRGB(255, 255, 255)
                 local dragging = false
- 
+
                 local function move(Input)
-                    local XSize = math.clamp((Input.Position.X - SliderMain.SliderFrame.AbsolutePosition.X) / SliderMain.SliderFrame.AbsoluteSize.X, 0, 1)
-                    local Increment = inc and (max / ((max - min) / (inc * 4))) or (max >= 50 and max / ((max - min) / 4)) or (max >= 25 and max / ((max - min) / 2)) or (max / (max - min))
-                    local SizeRounded = UDim2.new((math.round(XSize * ((max / Increment) * 4)) / ((max / Increment) * 4)), 0, 1, 0) 
-                    TweenService:Create(SliderMain.SliderFrame.SliderCurrentFrame,TweenInfo.new(0.15, Enum.EasingStyle.Quad, Enum.EasingDirection.Out),{Size = SizeRounded}):Play() 
-                    local Val = math.round((((SizeRounded.X.Scale * max) / max) * (max - min) + min) * 20) / 20
+                    local XSize = math.clamp((Input.Position.X - SliderMain.SliderFrame.AbsolutePosition.X) /
+                        SliderMain.SliderFrame.AbsoluteSize.X, 0, 1)
+                    local Increment = SliderConfig.Increment and
+                        (
+                        SliderConfig.Maximum /
+                            ((SliderConfig.Maximum - SliderConfig.Minimum) / (SliderConfig.Increment * 4))) or
+                        (
+                        SliderConfig.Maximum >= 50 and
+                            SliderConfig.Maximum / ((SliderConfig.Maximum - SliderConfig.Minimum) / 4)) or
+                        (
+                        SliderConfig.Maximum >= 25 and
+                            SliderConfig.Maximum / ((SliderConfig.Maximum - SliderConfig.Minimum) / 2)) or
+                        (SliderConfig.Maximum / (SliderConfig.Maximum - SliderConfig.Minimum))
+                    local SizeRounded = UDim2.new((
+                        math.round(XSize * ((SliderConfig.Maximum / Increment) * 4)) /
+                            ((SliderConfig.Maximum / Increment) * 4)), 0, 1, 0)
+                    TweenService:Create(SliderMain.SliderFrame.SliderCurrentFrame,
+                        TweenInfo.new(0.15, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), { Size = SizeRounded }):
+                        Play()
+                    local Val = math.round((
+                        ((SizeRounded.X.Scale * SliderConfig.Maximum) / SliderConfig.Maximum) *
+                            (SliderConfig.Maximum - SliderConfig.Minimum) + SliderConfig.Minimum) * 20) / 20
                     SliderMain.SliderVal.Text = tostring(Val)
-                    Slider.Value = Val
-                    callback(Slider.Value)
+                    SliderConfig.Default = Val
+                    pcall(function()
+                        SliderConfig.Callback(SliderConfig.Default)
+                    end)
                 end
-                SliderMain.SliderFrame.InputBegan:Connect(function(input) if input.UserInputType == Enum.UserInputType.MouseButton1 then dragging = true end end)
-                SliderMain.SliderFrame.InputEnded:Connect(function(input) if input.UserInputType == Enum.UserInputType.MouseButton1 then dragging = false end end)
-                game:GetService("UserInputService").InputChanged:Connect(function(input) if dragging and input.UserInputType == Enum.UserInputType.MouseMovement then move(input) end end)
- 
+
+                SliderMain.SliderFrame.InputBegan:Connect(function(input) if input.UserInputType ==
+                        Enum.UserInputType.MouseButton1 then dragging = true end
+                end)
+                SliderMain.SliderFrame.InputEnded:Connect(function(input) if input.UserInputType ==
+                        Enum.UserInputType.MouseButton1 then dragging = false end
+                end)
+                game:GetService("UserInputService").InputChanged:Connect(function(input) if dragging and
+                        input.UserInputType == Enum.UserInputType.MouseMovement then move(input) end
+                end)
+
                 function Slider:Set(val)
-                    local a = tostring(val and (val / max) * (max - min) + min) or 0
+                    local a = tostring(val and
+                        (val / SliderConfig.Maximum) * (SliderConfig.Maximum - SliderConfig.Minimum) +
+                        SliderConfig.Minimum) or 0
                     SliderMain.SliderVal.Text = tostring(a)
-                    SliderMain.SliderFrame.SliderCurrentFrame.Size = UDim2.new((val or 0) / max, 0, 1, 0)
-                    Slider.Value = val
+                    SliderMain.SliderFrame.SliderCurrentFrame.Size = UDim2.new((val or 0) / SliderConfig.Maximum, 0, 1, 0)
+                    Slider.Value = SliderConfig.Value
                 end
- 
-                Slider:Set(start)
+
+                Slider:Set(SliderConfig.Start)
                 Tab.CanvasSize = UDim2.new(0, 0, 0, TabLayout.AbsoluteContentSize.Y)
                 return Slider
- 
+
             end
 
-            function tabcontent:Dropdown(text, list, callback)
+            function tabcontent:Dropdown(DropdownConfig)
+                DropdownConfig.Flag = DropdownConfig.Flag or nil
                 local droptog = false
                 local framesize = 0
                 local itemcount = 0
@@ -652,7 +782,7 @@ function lib:Window(text, preset, closebind)
                 DropdownTitle.Position = UDim2.new(0.0358126722, 0, 0, 0)
                 DropdownTitle.Size = UDim2.new(0, 187, 0, 42)
                 DropdownTitle.Font = Enum.Font.Gotham
-                DropdownTitle.Text = text
+                DropdownTitle.Text = DropdownConfig.Text
                 DropdownTitle.TextColor3 = Color3.fromRGB(255, 255, 255)
                 DropdownTitle.TextSize = 14.000
                 DropdownTitle.TextXAlignment = Enum.TextXAlignment.Left
@@ -705,7 +835,8 @@ function lib:Window(text, preset, closebind)
                                 true
                             )
                             TweenService:Create(ArrowImg,
-                                TweenInfo.new(0.15, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), { Rotation = 180 }):
+                                TweenInfo.new(0.15, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), { Rotation = 180 })
+                                :
                                 Play()
                             wait(.2)
                             Tab.CanvasSize = UDim2.new(0, 0, 0, TabLayout.AbsoluteContentSize.Y)
@@ -714,7 +845,7 @@ function lib:Window(text, preset, closebind)
                     end
                 )
 
-                for i, v in next, list do
+                for i, v in next, DropdownConfig.List do
                     itemcount = itemcount + 1
                     if itemcount <= 3 then
                         framesize = framesize + 26
@@ -762,7 +893,9 @@ function lib:Window(text, preset, closebind)
                         function()
                             droptog = not droptog
                             DropdownTitle.Text = text .. " - " .. v
-                            pcall(callback, v)
+                            pcall(function()
+                                DropdownConfig.Callback(v)
+                            end)
                             Dropdown:TweenSize(
                                 UDim2.new(0, 363, 0, 42),
                                 Enum.EasingDirection.Out,
@@ -784,7 +917,7 @@ function lib:Window(text, preset, closebind)
                 end
             end
 
-            function tabcontent:Colorpicker(text, preset, callback)
+            function tabcontent:Colorpicker(ColorConfig)
                 local ColorPickerToggled = false
                 local OldToggleColor = Color3.fromRGB(0, 0, 0)
                 local OldColor = Color3.fromRGB(0, 0, 0)
@@ -842,7 +975,7 @@ function lib:Window(text, preset, closebind)
                 ColorpickerTitle.Position = UDim2.new(0.0358126722, 0, 0, 0)
                 ColorpickerTitle.Size = UDim2.new(0, 187, 0, 42)
                 ColorpickerTitle.Font = Enum.Font.Gotham
-                ColorpickerTitle.Text = text
+                ColorpickerTitle.Text = ColorConfig.Text
                 ColorpickerTitle.TextColor3 = Color3.fromRGB(255, 255, 255)
                 ColorpickerTitle.TextSize = 14.000
                 ColorpickerTitle.TextXAlignment = Enum.TextXAlignment.Left
@@ -972,7 +1105,7 @@ function lib:Window(text, preset, closebind)
                 ColorSelection.AnchorPoint = Vector2.new(0.5, 0.5)
                 ColorSelection.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
                 ColorSelection.BackgroundTransparency = 1.000
-                ColorSelection.Position = UDim2.new(preset and select(3, Color3.toHSV(preset)))
+                ColorSelection.Position = UDim2.new(ColorConfig.Color and select(3, Color3.toHSV(ColorConfig.Color)))
                 ColorSelection.Size = UDim2.new(0, 18, 0, 18)
                 ColorSelection.Image = "http://www.roblox.com/asset/?id=4805639000"
                 ColorSelection.ScaleType = Enum.ScaleType.Fit
@@ -1007,7 +1140,7 @@ function lib:Window(text, preset, closebind)
                 HueSelection.AnchorPoint = Vector2.new(0.5, 0.5)
                 HueSelection.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
                 HueSelection.BackgroundTransparency = 1.000
-                HueSelection.Position = UDim2.new(0.48, 0, 1 - select(1, Color3.toHSV(preset)))
+                HueSelection.Position = UDim2.new(0.48, 0, 1 - select(1, Color3.toHSV(ColorConfig.Color)))
                 HueSelection.Size = UDim2.new(0, 18, 0, 18)
                 HueSelection.Image = "http://www.roblox.com/asset/?id=4805639000"
                 HueSelection.Visible = false
@@ -1071,9 +1204,11 @@ function lib:Window(text, preset, closebind)
                     math.clamp(ColorSelection.AbsolutePosition.Y - Color.AbsolutePosition.Y, 0, Color.AbsoluteSize.Y) /
                         Color.AbsoluteSize.Y)
 
-                BoxColor.BackgroundColor3 = preset
-                Color.BackgroundColor3 = preset
-                pcall(callback, BoxColor.BackgroundColor3)
+                BoxColor.BackgroundColor3 = ColorConfig.Color
+                Color.BackgroundColor3 = ColorConfig.Color
+                pcall(function()
+                    ColorConfig.Callback(BoxColor.BackgroundColor3)
+                end)
 
                 Color.InputBegan:Connect(
                     function(input)
@@ -1246,7 +1381,9 @@ function lib:Window(text, preset, closebind)
                             ColorSelection.Position = OldColorSelectionPosition
                             HueSelection.Position = OldHueSelectionPosition
 
-                            pcall(callback, BoxColor.BackgroundColor3)
+                            pcall(function()
+                                ColorConfig.Callback(BoxColor.BackgroundColor3)
+                            end)
                         end
                     end
                 )
@@ -1303,7 +1440,8 @@ function lib:Window(text, preset, closebind)
 
             end
 
-            function tabcontent:Textbox(text, disapper, callback)
+            function tabcontent:Textbox(TextBoxConfig)
+                TextBoxConfig.Flag = TextBoxConfig.Flag or nil
                 local Textbox = Instance.new("Frame")
                 local TextboxCorner = Instance.new("UICorner")
                 local TextboxTitle = Instance.new("TextLabel")
@@ -1329,7 +1467,7 @@ function lib:Window(text, preset, closebind)
                 TextboxTitle.Position = UDim2.new(0.0358126722, 0, 0, 0)
                 TextboxTitle.Size = UDim2.new(0, 187, 0, 42)
                 TextboxTitle.Font = Enum.Font.Gotham
-                TextboxTitle.Text = text
+                TextboxTitle.Text = TextBoxConfig.Text
                 TextboxTitle.TextColor3 = Color3.fromRGB(255, 255, 255)
                 TextboxTitle.TextSize = 14.000
                 TextboxTitle.TextXAlignment = Enum.TextXAlignment.Left
@@ -1352,13 +1490,16 @@ function lib:Window(text, preset, closebind)
                 TextBox.Text = ""
                 TextBox.TextColor3 = Color3.fromRGB(255, 255, 255)
                 TextBox.TextSize = 14.000
+                TextBox.TextTruncate = AtEnd
 
                 TextBox.FocusLost:Connect(
                     function(ep)
                         if ep then
                             if #TextBox.Text > 0 then
-                                pcall(callback, TextBox.Text)
-                                if disapper then
+                                pcall(function()
+                                    TextBoxConfig.Callback(TextBox.Text)
+                                end)
+                                if TextBoxConfig.Disapper then
                                     TextBox.Text = ""
                                 end
                             end
@@ -1368,56 +1509,64 @@ function lib:Window(text, preset, closebind)
 
             end
 
-            function tabcontent:Bind(text,preset,holdmode,callback)
-                local Bind, BindFrame = {Value, Binding = false, Holding = false}, game:GetObjects("rbxassetid://7126874744")[1]
+            function tabcontent:Bind(BindConfig)
+                BindConfig.Flag = BindConfig.Flag or nil
+                local Bind, BindFrame = { Value, Binding = false, Holding = false },
+                    game:GetObjects("rbxassetid://7126874744")[1]
                 BindFrame.Parent = Section
-                BindFrame.Title.Text = text
-                BindFrame.Name = text .. "element"
+                BindFrame.Title.Text = BindConfig.Text
+                BindFrame.Name = BindConfig.Text
                 BindFrame.Size = UDim2.new(0, 363, 0, 42)
-                BindFrame.BackgroundColor3 = Color3.fromRGB(34,34,34)
+                BindFrame.BackgroundColor3 = Color3.fromRGB(34, 34, 34)
                 BindFrame.Title.TextColor3 = Color3.fromRGB(255, 255, 255)
                 BindFrame.BText.TextColor3 = Color3.fromRGB(255, 255, 255)
-                
+
 
                 BindFrame.InputEnded:Connect(function(Input)
                     if Input.UserInputType == Enum.UserInputType.MouseButton1 then
                         if Bind.Binding then return end
                         Bind.Binding = true
-                        BindFrame.BText.Text = "..."
+                        BindFrame.BText.Text = "Waiting For Input"
                     end
                 end)
 
                 UserInputService.InputBegan:Connect(function(Input)
                     if UserInputService:GetFocusedTextBox() then return end
                     if (Input.KeyCode.Name == Bind.Value or Input.UserInputType.Name == Bind.Value) and not Bind.Binding then
-                        if holdmode then
+                        if BindConfig.HoldMode then
                             Holding = true
-                            callback(Holding)
+                            pcall(function()
+                                BindConfig.Callback(Holding)
+                            end)
                         else
-                            callback()
+                            pcall(function()
+                                BindConfig.Callback()
+                            end)
                         end
                     elseif Bind.Binding then
                         local Key
                         pcall(function()
                             if not CheckKey(BlacklistedKeys, Input.KeyCode) then
-                                Key = Input.KeyCode
+                                BindConfig.Default = Input.KeyCode
                             end
                         end)
                         pcall(function()
-                            if CheckKey(WhitelistedMouse, Input.UserInputType) and not Key then
-                                Key = Input.UserInputType
+                            if CheckKey(WhitelistedMouse, Input.UserInputType) and not BindConfig.Default then
+                                BindConfig.Default = Input.UserInputType
                             end
                         end)
-                        Key = Key or Bind.Value
-                        Bind:Set(Key)
+                        BindConfig.Default = Bind.Value
+                        Bind:Set(BindConfig.Default)
                     end
                 end)
 
                 UserInputService.InputEnded:Connect(function(Input)
                     if Input.KeyCode.Name == Bind.Value or Input.UserInputType.Name == Bind.Value then
-                        if holdmode and Holding then
+                        if BindConfig.HoldMode and Holding then
                             Holding = false
-                            callback(Holding)
+                            pcall(function()
+                                BindConfig.Callback(Holding)
+                            end)
                         end
                     end
                 end)
