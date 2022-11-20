@@ -803,9 +803,6 @@ function lib:Window(text, preset, closebind)
                         end)
 
                         Option.MouseButton1Click:Connect(function()
-                            TweenService:Create(Option.BackgroundColor3, TweenInfo.new(0.6, Enum.EasingStyle.Quint),{ Color = Color3.fromRGB(61, 143, 255) }):Play()
-                            wait(0.6)
-                            TweenService:Create(Option.BackgroundColor3, TweenInfo.new(0.6, Enum.EasingStyle.Quint),{ Color = Color3.fromRGB(34,34,34) }):Play()
                             Dropdown.Value = option
                             DropMain.Btn.Title.Text = text .. " - " .. option
                             Ripple(Option)
@@ -839,6 +836,7 @@ function lib:Window(text, preset, closebind)
 
                 Dropdown:Refresh(list, false)
                 Dropdown:Set(def)
+                
                 return Dropdown
             end
 
