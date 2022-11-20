@@ -768,8 +768,8 @@ function lib:Window(text, preset, closebind)
 
                 local function ToggleDrop()
                     MultiDropDown.Toggled = not MultiDropDown.Toggled
-                    Dropdownholder.Size = MultiDropDown.Toggled and UDim2.new(1,0,0,6+Dropdownholder.Layout.AbsoluteContentSize.Y) or UDim2.new(1,0,0,0)
-                    TweenService:Create(MultiDropdown,TweenInfo.new(0.15, Enum.EasingStyle.Quad, Enum.EasingDirection.Out),{Size = MultiDropDown.Toggled and UDim2.new(1,0,0,38+Dropdownholder.Layout.AbsoluteContentSize.Y) or UDim2.new(1,0,0,32)}):Play() 
+                    Dropdownholder.Size = MultiDropDown.Toggled and UDim2.new(0, 363, 0 +Dropdownholder.Layout.AbsoluteContentSize.Y) or UDim2.new(0, 363, 0, 0)
+                    TweenService:Create(MultiDropdown,TweenInfo.new(0.15, Enum.EasingStyle.Quad, Enum.EasingDirection.Out),{Size = MultiDropDown.Toggled and UDim2.new(0, 363, 0 +Dropdownholder.Layout.AbsoluteContentSize.Y) or UDim2.new(0, 363, 0, 0)}):Play() 
                     TweenService:Create(Arrow,TweenInfo.new(0.15, Enum.EasingStyle.Quad, Enum.EasingDirection.Out),{Rotation = MultiDropDown.Toggled and 180 or 0}):Play() 
                     Dropdownholder.Visible = MultiDropDown.Toggled
                 end  
