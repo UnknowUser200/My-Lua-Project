@@ -788,7 +788,7 @@ function lib:Window(text, preset, closebind)
                         DropHolderButton.TextSize = 14.000
                         DropHolderButton.ClipsDescendants = true
 
-                        Option.MouseButton1Click:Connect(function()
+                        DropHolderButton.MouseButton1Click:Connect(function()
                             if table.find(Dropdown.Value, option) then
                                 table.remove(Dropdown.Value, table.find(Dropdown.Value, option))
                                 callback(Dropdown.Value)
