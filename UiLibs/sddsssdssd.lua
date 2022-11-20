@@ -789,12 +789,12 @@ function lib:Window(text, preset, closebind)
                         DropHolderButton.ClipsDescendants = true
 
                         DropHolderButton.MouseButton1Click:Connect(function()
-                            if table.find(Dropdown.Value, option) then
-                                table.remove(Dropdown.Value, table.find(Dropdown.Value, option))
-                                callback(Dropdown.Value)
+                            if table.find(MultiDropDown.Value, option) then
+                                table.remove(MultiDropDown.Value, table.find(MultiDropDown.Value, option))
+                                callback(MultiDropDown.Value)
                             else
-                                table.insert(Dropdown.Value, option)
-                                callback(Dropdown.Value)
+                                table.insert(MultiDropDown.Value, option)
+                                callback(MultiDropDown.Value)
                             end
                             Ripple(Option)
                         end)
