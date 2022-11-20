@@ -713,7 +713,7 @@ function lib:Window(text, preset, closebind)
 
                 MultiDropdown.Name = "MultiDropdown"
                 MultiDropdown.Parent = Section
-                MultiDropdown.BackgroundColor3 = Color3.fromRGB(30, 30, 30)
+                MultiDropdown.BackgroundColor3 = Color3.fromRGB(34, 34, 34)
                 MultiDropdown.Position = UDim2.new(0.00932400953, 0, 0.555956662, 0)
                 MultiDropdown.Size = UDim2.new(0, 421, 0, 200)
 
