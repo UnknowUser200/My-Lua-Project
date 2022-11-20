@@ -765,14 +765,7 @@ function lib:Window(text, preset, closebind)
                 DropMain.Btn.MouseButton1Click:Connect(function()
                     ToggleDrop()
                 end)
-
-                function Dropdown:Set(val)
-					Dropdown.Value = val
-                    DropMain.Btn.Title.Text = text .. " - " .. table.concat(Dropdown.Value, ", ")
-					return callback(Dropdown.Value)
-				end
                 Dropdown:Refresh(list,false)
-                Dropdown:Set(def)
                 return Dropdown
             end
 
@@ -836,14 +829,7 @@ function lib:Window(text, preset, closebind)
                     ToggleDrop()
                 end)
 
-                function Dropdown:Set(val)
-                    Dropdown.Value = val
-                    DropMain.Btn.Title.Text = text .. " - " .. Dropdown.Value
-                    return callback(Dropdown.Value)
-                end
-
                 Dropdown:Refresh(list, false)
-                Dropdown:Set(def)
                 
                 return Dropdown
             end
