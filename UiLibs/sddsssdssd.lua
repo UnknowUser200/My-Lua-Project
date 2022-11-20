@@ -708,6 +708,8 @@ function lib:Window(text, preset, closebind)
                 DropMain.Btn.Title.TextColor3 = Color3.fromRGB(255,255,255)
                 DropMain.Btn.Ico.ImageColor3 = Color3.fromRGB(255,255,255)
                 DropMain.Btn.Size = UDim2.new(0, 363, 0, 42)
+                DropMain.Size = UDim2.new(0, 363, 0, 42)
+                DropMain.Btn.Title.Size = UDim2.new(0, 363, 0, 42)
 
                 local function ToggleDrop()
                     Dropdown.Toggled = not Dropdown.Toggled
