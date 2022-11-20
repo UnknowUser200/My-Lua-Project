@@ -699,85 +699,6 @@ function lib:Window(text, preset, closebind)
 
             end
 
-            function tabcontent:MultiDropdown(text, list, def, flag, callback)
-                local Dropdown, DropMain, OptionPreset = { Value = {}, Toggled = false, Options = list },game:GetObjects("rbxassetid://7027964359")[1], game:GetObjects("rbxassetid://7021432326")[1]
-                DropMain.Parent = Section
-                DropMain.Btn.Title.Text = text
-                DropMain.Name = text .. "element"
-                DropMain.Btn.BackgroundColor3 = Color3.fromRGB(34,34,34)
-                DropMain.Btn.Title.TextColor3 = Color3.fromRGB(255,255,255)
-                DropMain.Btn.Ico.ImageColor3 = Color3.fromRGB(255,255,255)
-                DropMain.Btn.Size = UDim2.new(0, 363, 0, 42)
-                DropMain.Size = UDim2.new(0, 363, 0, 42)
-                DropMain.Btn.Title.Size = UDim2.new(0, 363, 0, 42)
-
-                local function ToggleDrop()
-                    Dropdown.Toggled = not Dropdown.Toggled
-                    DropMain.Holder.Size = Dropdown.Toggled and
-                        UDim2.new(0, 363, 0, 6 + DropMain.Holder.Layout.AbsoluteContentSize.Y) or UDim2.new(0, 363, 0, 0)
-                    TweenService:Create(DropMain, TweenInfo.new(0.15, Enum.EasingStyle.Quad, Enum.EasingDirection.Out),
-                        { Size = Dropdown.Toggled and UDim2.new(0, 363, 0, 42 + DropMain.Holder.Layout.AbsoluteContentSize.Y) or UDim2.new(0, 363, 0, 32) }):Play()
-                    TweenService:Create(DropMain.Btn.Ico,TweenInfo.new(0.15, Enum.EasingStyle.Quad, Enum.EasingDirection.Out),{ Rotation = Dropdown.Toggled and 180 or 0 }):Play()
-                    DropMain.Holder.Visible = Dropdown.Toggled
-                end
-
-                local function AddOptions(opts)
-                    for _, option in pairs(opts) do
-                        local Option = OptionPreset:Clone()
-                        Option.Parent = DropMain.Holder
-                        Option.ItemText.Text = option
-                        Option.ClipsDescendants = true
-
-                        Option.MouseButton1Click:Connect(function()
-                            if table.find(Dropdown.Value, option) then
-                                table.remove(Dropdown.Value, table.find(Dropdown.Value, option))
-                                DropMain.Btn.Title.Text = text .. " - " .. table.concat(Dropdown.Value, ", ")
-                                callback(Dropdown.Value)
-                            else
-                                table.insert(Dropdown.Value, option)
-                                DropMain.Btn.Title.Text = text .. " - " .. table.concat(Dropdown.Value, ", ")
-                                callback(Dropdown.Value)
-                            end
-                            Ripple(Option)
-                        end)
-
-                        spawn(function()
-                            while wait() do
-                                Option.BackgroundColor3 = Color3.fromRGB(34,34,34)
-                                DropMain.Btn.Title.TextColor3 = Color3.fromRGB(255,255,255)
-                            end
-                        end)
-                    end
-                end
-
-                function Dropdown:Refresh(opts, del)
-                    if del then
-                        for _, v in pairs(DropMain.Holder:GetChildren()) do
-                            if v:IsA "TextButton" then
-                                v:Destroy()
-                                DropMain.Holder.Size = Dropdown.Toggled and UDim2.new(0, 363, 0, 6 + DropMain.Holder.Layout.AbsoluteContentSize.Y) or UDim2.new(1, 0, 0, 0)
-                                DropMain.Size = Dropdown.Toggled and UDim2.new(0, 363, 0, 42 + DropMain.Holder.Layout.AbsoluteContentSize.Y) or UDim2.new(1, 0, 0, 32)
-                            end
-                        end
-                    end
-                    AddOptions(opts)
-                end
-
-                DropMain.Btn.MouseButton1Click:Connect(function()
-                    ToggleDrop()
-                end)
-
-                function Dropdown:Set(val)
-                    Dropdown.Value = val
-                    DropMain.Btn.Title.Text = text .. " - " .. table.concat(Dropdown.Value, ", ")
-                    return callback(Dropdown.Value)
-                end
-
-                Dropdown:Refresh(list, false)
-                Dropdown:Set(def)
-                return Dropdown
-            end
-
             function tabcontent:Dropdown(text, list, callback)
                 local droptog = false
                 local framesize = 0
@@ -831,6 +752,7 @@ function lib:Window(text, preset, closebind)
                 ArrowImg.Position = UDim2.new(1.65240645, 0, 0.190476194, 0)
                 ArrowImg.Size = UDim2.new(0, 26, 0, 26)
                 ArrowImg.Image = "http://www.roblox.com/asset/?id=6034818375"
+                ArrowImg.Rotation = 180
 
                 DropItemHolder.Name = "DropItemHolder"
                 DropItemHolder.Parent = DropdownTitle
@@ -858,7 +780,7 @@ function lib:Window(text, preset, closebind)
                                 true
                             )
                             TweenService:Create(ArrowImg,
-                                TweenInfo.new(0.15, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), { Rotation = 180 })
+                                TweenInfo.new(0.15, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), { Rotation = 270 })
                                 :Play()
                             wait(.2)
                             Tab.CanvasSize = UDim2.new(0, 0, 0, TabLayout.AbsoluteContentSize.Y)
@@ -871,7 +793,7 @@ function lib:Window(text, preset, closebind)
                                 true
                             )
                             TweenService:Create(ArrowImg,
-                                TweenInfo.new(0.15, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), { Rotation = 0 }):
+                                TweenInfo.new(0.15, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), { Rotation = 180 }):
                                 Play()
                             wait(.2)
                             Tab.CanvasSize = UDim2.new(0, 0, 0, TabLayout.AbsoluteContentSize.Y)
