@@ -699,7 +699,7 @@ function lib:Window(text, preset, closebind)
 
             end
 
-            function ItemHold:MultiDropdown(text, list, def, flag, callback)
+            function tabcontent:MultiDropdown(text, list, def, flag, callback)
                 local Dropdown, DropMain, OptionPreset = { Value = {}, Toggled = false, Options = list },game:GetObjects("rbxassetid://7027964359")[1], game:GetObjects("rbxassetid://7021432326")[1]
                 DropMain.Parent = Section
                 DropMain.Btn.Title.Text = text
