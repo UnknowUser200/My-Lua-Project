@@ -724,6 +724,14 @@ function lib:Window(text, preset, closebind)
                         Option.Parent = DropMain.Holder
                         Option.ItemText.Text = option
                         Option.ClipsDescendants = true
+                        
+                        Option.MouseEnter:Connect(function()
+                            TweenService:Create(Option.BackgroundColor3, TweenInfo.new(0.6, Enum.EasingStyle.Quint),{ Color = Color3.fromRGB(44, 120, 224) }):Play()
+                        end)
+                    
+                        Option.MouseLeave:Connect(function()
+                            TweenService:Create(Option.BackgroundColor3, TweenInfo.new(0.6, Enum.EasingStyle.Quint),{ Color = Color3.fromRGB(34,34,34) }):Play()
+                        end)
 
                         Option.MouseButton1Click:Connect(function()
                             if table.find(Dropdown.Value, option) then				
