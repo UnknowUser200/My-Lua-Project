@@ -699,6 +699,136 @@ function lib:Window(text, preset, closebind)
 
             end
 
+            function tabcontent:MultiDropdown(text, list, def, callback)
+                local MultiDropDown = { Vlaue = {}, Toggled = false, Options = list }
+
+                local MultiDropdown = Instance.new("Frame")
+                local UICorner = Instance.new("UICorner")
+                local DropButton = Instance.new("TextButton")
+                local Title = Instance.new("TextLabel")
+                local Arrow = Instance.new("ImageLabel")
+                local Dropdownholder = Instance.new("ScrollingFrame")
+                local UIListLayout = Instance.new("UIListLayout")
+                local DropHolderButton = Instance.new("TextButton")
+
+                MultiDropdown.Name = "MultiDropdown"
+                MultiDropdown.Parent = game.StarterGui.ScreenGui.Main.Containers["Tab1"]
+                MultiDropdown.BackgroundColor3 = Color3.fromRGB(30, 30, 30)
+                MultiDropdown.Position = UDim2.new(0.00932400953, 0, 0.555956662, 0)
+                MultiDropdown.Size = UDim2.new(0, 421, 0, 200)
+
+                UICorner.CornerRadius = UDim.new(0, 5)
+                UICorner.Parent = MultiDropdown
+
+                DropButton.Name = "DropButton"
+                DropButton.Parent = MultiDropdown
+                DropButton.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+                DropButton.BackgroundTransparency = 1.000
+                DropButton.BorderSizePixel = 0
+                DropButton.Size = UDim2.new(0, 422, 0, 50)
+                DropButton.Font = Enum.Font.SourceSans
+                DropButton.Text = ""
+                DropButton.TextColor3 = Color3.fromRGB(0, 0, 0)
+                DropButton.TextSize = 14.000
+
+                Title.Name = "Title"
+                Title.Parent = DropButton
+                Title.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+                Title.BackgroundTransparency = 1.000
+                Title.Position = UDim2.new(0.0247630626, 0, 0.0399999991, -2)
+                Title.Size = UDim2.new(0, 375, 0, 49)
+                Title.Font = Enum.Font.GothamMedium
+                Title.Text = text
+                Title.TextColor3 = Color3.fromRGB(240, 240, 240)
+                Title.TextSize = 14.000
+                Title.TextXAlignment = Enum.TextXAlignment.Left
+
+                Arrow.Name = "Arrow"
+                Arrow.Parent = DropButton
+                Arrow.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+                Arrow.BackgroundTransparency = 1.000
+                Arrow.Position = UDim2.new(0.914691925, 0, 0.23999998, -1)
+                Arrow.Size = UDim2.new(0, 26, 0, 26)
+                Arrow.Image = "http://www.roblox.com/asset/?id=6034818375"
+
+                Dropdownholder.Name = "Dropdownholder"
+                Dropdownholder.Parent = MultiDropdown
+                Dropdownholder.Active = true
+                Dropdownholder.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+                Dropdownholder.BackgroundTransparency = 1.000
+                Dropdownholder.BorderSizePixel = 0
+                Dropdownholder.Position = UDim2.new(0, 0, 0.245947883, 0)
+                Dropdownholder.Size = UDim2.new(0, 420, 0, 143)
+                Dropdownholder.ScrollBarImageColor3 = Color3.fromRGB(55, 55, 55)
+                Dropdownholder.ScrollBarThickness = 2
+
+                UIListLayout.Parent = Dropdownholder
+                UIListLayout.HorizontalAlignment = Enum.HorizontalAlignment.Center
+                UIListLayout.SortOrder = Enum.SortOrder.LayoutOrder
+
+                local function ToggleDrop()
+                    MultiDropDown.Toggled = not MultiDropDown.Toggled
+                    Dropdownholder.Size = MultiDropDown.Toggled and UDim2.new(1,0,0,6+Dropdownholder.Layout.AbsoluteContentSize.Y) or UDim2.new(1,0,0,0)
+                    TweenService:Create(MultiDropdown,TweenInfo.new(0.15, Enum.EasingStyle.Quad, Enum.EasingDirection.Out),{Size = MultiDropDown.Toggled and UDim2.new(1,0,0,38+Dropdownholder.Layout.AbsoluteContentSize.Y) or UDim2.new(1,0,0,32)}):Play() 
+                    TweenService:Create(Arrow,TweenInfo.new(0.15, Enum.EasingStyle.Quad, Enum.EasingDirection.Out),{Rotation = MultiDropDown.Toggled and 180 or 0}):Play() 
+                    Dropdownholder.Visible = MultiDropDown.Toggled
+                end  
+
+                local function AddOptions(opts)
+                    for _, option in pairs(opts) do
+                        DropHolderButton.Name = "DropHolderButton"
+                        DropHolderButton.Parent = Dropdownholder
+                        DropHolderButton.BackgroundColor3 = Color3.fromRGB(38, 0, 250)
+                        DropHolderButton.BorderSizePixel = 0
+                        DropHolderButton.Position = UDim2.new(0.0130952382, 0, 0, 0)
+                        DropHolderButton.Size = UDim2.new(0, 427, 0, 39)
+                        DropHolderButton.Font = Enum.Font.GothamMedium
+                        DropHolderButton.Text = option
+                        DropHolderButton.TextColor3 = Color3.fromRGB(207, 207, 207)
+                        DropHolderButton.TextSize = 14.000
+                        DropHolderButton.ClipsDescendants = true
+
+                        Option.MouseButton1Click:Connect(function()
+                            if table.find(Dropdown.Value, option) then
+                                table.remove(Dropdown.Value, table.find(Dropdown.Value, option))
+                                callback(Dropdown.Value)
+                            else
+                                table.insert(Dropdown.Value, option)
+                                callback(Dropdown.Value)
+                            end
+                            Ripple(Option)
+                        end)
+                    end
+                end
+
+                function MultiDropDown:Refresh(opts,del)
+                    if del then
+                        for _,v in pairs(Dropdownholder:GetChildren()) do
+                            if v:IsA"TextButton" then
+								v:Destroy()
+                                Dropdownholder.Size = Dropdown.Toggled and UDim2.new(1,0,0,6+Dropdownholder.Layout.AbsoluteContentSize.Y) or UDim2.new(1,0,0,0)
+                                MultiDropdown.Size = Dropdown.Toggled and UDim2.new(1,0,0,38+Dropdownholder.Layout.AbsoluteContentSize.Y) or UDim2.new(1,0,0,32)
+							end
+                        end    
+                    end    
+                    AddOptions(opts)
+                end
+
+                DropButton.MouseButton1Click:Connect(function()
+                    ToggleDrop()
+                end)
+
+                function MultiDropDown:Set(val)
+					MultiDropDown.Value = val
+					return callback(MultiDropDown.Value)
+				end
+
+                MultiDropDown:Refresh(list,false)
+                MultiDropDown:Set(def)
+
+                return MultiDropDown
+            end
+
             function tabcontent:Dropdown(text, list, callback)
                 local droptog = false
                 local framesize = 0
