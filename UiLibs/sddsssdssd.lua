@@ -155,7 +155,7 @@ function lib:Window(text, preset, closebind)
     --Properties:
 
     SearchBar.Name = "SearchBar"
-    SearchBar.Parent = game.StarterGui.ScreenGui.Main
+    SearchBar.Parent = Main
     SearchBar.BackgroundColor3 = Color3.fromRGB(22, 22, 22)
     SearchBar.BorderColor3 = Color3.fromRGB(27, 42, 53)
     SearchBar.BorderSizePixel = 0
