@@ -17,6 +17,9 @@ ui.Name = "VapeUI Like U Nigga"
 ui.Parent = game.CoreGui
 ui.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
 
+local WhitelistedMouse = {Enum.UserInputType.MouseButton1, Enum.UserInputType.MouseButton2,Enum.UserInputType.MouseButton3}
+local BlacklistedKeys = {Enum.KeyCode.Unknown,Enum.KeyCode.W,Enum.KeyCode.A,Enum.KeyCode.S,Enum.KeyCode.D,Enum.KeyCode.Up,Enum.KeyCode.Left,Enum.KeyCode.Down,Enum.KeyCode.Right,Enum.KeyCode.Slash,Enum.KeyCode.Tab,Enum.KeyCode.Backspace,Enum.KeyCode.Escape}
+
 coroutine.wrap(
     function()
         while wait() do
@@ -526,7 +529,7 @@ function lib:Window(WindowConfig)
                         end
                         toggled = not toggled
                         pcall(function()
-                            ToggleConfig.Callback(ToggleConfig.Default)
+                            ToggleConfig.Callback(toggled)
                         end)
                     end
                 )
@@ -1388,7 +1391,7 @@ function lib:Window(WindowConfig)
                 TextBox.Text = ""
                 TextBox.TextColor3 = Color3.fromRGB(255, 255, 255)
                 TextBox.TextSize = 14.000
-                TextBox.TextTruncate = AtEnd
+                TextBox.TextTruncate = Enum.AtEnd
 
                 TextBox.FocusLost:Connect(
                     function(ep)
