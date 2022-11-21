@@ -1391,7 +1391,6 @@ function lib:Window(WindowConfig)
                 TextBox.Text = ""
                 TextBox.TextColor3 = Color3.fromRGB(255, 255, 255)
                 TextBox.TextSize = 14.000
-                TextBox.TextTruncate = Enum.AtEnd
 
                 TextBox.FocusLost:Connect(
                     function(ep)
