@@ -3,6 +3,7 @@ local lib = {
     HueSelectionPosition = 0,
     Flags = {},
     Elements = {},
+    Folder = {},
 }
 local UserInputService = game:GetService("UserInputService")
 local TweenService = game:GetService("TweenService")
@@ -11,6 +12,37 @@ local LocalPlayer = game:GetService("Players").LocalPlayer
 local Mouse = LocalPlayer:GetMouse()
 local PresetColor = Color3.fromRGB(44, 120, 224)
 local CloseBind = Enum.KeyCode.RightControl
+
+local function LoadCfg(Config)
+	local Data = HttpService:JSONDecode(Config)
+	table.foreach(Data, function(a,b)
+		if lib.Flags[a] then
+			spawn(function() 
+				if lib.Flags[a].Type == "Colorpicker" then
+					lib.Flags[a]:Set(UnpackColor(b))
+				else
+					lib.Flags[a]:Set(b)
+				end    
+			end)
+		else
+			warn("Config not finded", a ,b)
+		end
+	end)
+end
+
+local function SaveCfg(Name)
+	local Data = {}
+	for i,v in pairs(lib.Flags) do
+		if v.Save then
+			if v.Type == "Colorpicker" then
+				Data[i] = PackColor(v.Value)
+			else
+				Data[i] = v.Value
+			end
+		end	
+	end
+	writefile(lib.Folder .. "/" .. Name .. ".txt", tostring(HttpService:JSONEncode(Data)))
+end
 
 local ui = Instance.new("ScreenGui")
 ui.Name = "VapeUI Like U Nigga"
@@ -372,6 +404,7 @@ function lib:Window(WindowConfig)
             end
 
             function tabcontent:Toggle(ToggleConfig)
+                local Toggle = {} 
                 local toggled = ToggleConfig.Default
                 ToggleConfig.Flag = ToggleConfig.Flag or nil
 
@@ -569,12 +602,15 @@ function lib:Window(WindowConfig)
                     )
                     toggled = not toggled
                 end
-
+                if ToggleConfig.Flag then
+                    lib.Flags[ToggleConfig.Flag] = Toggle
+                end
+                return Toggle
             end
 
             function tabcontent:Slider(SliderConfig)
                 SliderConfig.Flag = SliderConfig.Flag or nil
-                local Slider, SliderMain = { Value = start }, game:GetObjects("rbxassetid://6967573727")[1]
+                local Slider, SliderMain = { Value = SliderConfig.Start }, game:GetObjects("rbxassetid://6967573727")[1]
                 SliderMain.Parent = Section
                 SliderMain.Size = UDim2.new(0, 363, 0, 42)
                 SliderMain.SliderText.Text = SliderConfig.Text
@@ -637,6 +673,9 @@ function lib:Window(WindowConfig)
 
                 Slider:Set(SliderConfig.Start)
                 Tab.CanvasSize = UDim2.new(0, 0, 0, TabLayout.AbsoluteContentSize.Y)
+                if SliderConfig.Flag then				
+					lib.Flags[SliderConfig.Flag] = Slider
+				end
                 return Slider
 
             end
@@ -646,6 +685,7 @@ function lib:Window(WindowConfig)
                 local droptog = false
                 local framesize = 0
                 local itemcount = 0
+                local Dropdown = {}
 
                 local Dropdown = Instance.new("Frame")
                 local DropdownCorner = Instance.new("UICorner")
@@ -815,10 +855,18 @@ function lib:Window(WindowConfig)
                     )
 
                     DropItemHolder.CanvasSize = UDim2.new(0, 0, 0, DropLayout.AbsoluteContentSize.Y)
+
+                    if DropdownConfig.Flag then				
+                        lib.Flags[DropdownConfig.Flag] = Dropdown
+                    end
+                    return Dropdown
                 end
             end
 
             function tabcontent:Colorpicker(ColorConfig)
+                ColorConfig.Flag = ColorConfig.Flag or nil
+
+                local Colorpicker =  {}
                 local ColorPickerToggled = false
                 local OldToggleColor = Color3.fromRGB(0, 0, 0)
                 local OldColor = Color3.fromRGB(0, 0, 0)
@@ -1304,7 +1352,10 @@ function lib:Window(WindowConfig)
 
                     end
                 )
-
+                if ColorConfig.Flag then				
+					lib.Flags[ColorConfig.Flag] = Colorpicker
+				end
+                return Colorpicker
             end
 
             function tabcontent:Label(text)
@@ -1411,8 +1462,7 @@ function lib:Window(WindowConfig)
 
             function tabcontent:Bind(BindConfig)
                 BindConfig.Flag = BindConfig.Flag or nil
-                local Bind, BindFrame = { Value, Binding = false, Holding = false },
-                    game:GetObjects("rbxassetid://7126874744")[1]
+                local Bind, BindFrame = { Value, Binding = false, Holding = false },game:GetObjects("rbxassetid://7126874744")[1]
                 BindFrame.Parent = Section
                 BindFrame.Title.Text = BindConfig.Text
                 BindFrame.Name = BindConfig.Text
@@ -1470,6 +1520,10 @@ function lib:Window(WindowConfig)
                         end
                     end
                 end)
+
+                if BindConfig.Flag then				
+					lib.Flags[BindConfig.Flag] = Bind
+				end
                 return Bind
             end
 
