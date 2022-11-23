@@ -816,22 +816,6 @@ function library:CreateWindow(name, version, icon)
 							Ripple(Option)
 						end)
 
-						Option.MouseEnter:Connect(
-							TweenService:Create(
-								Option.BackgroundColor3,
-								TweenInfo.new(.3, Enum.EasingStyle.Quad, Enum.EasingDirection.Out),
-								{ BackgroundColor3 = Color3.fromRGB(135, 255, 135) }
-							):Play()
-						)
-
-						Option.MouseLeave:Connect(
-							TweenService:Create(
-								Option.BackgroundColor3,
-								TweenInfo.new(.3, Enum.EasingStyle.Quad, Enum.EasingDirection.Out),
-								{ BackgroundColor3 = Color3.fromRGB(30, 30, 36) }
-							):Play()
-						)
-
 						spawn(function()
 							while wait() do
 								Option.BackgroundColor3 = Color3.fromRGB(30, 30, 36)
