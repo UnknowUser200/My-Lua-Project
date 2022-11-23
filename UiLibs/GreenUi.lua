@@ -22,7 +22,8 @@ local function CheckKey(tab, key)
 end
 
 local library = {}
-local request = request or http_request or (identifyexecutor() == "Synapse X" and syn.request) or (http and http.request
+local request = request or http_request or (identifyexecutor() == "Synapse X" and syn.request) or
+	(http and http.request
 	)
 loadstring(request({ Url = "https://raw.githubusercontent.com/cypherdh/Script-Library/main/InstanceProtect",
 	Method = "GET" }).Body)()
@@ -46,84 +47,84 @@ UIListLayout.VerticalAlignment = Enum.VerticalAlignment.Bottom
 UIListLayout.Padding = UDim.new(0, 5)
 
 function library:Notif(NotificationConfig)
-    spawn(function()
-        NotificationConfig.Name = NotificationConfig.Name or "Notification"
-        NotificationConfig.Content = NotificationConfig.Content or "Test"
-        NotificationConfig.Image = NotificationConfig.Image or "rbxassetid://4384403532"
-        NotificationConfig.Time = NotificationConfig.Time or 15
+	spawn(function()
+		NotificationConfig.Name = NotificationConfig.Name or "Notification"
+		NotificationConfig.Content = NotificationConfig.Content or "Test"
+		NotificationConfig.Image = NotificationConfig.Image or "rbxassetid://4384403532"
+		NotificationConfig.Time = NotificationConfig.Time or 15
 
-        local Notify = Instance.new("Frame")
-        local UICorner = Instance.new("UICorner")
-        local UIPadding = Instance.new("UIPadding")
-        local Icon = Instance.new("ImageLabel")
-        local Label = Instance.new("TextLabel")
-        local Title = Instance.new("TextLabel")
+		local Notify = Instance.new("Frame")
+		local UICorner = Instance.new("UICorner")
+		local UIPadding = Instance.new("UIPadding")
+		local Icon = Instance.new("ImageLabel")
+		local Label = Instance.new("TextLabel")
+		local Title = Instance.new("TextLabel")
 
 
-        Notify.Name = "Notify"
-        Notify.Parent = NotificationsHolder
-        Notify.BackgroundColor3 = Color3.fromRGB(30, 30, 38)
-        Notify.Position = UDim2.new(0, 0, 0.870063722, 0)
-        Notify.Size = UDim2.new(1, 0, 0, 0)
-        Notify.AutomaticSize = Enum.AutomaticSize.Y
+		Notify.Name = "Notify"
+		Notify.Parent = NotificationsHolder
+		Notify.BackgroundColor3 = Color3.fromRGB(30, 30, 38)
+		Notify.Position = UDim2.new(0, 0, 0.870063722, 0)
+		Notify.Size = UDim2.new(1, 0, 0, 0)
+		Notify.AutomaticSize = Enum.AutomaticSize.Y
 
-        UICorner.CornerRadius = UDim.new(0, 5)
-        UICorner.Parent = Notify
+		UICorner.CornerRadius = UDim.new(0, 5)
+		UICorner.Parent = Notify
 
-        UIPadding.Parent = Notify
-        UIPadding.PaddingBottom = UDim.new(0, 12)
-        UIPadding.PaddingLeft = UDim.new(0, 12)
-        UIPadding.PaddingRight = UDim.new(0, 12)
-        UIPadding.PaddingTop = UDim.new(0, 12)
+		UIPadding.Parent = Notify
+		UIPadding.PaddingBottom = UDim.new(0, 12)
+		UIPadding.PaddingLeft = UDim.new(0, 12)
+		UIPadding.PaddingRight = UDim.new(0, 12)
+		UIPadding.PaddingTop = UDim.new(0, 12)
 
-        Icon.Name = "Icon"
-        Icon.Parent = Notify
-        Icon.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-        Icon.BackgroundTransparency = 1.000
-        Icon.BorderSizePixel = 0
-        Icon.Size = UDim2.new(0, 20, 0, 20)
-        Icon.ImageColor3 = Color3.fromRGB(240, 240, 240)
-        Icon.Image = NotificationConfig.Image
+		Icon.Name = "Icon"
+		Icon.Parent = Notify
+		Icon.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+		Icon.BackgroundTransparency = 1.000
+		Icon.BorderSizePixel = 0
+		Icon.Size = UDim2.new(0, 20, 0, 20)
+		Icon.ImageColor3 = Color3.fromRGB(240, 240, 240)
+		Icon.Image = NotificationConfig.Image
 
-        Label.Name = "Label"
-        Label.Parent = Notify
-        Label.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-        Label.BackgroundTransparency = 1.000
-        Label.BorderSizePixel = 0
-        Label.Position = UDim2.new(0, 30, 0, 0)
-        Label.Size = UDim2.new(1, -30, 0, 20)
-        Label.Font = Enum.Font.Gotham
-        Label.TextColor3 = Color3.fromRGB(200, 200, 200)
-        Label.TextSize = 15.000
-        Label.TextXAlignment = Enum.TextXAlignment.Left
-        Label.Text = NotificationConfig.Name
+		Label.Name = "Label"
+		Label.Parent = Notify
+		Label.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+		Label.BackgroundTransparency = 1.000
+		Label.BorderSizePixel = 0
+		Label.Position = UDim2.new(0, 30, 0, 0)
+		Label.Size = UDim2.new(1, -30, 0, 20)
+		Label.Font = Enum.Font.Gotham
+		Label.TextColor3 = Color3.fromRGB(200, 200, 200)
+		Label.TextSize = 15.000
+		Label.TextXAlignment = Enum.TextXAlignment.Left
+		Label.Text = NotificationConfig.Name
 
-        Title.Name = "Title"
-        Title.Parent = Notify
-        Title.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-        Title.BackgroundTransparency = 1.000
-        Title.BorderSizePixel = 0
-        Title.Position = UDim2.new(0, 0, 0, 25)
-        Title.Size = UDim2.new(1, 0, 0, 0)
-        Title.Font = Enum.Font.GothamBold
-        Title.TextColor3 = Color3.fromRGB(200, 200, 200)
-        Title.TextSize = 14.000
-        Title.TextWrapped = true
-        Title.TextXAlignment = Enum.TextXAlignment.Left
-        Title.AutomaticSize = Enum.AutomaticSize.Y
-        Title.Text = NotificationConfig.Content
+		Title.Name = "Title"
+		Title.Parent = Notify
+		Title.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+		Title.BackgroundTransparency = 1.000
+		Title.BorderSizePixel = 0
+		Title.Position = UDim2.new(0, 0, 0, 25)
+		Title.Size = UDim2.new(1, 0, 0, 0)
+		Title.Font = Enum.Font.GothamBold
+		Title.TextColor3 = Color3.fromRGB(200, 200, 200)
+		Title.TextSize = 14.000
+		Title.TextWrapped = true
+		Title.TextXAlignment = Enum.TextXAlignment.Left
+		Title.AutomaticSize = Enum.AutomaticSize.Y
+		Title.Text = NotificationConfig.Content
 
-        TweenService:Create(Notify, TweenInfo.new(0.5, Enum.EasingStyle.Quint), { Position = UDim2.new(0, 0, 0, 0) }):
-            Play()
+		TweenService:Create(Notify, TweenInfo.new(0.5, Enum.EasingStyle.Quint), { Position = UDim2.new(0, 0, 0, 0) }):
+			Play()
 
-        wait(NotificationConfig.Time - 0.88)
-        TweenService:Create(Icon, TweenInfo.new(0.4, Enum.EasingStyle.Quint), { ImageTransparency = 1 }):Play()
-        TweenService:Create(Notify, TweenInfo.new(0.4, Enum.EasingStyle.Quint), { BackgroundTransparency = 1 }):Play()
-        TweenService:Create(Label, TweenInfo.new(0.4, Enum.EasingStyle.Quint), { TextTransparency = 1 }):Play()
-        TweenService:Create(Title, TweenInfo.new(0.4, Enum.EasingStyle.Quint), { TextTransparency = 1 }):Play()
-        wait(0.6)
-        Notify:Destroy()
-    end)
+		wait(NotificationConfig.Time - 0.88)
+		TweenService:Create(Icon, TweenInfo.new(0.4, Enum.EasingStyle.Quint), { ImageTransparency = 1 }):Play()
+		TweenService:Create(Notify, TweenInfo.new(0.4, Enum.EasingStyle.Quint), { BackgroundTransparency = 1 }):Play()
+		TweenService:Create(Label, TweenInfo.new(0.4, Enum.EasingStyle.Quint), { TextTransparency = 1 }):Play()
+		TweenService:Create(Title, TweenInfo.new(0.4, Enum.EasingStyle.Quint), { TextTransparency = 1 }):Play()
+		wait(0.6)
+		Notify:Destroy()
+	end)
 end
 
 function library:CreateWindow(name, version, icon)
@@ -445,12 +446,6 @@ function library:CreateWindow(name, version, icon)
 			Page.ScrollBarImageColor3 = Color3.fromRGB(135, 255, 135)
 			Page.Visible = false
 
-			spawn(function()
-				while wait() do
-					Page.CanvasSize = UDim2.new(0, 0, 0, TabLayout.AbsoluteContentSize.Y)
-				end
-			end)
-
 			UICorner_3.CornerRadius = UDim.new(0, 4)
 			UICorner_3.Parent = Page
 
@@ -458,6 +453,12 @@ function library:CreateWindow(name, version, icon)
 			UIListLayout_2.HorizontalAlignment = Enum.HorizontalAlignment.Center
 			UIListLayout_2.SortOrder = Enum.SortOrder.LayoutOrder
 			UIListLayout_2.Padding = UDim.new(0, 4)
+
+			spawn(function()
+				while wait() do
+					Page.CanvasSize = UDim2.new(0, 0, 0, UIListLayout_2.AbsoluteContentSize.Y)
+				end
+			end)
 
 			UIPadding.Parent = Page
 			UIPadding.PaddingBottom = UDim.new(0, 4)
