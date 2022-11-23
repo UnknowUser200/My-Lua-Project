@@ -815,13 +815,8 @@ function library:CreateWindow(name, version, icon)
 							end
 							Ripple(Option)
 						end)
-
-						spawn(function()
-							while wait() do
 								Option.BackgroundColor3 = Color3.fromRGB(30, 30, 36)
 								DropMain.Btn.Title.TextColor3 = Color3.fromRGB(255, 255, 255)
-							end
-						end)
 					end
 				end
 
