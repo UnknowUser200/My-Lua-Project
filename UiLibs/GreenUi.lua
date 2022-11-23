@@ -445,6 +445,7 @@ function library:CreateWindow(name, version, icon)
 			Page.ScrollBarThickness = 5
 			Page.ScrollBarImageColor3 = Color3.fromRGB(135, 255, 135)
 			Page.Visible = false
+			Page.AutomaticCanvasSize = "Y"
 
 			UICorner_3.CornerRadius = UDim.new(0, 4)
 			UICorner_3.Parent = Page
@@ -453,12 +454,6 @@ function library:CreateWindow(name, version, icon)
 			UIListLayout_2.HorizontalAlignment = Enum.HorizontalAlignment.Center
 			UIListLayout_2.SortOrder = Enum.SortOrder.LayoutOrder
 			UIListLayout_2.Padding = UDim.new(0, 4)
-
-			spawn(function()
-				while wait() do
-					Page.CanvasSize = UDim2.new(0, 0, 0, UIListLayout_2.AbsoluteContentSize.Y)
-				end
-			end)
 
 			UIPadding.Parent = Page
 			UIPadding.PaddingBottom = UDim.new(0, 4)
@@ -1121,7 +1116,7 @@ function library:CreateWindow(name, version, icon)
 				return Bind
 			end
 
-			function pagebuttons:CreateLabel(name)
+			function pagebuttons:Label(name)
 				name = name or "Label"
 				local UpdateLabel2 = {}
 				local Label = Instance.new("Frame")
@@ -1134,7 +1129,7 @@ function library:CreateWindow(name, version, icon)
 				Label.Parent = SectionContainer
 				Label.BackgroundColor3 = Color3.fromRGB(135, 255, 135)
 				Label.BackgroundTransparency = 0.500
-				Label.Size = UDim2.new(1, 0, 0, 24)
+				Label.Size = UDim2.new(1, 0, 0, 32)
 
 				UICorner_16.CornerRadius = UDim.new(0, 4)
 				UICorner_16.Parent = Label
