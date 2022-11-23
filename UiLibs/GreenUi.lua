@@ -423,6 +423,7 @@ function library:CreateWindow(name, version, icon)
 			SectionContainer.Position = UDim2.new(0, 0, 1.25310734e-07, 0)
 			SectionContainer.Size = UDim2.new(1, 0, 1.0033654, -1)
 			SectionContainer.ZIndex = 2
+			SectionContainer.AutomaticSize = Enum.AutomaticSize.Y
 
 			Header.Name = "Header"
 			Header.Parent = Section
@@ -513,48 +514,6 @@ function library:CreateWindow(name, version, icon)
 			end
 
 			SearchBox.Changed:Connect(UpdateResults)
-
-			local size = 0
-			SectionContainer.ChildAdded:Connect(function(me)
-				if me:IsA("Frame") and me.Name == "Toggle" then
-					size = size + 43
-				elseif me:IsA("Frame") and me.Name == "Button" then
-					size = size + 43
-				elseif me:IsA("Frame") and me.Name == "Label" then
-					size = size + 31 -- ADDING 1 TO MAKE SURE FRAME IS BIGGER
-				elseif me:IsA("Frame") and me.Name == "TextBox" then
-					size = size + 37
-				elseif me:IsA("Frame") and me.Name == "Keybind" then
-					size = size + 31
-				elseif me:IsA("Frame") and me.Name == "Slider" then
-					size = size + 47
-				elseif me:IsA("Frame") and me.Name == "ColorPicker" then
-					size = size + 47
-				end
-				Section.Size = UDim2.new(1, 0, 0, size)
-				--[[for i,v in pairs(SectionContainer:GetChildren()) do
-					if v:IsA("Frame") and v.Name == "Toggle" then
-						print(v.Name)
-						size = size + 46
-					elseif v:IsA("Frame") and v.Name == "Button" then
-						print(v.Name)
-						size = size + 46
-					elseif v:IsA("Frame") and v.Name == "Label" then
-						print(v.Name)
-						size = size + 46
-					elseif v:IsA("Frame") and v.Name == "Slider" then
-						print(v.Name)
-						size = size + 46
-					elseif v:IsA("Frame") and v.Name == "TextBox" then
-						print(v.Name)
-						size = size + 46
-					elseif v:IsA("Frame") and v.Name == "Keybind" then
-						print(v.Name)
-						size = size + 46
-					end
-					Section.Size = UDim2.new(1,0,0,size)
-				end]]
-			end)
 
 			local PageButton = Instance.new("TextButton")
 			PageButton.Name = "PageButton"
