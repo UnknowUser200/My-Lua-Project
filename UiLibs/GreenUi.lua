@@ -22,8 +22,10 @@ local function CheckKey(tab, key)
 end
 
 local library = {}
-local request = request or http_request or (identifyexecutor() == "Synapse X" and syn.request) or (http and http.request)
-loadstring(request({ Url = "https://raw.githubusercontent.com/cypherdh/Script-Library/main/InstanceProtect",Method = "GET" }).Body)()
+local request = request or http_request or (identifyexecutor() == "Synapse X" and syn.request) or (http and http.request
+	)
+loadstring(request({ Url = "https://raw.githubusercontent.com/cypherdh/Script-Library/main/InstanceProtect",
+	Method = "GET" }).Body)()
 local UIS = game:GetService("UserInputService")
 local TS = game:GetService("TweenService")
 function library:CreateWindow(name, version, icon)
@@ -188,46 +190,39 @@ function library:CreateWindow(name, version, icon)
 		end
 	end)
 
+	local function MakeDraggable(topbarobject, object)
+		pcall(function()
+			local dragging, dragInput, mousePos, framePos = false
+			topbarobject.InputBegan:Connect(function(input)
+				if input.UserInputType == Enum.UserInputType.MouseButton1 then
+					dragging = true
+					mousePos = input.Position
+					framePos = object.Position
 
-	function dragify(Frame)
-		dragToggle = nil
-		local dragSpeed = 0.25
-		dragInput = nil
-		dragStart = nil
-		local dragPos = nil
-		function updateInput(input)
-			local Delta = input.Position - dragStart
-			local Position = UDim2.new(startPos.X.Scale, startPos.X.Offset + Delta.X, startPos.Y.Scale,
-				startPos.Y.Offset + Delta.Y)
-			TS:Create(Frame, TweenInfo.new(0.25), { Position = Position }):Play()
-		end
-
-		Frame.InputBegan:Connect(function(input)
-			if (input.UserInputType == Enum.UserInputType.MouseButton1 or input.UserInputType == Enum.UserInputType.Touch) and
-				UIS:GetFocusedTextBox() == nil then
-				dragToggle = true
-				dragStart = input.Position
-				startPos = Frame.Position
-				input.Changed:Connect(function()
-					if input.UserInputState == Enum.UserInputState.End then
-						dragToggle = false
-					end
-				end)
-			end
-		end)
-		Frame.InputChanged:Connect(function(input)
-			if input.UserInputType == Enum.UserInputType.MouseMovement or input.UserInputType == Enum.UserInputType.Touch then
-				dragInput = input
-			end
-		end)
-		game:GetService("UserInputService").InputChanged:Connect(function(input)
-			if input == dragInput and dragToggle then
-				updateInput(input)
-			end
+					input.Changed:Connect(function()
+						if input.UserInputState == Enum.UserInputState.End then
+							dragging = false
+						end
+					end)
+				end
+			end)
+			topbarobject.InputChanged:Connect(function(input)
+				if input.UserInputType == Enum.UserInputType.MouseMovement then
+					dragInput = input
+				end
+			end)
+			UserInputService.InputChanged:Connect(function(input)
+				if input == dragInput and dragging then
+					local delta     = input.Position - mousePos
+					object.Position = UDim2.new(framePos.X.Scale, framePos.X.Offset + delta.X, framePos.Y.Scale,
+						framePos.Y.Offset + delta.Y)
+				end
+			end)
 		end)
 	end
 
-	dragify(Window)
+	MakeDraggable(TitleBar, Window)
+
 	TS:Create(Window, TweenInfo.new(0.5), { Size = UDim2.new(0, 600, 0, 0) }):Play()
 	repeat wait() until Window.Size == UDim2.new(0, 600, 0, 0)
 	wait(0.1)
@@ -684,7 +679,7 @@ function library:CreateWindow(name, version, icon)
 						Option.MouseButton1Click:Connect(function()
 							Dropdown.Value = option
 							DropMain.Btn.Title.Text = text .. " - " .. option
-						 	Ripple(Option)
+							Ripple(Option)
 							return callback(Dropdown.Value)
 						end)
 
@@ -774,8 +769,8 @@ function library:CreateWindow(name, version, icon)
 							end
 							Ripple(Option)
 						end)
-								Option.BackgroundColor3 = Color3.fromRGB(30, 30, 36)
-								DropMain.Btn.Title.TextColor3 = Color3.fromRGB(255, 255, 255)
+						Option.BackgroundColor3 = Color3.fromRGB(30, 30, 36)
+						DropMain.Btn.Title.TextColor3 = Color3.fromRGB(255, 255, 255)
 					end
 				end
 
