@@ -38,7 +38,7 @@ local lib = loadstring(game:HttpGet("https://raw.githubusercontent.com/shlexware
 local is_key_present = isfile("Ur Name Title.txt");
 if is_key_present == true then
     local kery = readfile("Ur Name Title.txt");
-    local onl_key = game:HttpGet("https://1.kelprepl.repl.co/verify/coconuthub?verify_key=" .. kery)
+    local onl_key = game:HttpGet("https://keysystem.ml/name?verify_key=" .. kery)
     if kery == onl_key then
         print("Executed script!");
         lib:MakeNotification({
@@ -49,7 +49,6 @@ if is_key_present == true then
 -- full script here:)
     end
 else
-    loadstring(game:HttpGet("https://raw.githubusercontent.com/HoyoGey/CoconutHub/main/Main.lua"))()
     --wrong key
     lib:MakeNotification({
         Name = "Warning!",
@@ -96,7 +95,7 @@ local lib = loadstring(game:HttpGet("https://raw.githubusercontent.com/shlexware
 local is_key_present = isfile("Ur Name Title.txt");
 if is_key_present == true then
     local kery = readfile("Ur Name Title.txt");
-    local onl_key = game:HttpGet("https://1.kelprepl.repl.co/verify/coconuthub?verify_key=" .. kery)
+    local onl_key = game:HttpGet("https://keysystem.ml/name?verify_key=" .. kery)
     if kery == onl_key then
         print("Executed script!");
         lib:MakeNotification({
