@@ -367,31 +367,23 @@ function Library:Window(WindowConfig)
             { ImageColor3 = Color3.fromRGB(250, 250, 250) }):Play()
     end)
 
+    CloseBtnNN.MouseEnter:Connect(function()
+        TweenService:Create(Ico_2, TweenInfo.new(0.3, Enum.EasingStyle.Quint),
+            { ImageColor3 = Color3.fromRGB(255, 0, 0) }):Play()
+    end)
+
+    CloseBtnNN.MouseLeave:Connect(function()
+        TweenService:Create(Ico_2, TweenInfo.new(0.3, Enum.EasingStyle.Quint),
+            { ImageColor3 = Color3.fromRGB(250, 250, 250) }):Play()
+    end)
+
     local uitoggled = false
 
     local LastPosition = MainFrame.Position
 
-    MinimizeBtn.MouseButton1Click:Connect(function()
-        uitoggled = not uitoggled
-        if uitoggled then
-            LastPosition = MainFrame.Position
-            task.wait(0.2)
-            MinimizedUI.Visible = true
-            MinimizeBtn:TweenSize(UDim2.new(0, 264, 0, 40), 0.2)
-
-            MainUi:TweenPosition(UDim2.new(0.25, 0, -1.5, 0), "In", "Quint", 0.5, true)
-            TweenService:Create(HideFrame, TweenInfo.new(0.15), { BackgroundTransparency = 0 }):Play()
-            TweenService:Create(Text45, TweenInfo.new(0.10), { BackgroundTransparency = 0 }):Play()
-            TweenService:Create(Ico_3, TweenInfo.new(0.3), { ImageTransparency = 0 }):Play()
-            TweenService:Create(Ico4, TweenInfo.new(0.3), { ImageTransparency = 0 }):Play()
-            task.wait(0.3)
-            ButtonHoldernn.Visible = false
-            MinimizeBtn:TweenSize(UDim2.new(0, 264, 0, 40), 0.2)
-            task.wait(0.2)
-            MinimizedUI.Visible = false
-            uitoggled = false
-        else
-            MainUi:TweenPosition(LastPosition, "Out", "Quint", 0.5, true)
+    MinimizeBtnMM.MouseButton1Click:Connect(function()
+        if uitoggled == false then
+            MainFrame:TweenPosition(LastPosition, "Out", "Quint", 0.5, true)
             task.wait(0.2)
             ButtonHoldernn.Visible = true
             TweenService:Create(HideFrame, TweenInfo.new(0.15), { BackgroundTransparency = 1 }):Play()
@@ -405,6 +397,51 @@ function Library:Window(WindowConfig)
             MinimizedUI.Visible = false
             uitoggled = true
         end
+    end)
+
+    MinimizeBtn.MouseButton1Click:Connect(function()
+        uitoggled = not uitoggled
+        if uitoggled then
+            LastPosition = MainFrame.Position
+            task.wait(0.2)
+            MinimizedUI.Visible = true
+            MinimizeBtn:TweenSize(UDim2.new(0, 264, 0, 40), 0.2)
+
+            MainFrame:TweenPosition(UDim2.new(0.5, 0, -1.5, 0), "In", "Quint", 0.5, true)
+            TweenService:Create(HideFrame, TweenInfo.new(0.15), { BackgroundTransparency = 0 }):Play()
+            TweenService:Create(Text45, TweenInfo.new(0.10), { BackgroundTransparency = 0 }):Play()
+            TweenService:Create(Ico_3, TweenInfo.new(0.3), { ImageTransparency = 0 }):Play()
+            TweenService:Create(Ico4, TweenInfo.new(0.3), { ImageTransparency = 0 }):Play()
+            task.wait(0.3)
+            ButtonHoldernn.Visible = false
+            MinimizeBtn:TweenSize(UDim2.new(0, 264, 0, 40), 0.2)
+            task.wait(0.2)
+            uitoggled = false
+        end
+    end)
+
+    CloseBtnNN.MouseButton1Click:Connect(function()
+        ButtonHoldernn.Visible = false
+        MinimizeBtn:TweenSize(UDim2.new(0, 0, 0, 40), 0.2)
+        task.wait(0.2)
+        MinimizedUI.Destroy()
+        MainFrame.Destroy()
+    end)
+
+    CloseBtn.MouseButton1Click:Connect(function()
+        MainFrame:TweenPosition(LastPosition, "Out", "Quint", 0.5, true)
+        task.wait(0.2)
+        ButtonHoldernn.Visible = true
+        TweenService:Create(HideFrame, TweenInfo.new(0.15), { BackgroundTransparency = 0 }):Play()
+        TweenService:Create(Text45, TweenInfo.new(0.3), { BackgroundTransparency = 1 }):Play()
+        TweenService:Create(Ico_3, TweenInfo.new(0.3), { ImageTransparency = 1 }):Play()
+        TweenService:Create(Ico4, TweenInfo.new(0.3), { ImageTransparency = 1 }):Play()
+        task.wait(0.3)
+        ButtonHoldernn.Visible = false
+        MinimizeBtn:TweenSize(UDim2.new(0, 0, 0, 40), 0.2)
+        task.wait(0.2)
+        MainFrame.Destroy()
+        MinimizedUI.Destroy()
     end)
 
     local tabhold = {}
@@ -472,9 +509,12 @@ function Library:Window(WindowConfig)
         Text.TextTransparency = 1
 
         task.wait(0.1)
-        TweenService:Create(Indecator,TweenInfo.new(.2, Enum.EasingStyle.Quad, Enum.EasingDirection.Out),{ BackgroundTransparency = 1 }):Play()
-        TweenService:Create(Indecator,TweenInfo.new(.2, Enum.EasingStyle.Quad, Enum.EasingDirection.Out),{ BackgroundTransparency = 1 }):Play()
-        TweenService:Create(Text, TweenInfo.new(.3, Enum.EasingStyle.Quad, Enum.EasingDirection.Out),{ TextColor3 = Color3.fromRGB(150, 150, 150) }):Play()
+        TweenService:Create(Indecator, TweenInfo.new(.2, Enum.EasingStyle.Quad, Enum.EasingDirection.Out),
+            { BackgroundTransparency = 1 }):Play()
+        TweenService:Create(Indecator, TweenInfo.new(.2, Enum.EasingStyle.Quad, Enum.EasingDirection.Out),
+            { BackgroundTransparency = 1 }):Play()
+        TweenService:Create(Text, TweenInfo.new(.3, Enum.EasingStyle.Quad, Enum.EasingDirection.Out),
+            { TextColor3 = Color3.fromRGB(150, 150, 150) }):Play()
 
         local Container = Instance.new("ScrollingFrame")
         local UIListLayout = Instance.new("UIListLayout")
@@ -526,14 +566,21 @@ function Library:Window(WindowConfig)
                 end
                 for i, v in next, Holder:GetChildren() do
                     if v.Name == "TabBtn" then
-                        TweenService:Create(v.Indecator, TweenInfo.new(.2, Enum.EasingStyle.Quad, Enum.EasingDirection.Out),{ BackgroundTransparency = 1 }):Play()
-                        TweenService:Create(Indecator, TweenInfo.new(.2, Enum.EasingStyle.Quad, Enum.EasingDirection.Out),{ BackgroundTransparency = 0 }):Play()
+                        TweenService:Create(v.Indecator,
+                            TweenInfo.new(.2, Enum.EasingStyle.Quad, Enum.EasingDirection.Out),
+                            { BackgroundTransparency = 1 }):Play()
+                        TweenService:Create(Indecator, TweenInfo.new(.2, Enum.EasingStyle.Quad, Enum.EasingDirection.Out)
+                            , { BackgroundTransparency = 0 }):Play()
 
-                        TweenService:Create(v.TabBtn, TweenInfo.new(.1, Enum.EasingStyle.Quad, Enum.EasingDirection.Out),{ BackgroundTransparency = 1 }):Play()
-                        TweenService:Create(TabBtn, TweenInfo.new(.1, Enum.EasingStyle.Quad, Enum.EasingDirection.Out),{ BackgroundTransparency = 0 }):Play()
+                        TweenService:Create(v.TabBtn, TweenInfo.new(.1, Enum.EasingStyle.Quad, Enum.EasingDirection.Out)
+                            , { BackgroundTransparency = 1 }):Play()
+                        TweenService:Create(TabBtn, TweenInfo.new(.1, Enum.EasingStyle.Quad, Enum.EasingDirection.Out),
+                            { BackgroundTransparency = 0 }):Play()
 
-                        TweenService:Create(v.Text, TweenInfo.new(.3, Enum.EasingStyle.Quad, Enum.EasingDirection.Out),{ TextColor3 = Color3.fromRGB(150, 150, 150) }):Play()
-                        TweenService:Create(Text, TweenInfo.new(.3, Enum.EasingStyle.Quad, Enum.EasingDirection.Out),{ TextColor3 = Color3.fromRGB(255, 255, 255) }):Play()
+                        TweenService:Create(v.Text, TweenInfo.new(.3, Enum.EasingStyle.Quad, Enum.EasingDirection.Out),
+                            { TextColor3 = Color3.fromRGB(150, 150, 150) }):Play()
+                        TweenService:Create(Text, TweenInfo.new(.3, Enum.EasingStyle.Quad, Enum.EasingDirection.Out),
+                            { TextColor3 = Color3.fromRGB(255, 255, 255) }):Play()
 
                     end
                 end
@@ -1133,7 +1180,7 @@ function Library:Window(WindowConfig)
                             UDim2.new(1, 0, 0, 32) }):Play()
                     TweenService:Create(Ico, TweenInfo.new(0.15, Enum.EasingStyle.Quad, Enum.EasingDirection.Out),
                         { Rotation = Dropdown.Toggled and 180 or 0 }):Play()
-                    DropMain.Holder.Visible = Dropdown.Toggled
+                    Holder.Visible = Dropdown.Toggled
                 end
 
                 local function AddOptions(opts)
@@ -1166,9 +1213,9 @@ function Library:Window(WindowConfig)
 
                         Item.MouseButton1Click:Connect(function()
                             Dropdown.Value = option
-                            Title.Text = text .. " - " .. option
+                            Title.Text = DropdownConfig.Text .. " - " .. option
                             Ripple(Option)
-                            return callback(Dropdown.Value)
+                            return DropdownConfig.Callback(Dropdown.Value)
                         end)
                     end
                 end
@@ -1189,14 +1236,14 @@ function Library:Window(WindowConfig)
                     AddOptions(opts)
                 end
 
-                DropMain.Btn.MouseButton1Click:Connect(function()
+                Btn.MouseButton1Click:Connect(function()
                     ToggleDrop()
                 end)
 
                 function Dropdown:Set(val)
                     Dropdown.Value = val
-                    DropMain.Btn.Title.Text = text .. " - " .. val
-                    return callback(Dropdown.Value)
+                    Title.Text = DropdownConfig.Text .. " - " .. val
+                    return DropdownConfig.Callback(Dropdown.Value)
                 end
 
                 Dropdown:Refresh(DropdownConfig.List, false)
