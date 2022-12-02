@@ -179,7 +179,6 @@ function Library:Window(WindowConfig)
     MainFrame.Parent = MainUi
     MainFrame.AnchorPoint = Vector2.new(0.5, 0.5)
     MainFrame.BackgroundColor3 = Color3.fromRGB(32, 32, 32)
-    MainFrame.ClipsDescendants = true
     MainFrame.Position = UDim2.new(0.5, 0, 0.5, 0)
     MainFrame.Size = UDim2.new(0, 650, 0, 400)
 
