@@ -110,12 +110,6 @@ end
 
 function Library:Window(WindowConfig)
     WindowConfig.Title = WindowConfig.Title or "WoniaUi Cool"
-    WindowConfig.Folder = WindowConfig.Folder or "WoniaUiConfigs"
-    WindowConfig.File = WindowConfig.File or "WoniaUiConfigs.lua"
-
-    -- Monstrum's Gui to Lua\n-- Version: 3.2
-
-    -- Instances:
 
     local MainUi = Instance.new("Frame")
     local Shadow = Instance.new("Frame")
@@ -137,8 +131,6 @@ function Library:Window(WindowConfig)
     local UIPadding = Instance.new("UIPadding")
     local UIListLayout_2 = Instance.new("UIListLayout")
     local HideFrame = Instance.new("Frame")
-
-    --Properties:
 
     MainUi.Name = "MainUi"
     MainUi.Parent = Wonia
@@ -1265,4 +1257,3 @@ function Library:Window(WindowConfig)
 end
 
 return Library
--- ya
