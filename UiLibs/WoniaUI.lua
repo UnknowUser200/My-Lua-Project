@@ -614,18 +614,12 @@ function Library:Window(WindowConfig)
             for _, Button in next, List:GetDescendants() do
                 if Button.Name == "bd" and Button.Parent.Name ~= TabBtn.Name then
                     TweenService:Create(TabBtn, TweenInfo.new(.1, Enum.EasingStyle.Quad, Enum.EasingDirection.Out),
-                        { BackgroundTransparency = 0 }):Play()
-
-                    TweenService:Create(Indecator,
-                        TweenInfo.new(.2, Enum.EasingStyle.Quad, Enum.EasingDirection.Out),
                         { BackgroundTransparency = 1 }):Play()
                     TweenService:Create(Indecator,
                         TweenInfo.new(.2, Enum.EasingStyle.Quad, Enum.EasingDirection.Out),
                         { BackgroundTransparency = 1 }):Play()
                     TweenService:Create(Text, TweenInfo.new(.3, Enum.EasingStyle.Quad, Enum.EasingDirection.Out),
                         { TextColor3 = Color3.fromRGB(150, 150, 150) }):Play()
-                    TweenService:Create(Button.Parent, TweenInfo.new(0.1),
-                        { BackgroundTransparency = 1, BackgroundColor3 = Color3.fromRGB(255, 255, 255) }):Play()
                     Button.Value = false
                 end
             end
