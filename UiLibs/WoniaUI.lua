@@ -420,15 +420,8 @@ function Library:Window(WindowConfig)
     end)
 
     CloseBtn.MouseLeave:Connect(function()
-        TweenService:Create(Ico_2, TweenInfo.new(0.3, Enum.EasingStyle.Quint),
-            { ImageColor3 = Color3.fromRGB(250, 250, 250) }):Play()
+        TweenService:Create(Ico_2, TweenInfo.new(0.3, Enum.EasingStyle.Quint),{ ImageColor3 = Color3.fromRGB(250, 250, 250) }):Play()
     end)
-
-    TweenService:Create(MainUi, TweenInfo.new(0.3, Enum.EasingStyle.Quint), { UDim2.new(0, 257, 0, 42) }):Play()
-    task.wait(0.4)
-    TweenService:Create(MainUi, TweenInfo.new(0.4, Enum.EasingStyle.Quint), { UDim2.new(0, 257, 0, 400) }):Play()
-    task.wait(0.4)
-    TweenService:Create(MainUi, TweenInfo.new(0.6, Enum.EasingStyle.Quint), { UDim2.new(0, 650, 0, 400) }):Play()
 
     local uitoggled = false
 
