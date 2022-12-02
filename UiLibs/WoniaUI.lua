@@ -138,11 +138,12 @@ function Library:Window(WindowConfig)
     local Holder = Instance.new("Frame")
     local UIPadding = Instance.new("UIPadding")
     local UIListLayout_2 = Instance.new("UIListLayout")
+    local HideFrame = Instance.new("Frame")
 
     --Properties:
 
     MainUi.Name = "MainUi"
-    MainUi.Parent = game.StarterGui.ScreenGui
+    MainUi.Parent = Wonia
     MainUi.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
     MainUi.BackgroundTransparency = 1.000
     MainUi.BorderSizePixel = 0
@@ -307,6 +308,110 @@ function Library:Window(WindowConfig)
     UIListLayout_2.HorizontalAlignment = Enum.HorizontalAlignment.Center
     UIListLayout_2.SortOrder = Enum.SortOrder.LayoutOrder
 
+    HideFrame.Name = "Main"
+    HideFrame.Parent = MainFrame
+    HideFrame.BackgroundColor3 = Color3.fromRGB(78, 99, 199)
+    HideFrame.BorderSizePixel = 0
+    HideFrame.ClipsDescendants = true
+    HideFrame.Position = UDim2.new(0, 0, 0, 0)
+    HideFrame.Size = UDim2.new(1, 0, 1, 0)
+    HideFrame.ZIndex = 100
+    TweenService:Create(HideFrame, TweenInfo.new(0.5), { BackgroundTransparency = 0 }):Play()
+    wait(0.5)
+    TweenService:Create(HideFrame, TweenInfo.new(0.3), { BackgroundTransparency = 1 }):Play()
+
+    local MinimizedUI = Instance.new("Frame")
+    local ButtonHoldernn = Instance.new("Frame")
+    local UIListLayoutBB = Instance.new("UIListLayout")
+    local MinimizeBtnMM = Instance.new("TextButton")
+    local Ico4 = Instance.new("ImageLabel")
+    local CloseBtnNN = Instance.new("TextButton")
+    local Ico_3 = Instance.new("ImageLabel")
+    local Text45 = Instance.new("TextLabel")
+    local UICornerMM = Instance.new("UICorner")
+
+    MinimizedUI.Name = "MinimizedUI"
+    MinimizedUI.Parent = game.StarterGui.ScreenGui
+    MinimizedUI.BackgroundColor3 = Color3.fromRGB(32, 32, 32)
+    MinimizedUI.Position = UDim2.new(0, 110, 0, 5)
+    MinimizedUI.Size = UDim2.new(0, 246, 0, 40)
+    MinimizedUI.Visible = false
+
+    ButtonHoldernn.Name = "ButtonHolder"
+    ButtonHoldernn.Parent = MinimizedUI
+    ButtonHoldernn.AnchorPoint = Vector2.new(1, 0)
+    ButtonHoldernn.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+    ButtonHoldernn.BackgroundTransparency = 1.000
+    ButtonHoldernn.Position = UDim2.new(1, 0, 0, 0)
+    ButtonHoldernn.Size = UDim2.new(-0.175359592, 120, 1, 0)
+
+    UIListLayoutBB.Parent = ButtonHoldernn
+    UIListLayoutBB.FillDirection = Enum.FillDirection.Horizontal
+    UIListLayoutBB.SortOrder = Enum.SortOrder.LayoutOrder
+
+    MinimizeBtnMM.Name = "MinimizeBtn"
+    MinimizeBtnMM.Parent = ButtonHoldernn
+    MinimizeBtnMM.AnchorPoint = Vector2.new(1, 0.5)
+    MinimizeBtnMM.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+    MinimizeBtnMM.BackgroundTransparency = 1.000
+    MinimizeBtnMM.LayoutOrder = 3
+    MinimizeBtnMM.Position = UDim2.new(1, 0, 0.5, 0)
+    MinimizeBtnMM.Size = UDim2.new(0, 38, 0, 38)
+    MinimizeBtnMM.Font = Enum.Font.SourceSans
+    MinimizeBtnMM.Text = ""
+    MinimizeBtnMM.TextColor3 = Color3.fromRGB(0, 0, 0)
+    MinimizeBtnMM.TextSize = 14.000
+
+    Ico4.Name = "Ico"
+    Ico4.Parent = MinimizeBtnMM
+    Ico4.AnchorPoint = Vector2.new(0.5, 0.5)
+    Ico4.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+    Ico4.BackgroundTransparency = 1.000
+    Ico4.Position = UDim2.new(0.5, 0, 0.5, 0)
+    Ico4.Size = UDim2.new(0, 22, 0, 22)
+    Ico4.Image = "rbxassetid://3926305904"
+    Ico4.ImageRectOffset = Vector2.new(684, 724)
+    Ico4.ImageRectSize = Vector2.new(36, 36)
+    Ico4.ImageTransparency = 0.400
+
+    CloseBtnNN.Name = "CloseBtn"
+    CloseBtnNN.Parent = ButtonHoldernn
+    CloseBtnNN.AnchorPoint = Vector2.new(1, 0.5)
+    CloseBtnNN.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+    CloseBtnNN.BackgroundTransparency = 1.000
+    CloseBtnNN.LayoutOrder = 3
+    CloseBtnNN.Position = UDim2.new(1, 0, 0.5, 0)
+    CloseBtnNN.Size = UDim2.new(0, 38, 0, 38)
+    CloseBtnNN.Font = Enum.Font.SourceSans
+    CloseBtnNN.Text = ""
+    CloseBtnNN.TextColor3 = Color3.fromRGB(0, 0, 0)
+    CloseBtnNN.TextSize = 14.000
+
+    Ico_3.Name = "Ico"
+    Ico_3.Parent = CloseBtnNN
+    Ico_3.AnchorPoint = Vector2.new(0.5, 0.5)
+    Ico_3.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+    Ico_3.BackgroundTransparency = 1.000
+    Ico_3.Position = UDim2.new(0.5, 0, 0.5, 0)
+    Ico_3.Size = UDim2.new(0, 20, 0, 20)
+    Ico_3.Image = "http://www.roblox.com/asset/?id=6031094678"
+    Ico_3.ImageTransparency = 0.400
+
+    Text45.Name = "Text"
+    Text45.Parent = MinimizedUI
+    Text45.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+    Text45.BackgroundTransparency = 1.000
+    Text45.Position = UDim2.new(0, 9, 0, 0)
+    Text45.Size = UDim2.new(0.781000018, -33, 1, 0)
+    Text45.Font = Enum.Font.Gotham
+    Text45.Text = "Yaya This Windows11"
+    Text45.TextColor3 = Color3.fromRGB(255, 255, 255)
+    Text45.TextSize = 14.000
+    Text45.TextXAlignment = Enum.TextXAlignment.Left
+
+    UICornerMM.CornerRadius = UDim.new(0, 6)
+    UICornerMM.Parent = MinimizedUI
+
     MainFrame.Parent = Wonia
     TopFrameTitle.Text = WindowConfig.Title
     MakeDraggable(MainFrame.TopBar, MainUi)
@@ -329,21 +434,41 @@ function Library:Window(WindowConfig)
 
     local uitoggled = false
 
+    local LastPosition = MainUi.Position
+
     MinimizeBtn.MouseButton1Click:Connect(function()
-        if uitoggled == false then
-            TweenService:Create(MainUi, TweenInfo.new(0.6, Enum.EasingStyle.Quint), { UDim2.new(0, 650, 0, 400) }):Play()
-            task.wait(0.4)
-            TweenService:Create(MainUi, TweenInfo.new(0.4, Enum.EasingStyle.Quint), { UDim2.new(0, 257, 0, 400) }):Play()
-            task.wait(0.4)
-            TweenService:Create(MainUi, TweenInfo.new(0.3, Enum.EasingStyle.Quint), { UDim2.new(0, 257, 0, 42) }):Play()
-            uitoggled = true
-        else
-            TweenService:Create(MainUi, TweenInfo.new(0.3, Enum.EasingStyle.Quint), { UDim2.new(0, 257, 0, 42) }):Play()
-            task.wait(0.4)
-            TweenService:Create(MainUi, TweenInfo.new(0.4, Enum.EasingStyle.Quint), { UDim2.new(0, 257, 0, 400) }):Play()
-            task.wait(0.4)
-            TweenService:Create(MainUi, TweenInfo.new(0.6, Enum.EasingStyle.Quint), { UDim2.new(0, 650, 0, 400) }):Play()
+        uitoggled = not uitoggled
+        if uitoggled then
+            LastPosition = MainUi.Position
+            task.wait(0.2)
+            MinimizedUI.Visible = true
+            MinimizeBtn:TweenSize(UDim2.new(0, 264, 0, 40), 0.2)
+
+            MainUi:TweenPosition(UDim2.new(0.25, 0, -1.5, 0), "In", "Quint", 0.5, true)
+            TweenService:Create(HideFrame, TweenInfo.new(0.15), { BackgroundTransparency = 0 }):Play()
+            TweenService:Create(Text45, TweenInfo.new(0.10), { BackgroundTransparency = 0 }):Play()
+            TweenService:Create(Ico_3, TweenInfo.new(0.3), { ImageTransparency = 0 }):Play()
+            TweenService:Create(Ico4, TweenInfo.new(0.3), { ImageTransparency = 0 }):Play()
+            task.wait(0.3)
+            ButtonHoldernn.Visible = false
+            MinimizeBtn:TweenSize(UDim2.new(0, 264, 0, 40), 0.2)
+            task.wait(0.2)
+            MinimizedUI.Visible = false
             uitoggled = false
+        else
+            MainUi:TweenPosition(LastPosition, "Out", "Quint", 0.5, true)
+            task.wait(0.2)
+            ButtonHoldernn.Visible = true
+            TweenService:Create(HideFrame, TweenInfo.new(0.15), { BackgroundTransparency = 1 }):Play()
+            TweenService:Create(Text45, TweenInfo.new(0.3), { BackgroundTransparency = 1 }):Play()
+            TweenService:Create(Ico_3, TweenInfo.new(0.3), { ImageTransparency = 1 }):Play()
+            TweenService:Create(Ico4, TweenInfo.new(0.3), { ImageTransparency = 1 }):Play()
+            task.wait(0.3)
+            ButtonHoldernn.Visible = false
+            MinimizeBtn:TweenSize(UDim2.new(0, 0, 0, 40), 0.2)
+            task.wait(0.2)
+            MinimizedUI.Visible = false
+            uitoggled = true
         end
     end)
 
@@ -590,7 +715,6 @@ function Library:Window(WindowConfig)
                     uitoggled = false
                 end
             end)
-
             local SectionHolder = {}
             function SectionHolder:Button(text, callback)
                 text = text or "Button"
@@ -739,6 +863,405 @@ function Library:Window(WindowConfig)
                 end
 
                 return LabelSet
+            end
+
+            function SectionHolder:Toggle(ToggleConfig)
+                ToggleConfig.Text = ToggleConfig.Text or "Toggle"
+                ToggleConfig.Default = ToggleConfig.Default or false
+                ToggleConfig.Callback = ToggleConfig.Callback or function() end
+
+                local Toggle = Instance.new("TextButton")
+                local UICorner = Instance.new("UICorner")
+                local ToggleFrame = Instance.new("Frame")
+                local UICorner_2 = Instance.new("UICorner")
+                local ToggleToggled = Instance.new("Frame")
+                local UICorner_3 = Instance.new("UICorner")
+                local ToggleIco = Instance.new("ImageLabel")
+                local Glow = Instance.new("ImageLabel")
+                local Text = Instance.new("TextLabel")
+
+                Toggle.Name = "Toggle"
+                Toggle.Parent = HolderDrop
+                Toggle.BackgroundColor3 = Color3.fromRGB(36, 35, 36)
+                Toggle.BorderColor3 = Color3.fromRGB(27, 42, 53)
+                Toggle.Size = UDim2.new(1, 0, 0, 40)
+                Toggle.AutoButtonColor = false
+                Toggle.Font = Enum.Font.SourceSans
+                Toggle.Text = ""
+                Toggle.TextColor3 = Color3.fromRGB(0, 0, 0)
+                Toggle.TextSize = 14.000
+
+                UICorner.CornerRadius = UDim.new(0, 4)
+                UICorner.Parent = Toggle
+
+                ToggleFrame.Name = "ToggleFrame"
+                ToggleFrame.Parent = Toggle
+                ToggleFrame.AnchorPoint = Vector2.new(0, 0.5)
+                ToggleFrame.BackgroundColor3 = Color3.fromRGB(150, 150, 150)
+                ToggleFrame.BackgroundTransparency = 0.700
+                ToggleFrame.Position = UDim2.new(0, 9, 0.5, 0)
+                ToggleFrame.Size = UDim2.new(0, 20, 0, 20)
+
+                UICorner_2.CornerRadius = UDim.new(0, 4)
+                UICorner_2.Parent = ToggleFrame
+
+                ToggleToggled.Name = "ToggleToggled"
+                ToggleToggled.Parent = ToggleFrame
+                ToggleToggled.AnchorPoint = Vector2.new(0.5, 0.5)
+                ToggleToggled.BackgroundColor3 = Color3.fromRGB(36, 35, 36)
+                ToggleToggled.Position = UDim2.new(0.5, 0, 0.5, 0)
+                ToggleToggled.Size = UDim2.new(1, -2, 1, -2)
+
+                UICorner_3.CornerRadius = UDim.new(0, 4)
+                UICorner_3.Parent = ToggleToggled
+
+                ToggleIco.Name = "ToggleIco"
+                ToggleIco.Parent = ToggleToggled
+                ToggleIco.AnchorPoint = Vector2.new(0.5, 0.5)
+                ToggleIco.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+                ToggleIco.BackgroundTransparency = 1.000
+                ToggleIco.Position = UDim2.new(0.5, 0, 0.5, 0)
+                ToggleIco.Size = UDim2.new(1, -2, 1, -2)
+                ToggleIco.Image = "http://www.roblox.com/asset/?id=6031094667"
+                ToggleIco.ImageColor3 = Color3.fromRGB(36, 35, 36)
+                ToggleIco.ImageTransparency = 1.000
+
+                Glow.Name = "Glow"
+                Glow.Parent = Toggle
+                Glow.AnchorPoint = Vector2.new(0.5, 0.5)
+                Glow.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+                Glow.BackgroundTransparency = 1.000
+                Glow.BorderSizePixel = 0
+                Glow.Position = UDim2.new(0.5, 0, 0.5, 0)
+                Glow.Size = UDim2.new(1, 30, 1, 30)
+                Glow.ZIndex = 0
+                Glow.Image = "rbxassetid://4996891970"
+                Glow.ImageColor3 = Color3.fromRGB(10, 10, 10)
+                Glow.ImageTransparency = 0.860
+                Glow.ScaleType = Enum.ScaleType.Slice
+                Glow.SliceCenter = Rect.new(20, 20, 280, 280)
+
+                Text.Name = "Text"
+                Text.Parent = Toggle
+                Text.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+                Text.BackgroundTransparency = 1.000
+                Text.BorderSizePixel = 0
+                Text.Position = UDim2.new(0.0938013047, 0, -0.075000003, 3)
+                Text.Size = UDim2.new(0, 370, 0, 40)
+                Text.Font = Enum.Font.Gotham
+                Text.Text = ToggleConfig.Text
+                Text.TextColor3 = Color3.fromRGB(240, 240, 239)
+                Text.TextSize = 13.000
+                Text.TextXAlignment = Enum.TextXAlignment.Left
+
+                local Toggle = { Value = false }
+
+                function Toggle:Set(value)
+                    Toggle.Value = value
+                    TweenService:Create(ToggleIco, TweenInfo.new(.2, Enum.EasingStyle.Quad, Enum.EasingDirection.Out),
+                        { ImageTransparency = Toggle.Value and 0 or 1 }):Play()
+                    TweenService:Create(ToggleIco, TweenInfo.new(.2, Enum.EasingStyle.Quad, Enum.EasingDirection.Out),
+                        { Size = Toggle.Value and UDim2.new(1, -2, 1, -2) or UDim2.new(1, -6, 1, -6) }):Play()
+                    return ToggleConfig.Callback(Toggle.Value)
+                end
+
+                Toggle.MouseButton1Click:Connect(function()
+                    Toggle.Value = not Toggle.Value
+                    Toggle:Set(Toggle.Value)
+
+                    if Toggle.Value == true then
+                        Toggle.BackgroundColor3 = Color3.fromRGB(30, 30, 30)
+                    else
+                        Toggle.BackgroundColor3 = Color3.fromRGB(36, 35, 36)
+                    end
+                end)
+
+                Toggle:Set(ToggleConfig.Default)
+
+                return Toggle
+            end
+
+            function SectionHolder:Slider(SliderConfig)
+                SliderConfig.Text = SliderConfig.Text or "Slider"
+                SliderConfig.Minimum = SliderConfig.Minimum or 0
+                SliderConfig.Maximum = SliderConfig.Maximum or 10
+                SliderConfig.Increment = SliderConfig.Increment or 1
+                SliderConfig.Start = SliderConfig.Start or 5
+                SliderConfig.Callback = SliderConfig.Callback or function() end
+
+                local Slider = Instance.new("Frame")
+                local UICorner = Instance.new("UICorner")
+                local SliderText = Instance.new("TextLabel")
+                local SliderVal = Instance.new("TextLabel")
+                local SliderFrame = Instance.new("Frame")
+                local SliderFrameCorner = Instance.new("UICorner")
+                local SliderCurrentFrame = Instance.new("Frame")
+                local SliderCurrentFrameCorner = Instance.new("UICorner")
+
+                Slider.Name = "Slider"
+                Slider.Parent = game.StarterGui.Elements
+                Slider.BackgroundColor3 = Color3.fromRGB(36, 35, 36)
+                Slider.Size = UDim2.new(1, 0, 0, 44)
+
+                UICorner.CornerRadius = UDim.new(0, 4)
+                UICorner.Parent = Slider
+
+                SliderText.Name = "SliderText"
+                SliderText.Parent = Slider
+                SliderText.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+                SliderText.BackgroundTransparency = 1.000
+                SliderText.Position = UDim2.new(0, 10, 0, 0)
+                SliderText.Size = UDim2.new(0, 1, 0, 32)
+                SliderText.Font = Enum.Font.Gotham
+                SliderText.Text = "Toggle"
+                SliderText.TextColor3 = Color3.fromRGB(255, 255, 255)
+                SliderText.TextSize = 14.000
+                SliderText.TextXAlignment = Enum.TextXAlignment.Left
+
+                SliderVal.Name = "SliderVal"
+                SliderVal.Parent = Slider
+                SliderVal.AnchorPoint = Vector2.new(1, 0)
+                SliderVal.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+                SliderVal.BackgroundTransparency = 1.000
+                SliderVal.Position = UDim2.new(1, -10, 0, 0)
+                SliderVal.Size = UDim2.new(0, 1, 0, 32)
+                SliderVal.Font = Enum.Font.Gotham
+                SliderVal.Text = "10"
+                SliderVal.TextColor3 = Color3.fromRGB(255, 255, 255)
+                SliderVal.TextSize = 14.000
+                SliderVal.TextXAlignment = Enum.TextXAlignment.Right
+
+                SliderFrame.Name = "SliderFrame"
+                SliderFrame.Parent = Slider
+                SliderFrame.AnchorPoint = Vector2.new(0.5, 0)
+                SliderFrame.BackgroundColor3 = Color3.fromRGB(30, 30, 30)
+                SliderFrame.Position = UDim2.new(0.5, 0, 0, 31)
+                SliderFrame.Size = UDim2.new(1, -20, 0, 5)
+
+                SliderFrameCorner.CornerRadius = UDim.new(0, 4)
+                SliderFrameCorner.Name = "SliderFrameCorner"
+                SliderFrameCorner.Parent = SliderFrame
+
+                SliderCurrentFrame.Name = "SliderCurrentFrame"
+                SliderCurrentFrame.Parent = SliderFrame
+                SliderCurrentFrame.BackgroundColor3 = Color3.fromRGB(8, 0, 255)
+                SliderCurrentFrame.BorderSizePixel = 0
+                SliderCurrentFrame.Size = UDim2.new(0, 0, 1, 0)
+
+                SliderCurrentFrameCorner.CornerRadius = UDim.new(0, 4)
+                SliderCurrentFrameCorner.Name = "SliderCurrentFrameCorner"
+                SliderCurrentFrameCorner.Parent = SliderCurrentFrame
+
+                local Slider = { Value = SliderConfig.Start }
+
+                local dragging = false
+
+                local function move(Input)
+                    local XSize = math.clamp((Input.Position.X - SliderFrame.AbsolutePosition.X) /
+                        SliderFrame.AbsoluteSize.X, 0, 1)
+                    local Increment = SliderConfig.Increment and
+                        (
+                        SliderConfig.Maximum /
+                            ((SliderConfig.Maximum - SliderConfig.Minimum) / (SliderConfig.Increment * 4))) or
+                        (
+                        SliderConfig.Maximum >= 50 and
+                            SliderConfig.Maximum / ((SliderConfig.Maximum - SliderConfig.Minimum) / 4)) or
+                        (
+                        SliderConfig.Maximum >= 25 and
+                            SliderConfig.Maximum / ((SliderConfig.Maximum - SliderConfig.Minimum) / 2)) or
+                        (SliderConfig.Maximum / (SliderConfig.Maximum - SliderConfig.Minimum))
+                    local SizeRounded = UDim2.new((
+                        math.round(XSize * ((SliderConfig.Maximum / Increment) * 4)) /
+                            ((SliderConfig.Maximum / Increment) * 4)), 0, 1, 0)
+                    TweenService:Create(SliderCurrentFrame,
+                        TweenInfo.new(0.15, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), { Size = SizeRounded }):
+                        Play()
+                    local Val = math.round((
+                        ((SizeRounded.X.Scale * SliderConfig.Maximum) / SliderConfig.Maximum) *
+                            (SliderConfig.Maximum - SliderConfig.Minimum) + SliderConfig.Minimum) * 20) / 20
+                    SliderVal.Text = tostring(Val)
+                    Slider.Value = Val
+                    SliderConfig.Callback(Slider.Value)
+                end
+
+                SliderFrame.InputBegan:Connect(function(input) if input.UserInputType == Enum.UserInputType.MouseButton1 then dragging = true end end)
+                SliderFrame.InputEnded:Connect(function(input) if input.UserInputType == Enum.UserInputType.MouseButton1 then dragging = false end end)
+                game:GetService("UserInputService").InputChanged:Connect(function(input) if dragging and
+                        input.UserInputType == Enum.UserInputType.MouseMovement then move(input) end
+                end)
+
+                function Slider:Set(val)
+                    local a = tostring(val and
+                        (val / SliderConfig.Maximum) * (SliderConfig.Maximum - SliderConfig.Minimum) +
+                        SliderConfig.Minimum) or 0
+                    SliderVal.Text = tostring(a)
+                    SliderCurrentFrame.Size = UDim2.new((val or 0) / SliderConfig.Maximum, 0, 1, 0)
+                    Slider.Value = val
+                    return SliderConfig.Callback(Slider.Value)
+                end
+
+                Slider:Set(SliderConfig.Start)
+
+                return Slider
+            end
+
+            function SectionHolder:Dropdown(DropdownConfig)
+                DropdownConfig.Text = DropdownConfig.Text or "Dropdown"
+                DropdownConfig.List = DropdownConfig.List or {}
+                DropdownConfig.Default = DropdownConfig.Default or ""
+                DropdownConfig.Callback = DropdownConfig.Callback or function() end
+
+                local Dropdown = Instance.new("Frame")
+                local Holder = Instance.new("Frame")
+                local Layout = Instance.new("UIListLayout")
+                local UIPadding = Instance.new("UIPadding")
+                local Item = Instance.new("TextButton")
+                local ItemText = Instance.new("TextLabel")
+                local UICorner = Instance.new("UICorner")
+                local Btn = Instance.new("TextButton")
+                local Title = Instance.new("TextLabel")
+                local Ico = Instance.new("ImageLabel")
+                local UICorner_2 = Instance.new("UICorner")
+
+                Dropdown.Name = "Dropdown"
+                Dropdown.Parent = game.StarterGui.ScreenGui.MainUi.MainFrame.ContainerFolder.Container
+                Dropdown.BackgroundColor3 = Color3.fromRGB(36, 35, 36)
+                Dropdown.BorderSizePixel = 0
+                Dropdown.ClipsDescendants = true
+                Dropdown.Size = UDim2.new(1, 0, 0, 32)
+
+                Holder.Name = "Holder"
+                Holder.Parent = Dropdown
+                Holder.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+                Holder.BackgroundTransparency = 1.000
+                Holder.ClipsDescendants = true
+                Holder.Position = UDim2.new(0, 0, 0, 32)
+                Holder.Size = UDim2.new(1, 0, -1, 32)
+                Holder.Visible = false
+
+                Layout.Name = "Layout"
+                Layout.Parent = Holder
+                Layout.SortOrder = Enum.SortOrder.LayoutOrder
+                Layout.Padding = UDim.new(0, 4)
+
+                UIPadding.Parent = Holder
+                UIPadding.PaddingTop = UDim.new(0, 6)
+                UIPadding.PaddingBottom = UDim.new(0, 6)
+
+                Btn.Name = "Btn"
+                Btn.Parent = Dropdown
+                Btn.BackgroundColor3 = Color3.fromRGB(36, 35, 36)
+                Btn.Size = UDim2.new(1, 0, 0, 32)
+                Btn.AutoButtonColor = false
+                Btn.Font = Enum.Font.SourceSans
+                Btn.Text = ""
+                Btn.TextColor3 = Color3.fromRGB(0, 0, 0)
+                Btn.TextSize = 14.000
+
+                Title.Name = "Title"
+                Title.Parent = Btn
+                Title.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+                Title.BackgroundTransparency = 1.000
+                Title.Position = UDim2.new(0, 10, 0, 0)
+                Title.Selectable = true
+                Title.Size = UDim2.new(0, 1, 0, 32)
+                Title.Font = Enum.Font.Gotham
+                Title.Text = DropdownConfig.Text
+                Title.TextColor3 = Color3.fromRGB(255, 255, 255)
+                Title.TextSize = 14.000
+                Title.TextXAlignment = Enum.TextXAlignment.Left
+
+                Ico.Name = "Ico"
+                Ico.Parent = Btn
+                Ico.AnchorPoint = Vector2.new(1, 0.5)
+                Ico.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+                Ico.BackgroundTransparency = 1.000
+                Ico.Position = UDim2.new(1, -10, 0.5, 0)
+                Ico.Size = UDim2.new(0, 20, 1, -12)
+                Ico.Image = "http://www.roblox.com/asset/?id=6034818379"
+                Ico.ImageTransparency = 0.400
+
+                UICorner_2.CornerRadius = UDim.new(0, 4)
+                UICorner_2.Parent = Btn
+
+                local Dropdown = { Value = nil, Toggled = false, Options = DropdownConfig.List }
+
+                local function ToggleDrop()
+                    Dropdown.Toggled = not Dropdown.Toggled
+                    Holder.Size = Dropdown.Toggled and UDim2.new(1, 0, 0, 6 + Holder.Layout.AbsoluteContentSize.Y) or
+                        UDim2.new(1, 0, 0, 0)
+                    TweenService:Create(DropMain, TweenInfo.new(0.15, Enum.EasingStyle.Quad, Enum.EasingDirection.Out),
+                        { Size = Dropdown.Toggled and UDim2.new(1, 0, 0, 38 + Holder.Layout.AbsoluteContentSize.Y) or
+                            UDim2.new(1, 0, 0, 32) }):Play()
+                    TweenService:Create(Ico, TweenInfo.new(0.15, Enum.EasingStyle.Quad, Enum.EasingDirection.Out),
+                        { Rotation = Dropdown.Toggled and 180 or 0 }):Play()
+                    DropMain.Holder.Visible = Dropdown.Toggled
+                end
+
+                local function AddOptions(opts)
+                    for _, option in pairs(opts) do
+                        Item.Name = "Item"
+                        Item.Parent = Holder
+                        Item.BackgroundColor3 = Color3.fromRGB(34, 34, 34)
+                        Item.Size = UDim2.new(1, 0, 0.0564258248, 22)
+                        Item.AutoButtonColor = false
+                        Item.Font = Enum.Font.Gotham
+                        Item.Text = ""
+                        Item.TextColor3 = Color3.fromRGB(255, 255, 255)
+                        Item.TextSize = 14.000
+                        Item.TextTransparency = 0.400
+                        Item.TextXAlignment = Enum.TextXAlignment.Left
+                        Item.ClipsDescendants = true
+
+                        ItemText.Name = "ItemText"
+                        ItemText.Parent = Item
+                        ItemText.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+                        ItemText.BackgroundTransparency = 1.000
+                        ItemText.Position = UDim2.new(0, 5, 0, 0)
+                        ItemText.Size = UDim2.new(0, 1, 1, 0)
+                        ItemText.Font = Enum.Font.Gotham
+                        ItemText.Text = option
+                        ItemText.TextColor3 = Color3.fromRGB(255, 255, 255)
+                        ItemText.TextSize = 13.000
+                        ItemText.TextTransparency = 0.400
+                        ItemText.TextXAlignment = Enum.TextXAlignment.Left
+
+                        Item.MouseButton1Click:Connect(function()
+                            Dropdown.Value = option
+                            Title.Text = text .. " - " .. option
+                            Ripple(Option)
+                            return callback(Dropdown.Value)
+                        end)
+                    end
+                end
+
+                function Dropdown:Refresh(opts, del)
+                    if del then
+                        for _, v in pairs(Holder:GetChildren()) do
+                            if v:IsA "TextButton" then
+                                v:Destroy()
+                                Holder.Size = Dropdown.Toggled and UDim2.new(1, 0, 0,
+                                    6 + Holder.Layout.AbsoluteContentSize.Y) or UDim2.new(1, 0, 0, 0)
+                                DropMain.Size = Dropdown.Toggled and
+                                    UDim2.new(1, 0, 0, 38 + Holder.Layout.AbsoluteContentSize.Y) or UDim2.new(1, 0, 0, 32)
+                            end
+                        end
+                    end
+                    AddOptions(opts)
+                end
+
+                DropMain.Btn.MouseButton1Click:Connect(function()
+                    ToggleDrop()
+                end)
+
+                function Dropdown:Set(val)
+                    Dropdown.Value = val
+                    DropMain.Btn.Title.Text = text .. " - " .. val
+                    return callback(Dropdown.Value)
+                end
+
+                Dropdown:Refresh(DropdownConfig.List, false)
+                Dropdown:Set(DropdownConfig.Default)
             end
 
             return SectionHolder
