@@ -53,8 +53,6 @@ function Ripple(Object)
     end)
 end
 
-local UI = game:GetObjects("rbxassetid://11697821577")[1]
-
 local function MakeDraggable(topbarobject, object)
     pcall(function()
         local dragging, dragInput, mousePos, framePos = false
