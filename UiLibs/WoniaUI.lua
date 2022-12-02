@@ -583,8 +583,9 @@ function Library:Window(WindowConfig)
         Frame.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
         Frame.BackgroundTransparency = 1
         Frame.BorderSizePixel = 0
-        Frame.Size = UDim2.new(1, 0, 1, 0)
+        Frame.Size = UDim2.new(0, 220, 0, 42)
         Frame.Name = TabConfig.Text
+        Container.Position = UDim2.new(0, 220, 0, 42)
 
         Container.Visible = false
 
@@ -648,24 +649,6 @@ function Library:Window(WindowConfig)
             TweenService:Create(Text, TweenInfo.new(.3, Enum.EasingStyle.Quad, Enum.EasingDirection.Out),
                 { TextColor3 = Color3.fromRGB(255, 255, 255) }):Play()
             ReColorOtherBtns()
-        end)
-
-        TabBtn.MouseEnter:Connect(function()
-            if not IsTabOpened.Value then
-                TweenService:Create(Indecator, TweenInfo.new(.2, Enum.EasingStyle.Quad, Enum.EasingDirection.Out),
-                    { BackgroundTransparency = 0 }):Play()
-                TweenService:Create(Text, TweenInfo.new(.3, Enum.EasingStyle.Quad, Enum.EasingDirection.Out),
-                    { TextColor3 = Color3.fromRGB(240, 240, 240) }):Play()
-            end
-        end)
-
-        TabBtn.MouseLeave:Connect(function()
-            if not IsTabOpened.Value then
-                TweenService:Create(Indecator, TweenInfo.new(.2, Enum.EasingStyle.Quad, Enum.EasingDirection.Out),
-                    { BackgroundTransparency = 1 }):Play()
-                TweenService:Create(Text, TweenInfo.new(.3, Enum.EasingStyle.Quad, Enum.EasingDirection.Out),
-                    { TextColor3 = Color3.fromRGB(150, 150, 150) }):Play()
-            end
         end)
 
         local ContainerDrop = {}
