@@ -133,50 +133,8 @@ function Library:Window(WindowConfig)
     local UIListLayout_2 = Instance.new("UIListLayout")
     local HideFrame = Instance.new("Frame")
 
-    MainUi.Name = "MainUi"
-    MainUi.Parent = Wonia
-    MainUi.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-    MainUi.BackgroundTransparency = 1.000
-    MainUi.BorderSizePixel = 0
-    MainUi.Position = UDim2.new(0.255813956, 0, 0.253086418, 0)
-    MainUi.Size = UDim2.new(0, 650, 0, 400)
-
-    Shadow.Name = "Shadow"
-    Shadow.Parent = MainUi
-    Shadow.AnchorPoint = Vector2.new(0.5, 0.5)
-    Shadow.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-    Shadow.BackgroundTransparency = 1.000
-    Shadow.BorderSizePixel = 0
-    Shadow.Position = UDim2.new(0.5, 0, 0.5, 0)
-    Shadow.Size = UDim2.new(0, 650, 0, 400)
-
-    Image.Name = "Image"
-    Image.Parent = Shadow
-    Image.AnchorPoint = Vector2.new(0.5, 0.5)
-    Image.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-    Image.BackgroundTransparency = 1.000
-    Image.BorderSizePixel = 0
-    Image.Position = UDim2.new(0.5, 0, 0.5, 0)
-    Image.Size = UDim2.new(1.60000002, 0, 1.29999995, 0)
-    Image.ZIndex = 7
-    Image.Image = "rbxassetid://5587865193"
-    Image.ImageColor3 = Color3.fromRGB(0, 0, 0)
-    Image.ImageTransparency = 0.300
-
-    Image_2.Name = "Image"
-    Image_2.Parent = Shadow
-    Image_2.AnchorPoint = Vector2.new(0.5, 0.5)
-    Image_2.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-    Image_2.BackgroundTransparency = 1.000
-    Image_2.BorderSizePixel = 0
-    Image_2.Position = UDim2.new(0.5, 0, 0.5, -5)
-    Image_2.Size = UDim2.new(1.20000005, 0, 1.10000002, 0)
-    Image_2.ZIndex = 7
-    Image_2.Image = "rbxassetid://5587865193"
-    Image_2.ImageColor3 = Color3.fromRGB(0, 0, 0)
-
     MainFrame.Name = "MainFrame"
-    MainFrame.Parent = MainUi
+    MainFrame.Parent = Wonia
     MainFrame.AnchorPoint = Vector2.new(0.5, 0.5)
     MainFrame.BackgroundColor3 = Color3.fromRGB(32, 32, 32)
     MainFrame.Position = UDim2.new(0.5, 0, 0.5, 0)
