@@ -369,12 +369,12 @@ function Library:Window(WindowConfig)
 
     local uitoggled = false
 
-    local LastPosition = MainUi.Position
+    local LastPosition = MainFrame.Position
 
     MinimizeBtn.MouseButton1Click:Connect(function()
         uitoggled = not uitoggled
         if uitoggled then
-            LastPosition = MainUi.Position
+            LastPosition = MainFrame.Position
             task.wait(0.2)
             MinimizedUI.Visible = true
             MinimizeBtn:TweenSize(UDim2.new(0, 264, 0, 40), 0.2)
