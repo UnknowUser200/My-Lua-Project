@@ -611,8 +611,8 @@ function Library:Window(WindowConfig)
         IsTabOpened.Name = "bd"
 
         local function ReColorOtherBtns()
-            for _, Button in next, List:GetDescendants() do
-                if Button.Name == "bd" and Button.Parent.Name ~= TabBtn.Name then
+            for _, TabBtn in next, List:GetDescendants() do
+                if TabBtn.Name == "bd" and TabBtn.Parent.Name ~= TabBtn.Name then
                     TweenService:Create(TabBtn, TweenInfo.new(.1, Enum.EasingStyle.Quad, Enum.EasingDirection.Out),
                         { BackgroundTransparency = 1 }):Play()
                     TweenService:Create(Indecator,
@@ -639,30 +639,6 @@ function Library:Window(WindowConfig)
             TweenService:Create(Text, TweenInfo.new(.3, Enum.EasingStyle.Quad, Enum.EasingDirection.Out),{ TextColor3 = Color3.fromRGB(255, 255, 255) }):Play()
             ReColorOtherBtns()
         end)
-
-        TabBtn.MouseEnter:Connect(function()
-			if not IsTabOpened.Value then
-                TweenService:Create(TabBtn, TweenInfo.new(.1, Enum.EasingStyle.Quad, Enum.EasingDirection.Out),{ BackgroundTransparency = 0.5 }):Play()
-                TweenService:Create(Indecator,TweenInfo.new(.2, Enum.EasingStyle.Quad, Enum.EasingDirection.Out),{ BackgroundTransparency = 0.7 }):Play()
-                TweenService:Create(Text, TweenInfo.new(.3, Enum.EasingStyle.Quad, Enum.EasingDirection.Out),{ TextColor3 = Color3.fromRGB(255, 255, 255) }):Play()
-			else
-				TweenService:Create(TabBtn, TweenInfo.new(.1, Enum.EasingStyle.Quad, Enum.EasingDirection.Out),{ BackgroundTransparency = 0.5 }):Play()
-                TweenService:Create(Indecator,TweenInfo.new(.2, Enum.EasingStyle.Quad, Enum.EasingDirection.Out),{ BackgroundTransparency = 0.7 }):Play()
-                TweenService:Create(Text, TweenInfo.new(.3, Enum.EasingStyle.Quad, Enum.EasingDirection.Out),{ TextColor3 = Color3.fromRGB(255, 255, 255) }):Play()
-			end
-		end)
-
-		TabBtn.MouseLeave:Connect(function()
-			if not IsTabOpened.Value then
-				TweenService:Create(TabBtn, TweenInfo.new(.1, Enum.EasingStyle.Quad, Enum.EasingDirection.Out),{ BackgroundTransparency = 0 }):Play()
-                TweenService:Create(Indecator,TweenInfo.new(.2, Enum.EasingStyle.Quad, Enum.EasingDirection.Out),{ BackgroundTransparency = 0 }):Play()
-                TweenService:Create(Text, TweenInfo.new(.3, Enum.EasingStyle.Quad, Enum.EasingDirection.Out),{ TextColor3 = Color3.fromRGB(150, 150, 150) }):Play()
-			else
-				TweenService:Create(TabBtn, TweenInfo.new(.1, Enum.EasingStyle.Quad, Enum.EasingDirection.Out),{ BackgroundTransparency = 0.5 }):Play()
-                TweenService:Create(Indecator,TweenInfo.new(.2, Enum.EasingStyle.Quad, Enum.EasingDirection.Out),{ BackgroundTransparency = 0.7 }):Play()
-                TweenService:Create(Text, TweenInfo.new(.3, Enum.EasingStyle.Quad, Enum.EasingDirection.Out),{ TextColor3 = Color3.fromRGB(255, 255, 255) }):Play()
-			end
-		end)
 
         local ContainerDrop = {}
         function ContainerDrop:Section(SectionConfig)
