@@ -147,7 +147,7 @@ function Library:Window(WindowConfig)
     Shadow.BackgroundTransparency = 1.000
     Shadow.BorderSizePixel = 0
     Shadow.Position = UDim2.new(0.5, 0, 0.5, 0)
-    Shadow.Size = UDim2.new(1, 0, 1, 25)
+    Shadow.Size = UDim2.new(0, 650, 0, 400)
 
     Image.Name = "Image"
     Image.Parent = Shadow
@@ -412,8 +412,32 @@ function Library:Window(WindowConfig)
     end)
 
     CloseBtn.MouseLeave:Connect(function()
-        TweenService:Create(Ico_2, TweenInfo.new(0.3, Enum.EasingStyle.Quint),{ ImageColor3 = Color3.fromRGB(250, 250, 250) }):Play()
+        TweenService:Create(Ico_2, TweenInfo.new(0.3, Enum.EasingStyle.Quint),
+            { ImageColor3 = Color3.fromRGB(250, 250, 250) }):Play()
     end)
+
+    local UIPageLayout = Instance.new("UIPageLayout")
+    local Pages = Instance.new("Frame")
+
+    Pages.Name = "Pages"
+    Pages.Parent = MainFrame
+    Pages.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+    Pages.BackgroundTransparency = 1.000
+    Pages.BorderSizePixel = 0
+    Pages.Position = UDim2.new(0.307838351, -4, 0, 10)
+    Pages.Size = UDim2.new(0.661538363, 0, 1, -42)
+    Pages.ClipsDescendants = true
+
+    UIPageLayout.Parent = Pages
+    UIPageLayout.FillDirection = Enum.FillDirection.Vertical
+    UIPageLayout.HorizontalAlignment = Enum.HorizontalAlignment.Center
+    UIPageLayout.SortOrder = Enum.SortOrder.LayoutOrder
+    UIPageLayout.EasingDirection = Enum.EasingDirection.Out
+    UIPageLayout.EasingStyle = Enum.EasingStyle.Quint
+    UIPageLayout.Padding = UDim.new(0, 25)
+    UIPageLayout.TweenTime = 0
+    UIPageLayout.ScrollWheelInputEnabled = false
+    UIPageLayout.Animated = false
 
     local uitoggled = false
 
@@ -467,7 +491,7 @@ function Library:Window(WindowConfig)
         local Icon = Instance.new("ImageLabel")
         local Text = Instance.new("TextLabel")
 
-        TabBtn.Name = "TabBtn"
+        TabBtn.Name = TabConfig.Text
         TabBtn.Parent = Holder
         TabBtn.BackgroundColor3 = Color3.fromRGB(44, 45, 44)
         TabBtn.BorderSizePixel = 0
@@ -527,8 +551,8 @@ function Library:Window(WindowConfig)
         local UIListLayout = Instance.new("UIListLayout")
         local UIPadding = Instance.new("UIPadding")
 
-        Container.Name = "Container"
-        Container.Parent = ContainerFolder
+        Container.Name = TabConfig.Text
+        Container.Parent = Pages
         Container.Active = true
         Container.BackgroundColor3 = Color3.fromRGB(22, 22, 22)
         Container.BackgroundTransparency = 1.000
@@ -552,39 +576,100 @@ function Library:Window(WindowConfig)
         UIPadding.PaddingBottom = UDim.new(0, 7)
         UIPadding.PaddingTop = UDim.new(0, 7)
 
+        local Frame = Instance.new("Frame")
+
+        Frame.Parent = Pages
+        Frame.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+        Frame.BackgroundTransparency = 1
+        Frame.BorderSizePixel = 0
+        Frame.Size = UDim2.new(1, 0, 1, 0)
+        Frame.Name = TabConfig.Text
+
         Container.Visible = false
 
-        TabBtn.MouseButton1Click:Connect(
-            function()
-                for i, v in next, ContainerFolder:GetChildren() do
-                    if v.Name == "Container" then
-                        TweenService:Create(v, TweenInfo.new(.1, Enum.EasingStyle.Quad, Enum.EasingDirection.Out),
-                            { BackgroundTransparency = 0 }):Play()
-                        v.Visible = false
-                    end
-                    Container.Visible = true
-                end
-                for i, v in next, Holder:GetChildren() do
-                    if v.Name == "TabBtn" then
-                        TweenService:Create(v, TweenInfo.new(.1, Enum.EasingStyle.Quad, Enum.EasingDirection.Out),
-                            { BackgroundTransparency = 1 }):Play()
-                        TweenService:Create(v, TweenInfo.new(.1, Enum.EasingStyle.Quad, Enum.EasingDirection.Out),
-                            { BackgroundTransparency = 0 }):Play()
+        local IsTabOpened = Instance.new("BoolValue")
 
-                        TweenService:Create(v.Indecator,
-                            TweenInfo.new(.2, Enum.EasingStyle.Quad, Enum.EasingDirection.Out),
-                            { BackgroundTransparency = 1 }):Play()
-                        TweenService:Create(v.Indecator,
-                            TweenInfo.new(.2, Enum.EasingStyle.Quad, Enum.EasingDirection.Out),
-                            { BackgroundTransparency = 0 }):Play()
-                        TweenService:Create(v.Text, TweenInfo.new(.3, Enum.EasingStyle.Quad, Enum.EasingDirection.Out),
-                            { TextColor3 = Color3.fromRGB(150, 150, 150) }):Play()
-                        TweenService:Create(v.Text, TweenInfo.new(.3, Enum.EasingStyle.Quad, Enum.EasingDirection.Out),
-                            { TextColor3 = Color3.fromRGB(255, 255, 255) }):Play()
-                    end
+        IsTabOpened.Parent = TabBtn
+        for index, page in next, Pages:GetChildren() do
+            if page.Name ~= "UIPageLayout" and (page.Name == Container.Name and index == 2) then
+                IsTabOpened.Value = true
+                TweenService:Create(TabBtn, TweenInfo.new(.1, Enum.EasingStyle.Quad, Enum.EasingDirection.Out),
+                    { BackgroundTransparency = 0 }):Play()
+
+                TweenService:Create(Indecator,
+                    TweenInfo.new(.2, Enum.EasingStyle.Quad, Enum.EasingDirection.Out),
+                    { BackgroundTransparency = 1 }):Play()
+                TweenService:Create(Indecator,
+                    TweenInfo.new(.2, Enum.EasingStyle.Quad, Enum.EasingDirection.Out),
+                    { BackgroundTransparency = 1 }):Play()
+                TweenService:Create(Text, TweenInfo.new(.3, Enum.EasingStyle.Quad, Enum.EasingDirection.Out),
+                    { TextColor3 = Color3.fromRGB(150, 150, 150) }):Play()
+            elseif page.Name ~= "UIPageLayout" and (page.Name == Container.Name and index ~= 2) then
+                IsTabOpened.Value = false
+            end
+        end
+        IsTabOpened.Name = "bd"
+
+        local function ReColorOtherBtns()
+            for _, Button in next, List:GetDescendants() do
+                if Button.Name == "bd" and Button.Parent.Name ~= TabBtn.Name then
+                    TweenService:Create(TabBtn, TweenInfo.new(.1, Enum.EasingStyle.Quad, Enum.EasingDirection.Out),
+                        { BackgroundTransparency = 0 }):Play()
+
+                    TweenService:Create(Indecator,
+                        TweenInfo.new(.2, Enum.EasingStyle.Quad, Enum.EasingDirection.Out),
+                        { BackgroundTransparency = 1 }):Play()
+                    TweenService:Create(Indecator,
+                        TweenInfo.new(.2, Enum.EasingStyle.Quad, Enum.EasingDirection.Out),
+                        { BackgroundTransparency = 1 }):Play()
+                    TweenService:Create(Text, TweenInfo.new(.3, Enum.EasingStyle.Quad, Enum.EasingDirection.Out),
+                        { TextColor3 = Color3.fromRGB(150, 150, 150) }):Play()
+                    TweenService:Create(Button.Parent, TweenInfo.new(0.1),
+                        { BackgroundTransparency = 1, BackgroundColor3 = Color3.fromRGB(255, 255, 255) }):Play()
+                    Button.Value = false
                 end
             end
-        )
+            for _, Page in next, Pages:GetChildren() do
+                if Page.Name ~= "UIPageLayout" and Page.Name ~= TabBtn then
+                    TweenService:Create(Page.FadeFrame, TweenInfo.new(0.1), { BackgroundTransparency = 0 }):Play()
+                end
+            end
+
+        end
+
+        TabBtn.MouseButton1Click:Connect(function()
+            IsTabOpened.Value = true
+            UIPageLayout:JumpTo(Frame)
+            TweenService:Create(TabBtn, TweenInfo.new(.1, Enum.EasingStyle.Quad, Enum.EasingDirection.Out),{ BackgroundTransparency = 0 }):Play()
+            TweenService:Create(Indecator,TweenInfo.new(.2, Enum.EasingStyle.Quad, Enum.EasingDirection.Out),{ BackgroundTransparency = 0 }):Play()
+            TweenService:Create(Text, TweenInfo.new(.3, Enum.EasingStyle.Quad, Enum.EasingDirection.Out),{ TextColor3 = Color3.fromRGB(255, 255, 255) }):Play()
+            ReColorOtherBtns()
+        end)
+
+        TabBtn.MouseEnter:Connect(function()
+			if not IsTabOpened.Value then
+                TweenService:Create(TabBtn, TweenInfo.new(.1, Enum.EasingStyle.Quad, Enum.EasingDirection.Out),{ BackgroundTransparency = 0.5 }):Play()
+                TweenService:Create(Indecator,TweenInfo.new(.2, Enum.EasingStyle.Quad, Enum.EasingDirection.Out),{ BackgroundTransparency = 0.7 }):Play()
+                TweenService:Create(Text, TweenInfo.new(.3, Enum.EasingStyle.Quad, Enum.EasingDirection.Out),{ TextColor3 = Color3.fromRGB(255, 255, 255) }):Play()
+			else
+				TweenService:Create(TabBtn, TweenInfo.new(.1, Enum.EasingStyle.Quad, Enum.EasingDirection.Out),{ BackgroundTransparency = 0.5 }):Play()
+                TweenService:Create(Indecator,TweenInfo.new(.2, Enum.EasingStyle.Quad, Enum.EasingDirection.Out),{ BackgroundTransparency = 0.7 }):Play()
+                TweenService:Create(Text, TweenInfo.new(.3, Enum.EasingStyle.Quad, Enum.EasingDirection.Out),{ TextColor3 = Color3.fromRGB(255, 255, 255) }):Play()
+			end
+		end)
+
+		TabBtn.MouseLeave:Connect(function()
+			if not IsTabOpened.Value then
+				TweenService:Create(TabBtn, TweenInfo.new(.1, Enum.EasingStyle.Quad, Enum.EasingDirection.Out),{ BackgroundTransparency = 0 }):Play()
+                TweenService:Create(Indecator,TweenInfo.new(.2, Enum.EasingStyle.Quad, Enum.EasingDirection.Out),{ BackgroundTransparency = 0 }):Play()
+                TweenService:Create(Text, TweenInfo.new(.3, Enum.EasingStyle.Quad, Enum.EasingDirection.Out),{ TextColor3 = Color3.fromRGB(150, 150, 150) }):Play()
+			else
+				TweenService:Create(TabBtn, TweenInfo.new(.1, Enum.EasingStyle.Quad, Enum.EasingDirection.Out),{ BackgroundTransparency = 0.5 }):Play()
+                TweenService:Create(Indecator,TweenInfo.new(.2, Enum.EasingStyle.Quad, Enum.EasingDirection.Out),{ BackgroundTransparency = 0.7 }):Play()
+                TweenService:Create(Text, TweenInfo.new(.3, Enum.EasingStyle.Quad, Enum.EasingDirection.Out),{ TextColor3 = Color3.fromRGB(255, 255, 255) }):Play()
+			end
+		end)
+
         local ContainerDrop = {}
         function ContainerDrop:Section(SectionConfig)
             SectionConfig.Title = SectionConfig.Title or "Title Section"
@@ -1226,7 +1311,8 @@ function Library:Window(WindowConfig)
                                 Holder.Size = Dropdown.Toggled and UDim2.new(1, 0, 0,
                                     6 + Holder.Layout.AbsoluteContentSize.Y) or UDim2.new(1, 0, 0, 0)
                                 DropMain.Size = Dropdown.Toggled and
-                                    UDim2.new(1, 0, 0, 38 + Holder.Layout.AbsoluteContentSize.Y) or UDim2.new(1, 0, 0, 32)
+                                    UDim2.new(1, 0, 0, 38 + Holder.Layout.AbsoluteContentSize.Y) or
+                                    UDim2.new(1, 0, 0, 32)
                             end
                         end
                     end
