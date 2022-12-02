@@ -543,9 +543,10 @@ function Library:Window(WindowConfig)
         Text.TextXAlignment = Enum.TextXAlignment.Left
         TabBtn.TextTransparency = 1
 
-        task.wait(1.1)
-        TweenService:Create(Text, TweenInfo.new(0.2, Enum.EasingStyle.Quint), { TextTransparency = 0 }):Play()
-        TweenService:Create(Icon, TweenInfo.new(0.2, Enum.EasingStyle.Quint), { ImageTransparency = 0 }):Play()
+        task.wait(0.1)
+        TweenService:Create(Indecator,TweenInfo.new(.2, Enum.EasingStyle.Quad, Enum.EasingDirection.Out),{ BackgroundTransparency = 1 }):Play()
+        TweenService:Create(Indecator,TweenInfo.new(.2, Enum.EasingStyle.Quad, Enum.EasingDirection.Out),{ BackgroundTransparency = 1 }):Play()
+        TweenService:Create(Text, TweenInfo.new(.3, Enum.EasingStyle.Quad, Enum.EasingDirection.Out),{ TextColor3 = Color3.fromRGB(150, 150, 150) }):Play()
 
         local Container = Instance.new("ScrollingFrame")
         local UIListLayout = Instance.new("UIListLayout")
@@ -611,21 +612,27 @@ function Library:Window(WindowConfig)
         IsTabOpened.Name = "bd"
 
         local function ReColorOtherBtns()
-            for _, TabBtn in next, List:GetDescendants() do
-                if TabBtn.Name == "bd" and TabBtn.Parent.Name ~= TabBtn.Name then
+            for _, Button in next, Holder:GetDescendants() do
+                if Button.Name == "bd" and Button.Parent.Name ~= TabBtn.Name then
                     TweenService:Create(TabBtn, TweenInfo.new(.1, Enum.EasingStyle.Quad, Enum.EasingDirection.Out),
+                        { BackgroundTransparency = 0 }):Play()
+
+                    TweenService:Create(Indecator,
+                        TweenInfo.new(.2, Enum.EasingStyle.Quad, Enum.EasingDirection.Out),
                         { BackgroundTransparency = 1 }):Play()
                     TweenService:Create(Indecator,
                         TweenInfo.new(.2, Enum.EasingStyle.Quad, Enum.EasingDirection.Out),
                         { BackgroundTransparency = 1 }):Play()
                     TweenService:Create(Text, TweenInfo.new(.3, Enum.EasingStyle.Quad, Enum.EasingDirection.Out),
                         { TextColor3 = Color3.fromRGB(150, 150, 150) }):Play()
+                    TweenService:Create(Button.Parent, TweenInfo.new(0.1),
+                        { BackgroundTransparency = 1, BackgroundColor3 = Color3.fromRGB(255, 255, 255) }):Play()
                     Button.Value = false
                 end
             end
             for _, Page in next, Pages:GetChildren() do
                 if Page.Name ~= "UIPageLayout" and Page.Name ~= TabBtn then
-                    TweenService:Create(Page.FadeFrame, TweenInfo.new(0.1), { BackgroundTransparency = 0 }):Play()
+                    TweenService:Create(Page, TweenInfo.new(0.1), { BackgroundTransparency = 0 }):Play()
                 end
             end
 
@@ -634,10 +641,31 @@ function Library:Window(WindowConfig)
         TabBtn.MouseButton1Click:Connect(function()
             IsTabOpened.Value = true
             UIPageLayout:JumpTo(Frame)
-            TweenService:Create(TabBtn, TweenInfo.new(.1, Enum.EasingStyle.Quad, Enum.EasingDirection.Out),{ BackgroundTransparency = 0 }):Play()
-            TweenService:Create(Indecator,TweenInfo.new(.2, Enum.EasingStyle.Quad, Enum.EasingDirection.Out),{ BackgroundTransparency = 0 }):Play()
-            TweenService:Create(Text, TweenInfo.new(.3, Enum.EasingStyle.Quad, Enum.EasingDirection.Out),{ TextColor3 = Color3.fromRGB(255, 255, 255) }):Play()
+            TweenService:Create(TabBtn, TweenInfo.new(.1, Enum.EasingStyle.Quad, Enum.EasingDirection.Out),
+                { BackgroundTransparency = 0 }):Play()
+            TweenService:Create(Indecator, TweenInfo.new(.2, Enum.EasingStyle.Quad, Enum.EasingDirection.Out),
+                { BackgroundTransparency = 0 }):Play()
+            TweenService:Create(Text, TweenInfo.new(.3, Enum.EasingStyle.Quad, Enum.EasingDirection.Out),
+                { TextColor3 = Color3.fromRGB(255, 255, 255) }):Play()
             ReColorOtherBtns()
+        end)
+
+        TabBtn.MouseEnter:Connect(function()
+            if IsTabOpened.Value == false then
+                TweenService:Create(Indecator, TweenInfo.new(.2, Enum.EasingStyle.Quad, Enum.EasingDirection.Out),
+                    { BackgroundTransparency = 1 }):Play()
+                TweenService:Create(Text, TweenInfo.new(.3, Enum.EasingStyle.Quad, Enum.EasingDirection.Out),
+                    { TextColor3 = Color3.fromRGB(240, 240, 240) }):Play()
+            end
+        end)
+
+        TabBtn.MouseLeave:Connect(function()
+            if IsTabOpened.Value == false then
+                TweenService:Create(Indecator, TweenInfo.new(.2, Enum.EasingStyle.Quad, Enum.EasingDirection.Out),
+                    { BackgroundTransparency = 0 }):Play()
+                TweenService:Create(Text, TweenInfo.new(.3, Enum.EasingStyle.Quad, Enum.EasingDirection.Out),
+                    { TextColor3 = Color3.fromRGB(150, 150, 150) }):Play()
+            end
         end)
 
         local ContainerDrop = {}
