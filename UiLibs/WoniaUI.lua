@@ -774,7 +774,7 @@ function Library:Window(WindowConfig)
                 local UICorner = Instance.new("UICorner")
 
                 Paragraph.Name = "Paragraph"
-                Paragraph.Parent = game.StarterGui.Elements
+                Paragraph.Parent = HolderDrop
                 Paragraph.BackgroundColor3 = Color3.fromRGB(36, 35, 36)
                 Paragraph.BorderSizePixel = 0
                 Paragraph.Position = UDim2.new(-0.00364963501, 0, 0.33144477, 0)
