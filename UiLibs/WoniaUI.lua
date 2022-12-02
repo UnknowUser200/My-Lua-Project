@@ -401,7 +401,7 @@ function Library:Window(WindowConfig)
 
     MainFrame.Parent = Wonia
     TopFrameTitle.Text = WindowConfig.Title
-    MakeDraggable(MainFrame.TopBar, MainUi)
+    MakeDraggable(TopBar, MainFrame)
 
     CloseBtn.MouseEnter:Connect(function()
         TweenService:Create(Ico_2, TweenInfo.new(0.3, Enum.EasingStyle.Quint),
