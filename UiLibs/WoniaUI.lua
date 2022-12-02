@@ -651,18 +651,18 @@ function Library:Window(WindowConfig)
         end)
 
         TabBtn.MouseEnter:Connect(function()
-            if IsTabOpened.Value == false then
+            if not IsTabOpened.Value then
                 TweenService:Create(Indecator, TweenInfo.new(.2, Enum.EasingStyle.Quad, Enum.EasingDirection.Out),
-                    { BackgroundTransparency = 1 }):Play()
+                    { BackgroundTransparency = 0 }):Play()
                 TweenService:Create(Text, TweenInfo.new(.3, Enum.EasingStyle.Quad, Enum.EasingDirection.Out),
                     { TextColor3 = Color3.fromRGB(240, 240, 240) }):Play()
             end
         end)
 
         TabBtn.MouseLeave:Connect(function()
-            if IsTabOpened.Value == false then
+            if not IsTabOpened.Value then
                 TweenService:Create(Indecator, TweenInfo.new(.2, Enum.EasingStyle.Quad, Enum.EasingDirection.Out),
-                    { BackgroundTransparency = 0 }):Play()
+                    { BackgroundTransparency = 1 }):Play()
                 TweenService:Create(Text, TweenInfo.new(.3, Enum.EasingStyle.Quad, Enum.EasingDirection.Out),
                     { TextColor3 = Color3.fromRGB(150, 150, 150) }):Play()
             end
