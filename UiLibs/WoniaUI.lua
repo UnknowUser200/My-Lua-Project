@@ -329,7 +329,7 @@ function Library:Window(WindowConfig)
     local UICornerMM = Instance.new("UICorner")
 
     MinimizedUI.Name = "MinimizedUI"
-    MinimizedUI.Parent = WoniaUi
+    MinimizedUI.Parent = Wonia
     MinimizedUI.BackgroundColor3 = Color3.fromRGB(32, 32, 32)
     MinimizedUI.Position = UDim2.new(0, 110, 0, 5)
     MinimizedUI.Size = UDim2.new(0, 246, 0, 40)
