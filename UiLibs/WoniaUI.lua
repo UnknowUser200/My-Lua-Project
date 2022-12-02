@@ -180,7 +180,7 @@ function Library:Window(WindowConfig)
     MainFrame.BackgroundColor3 = Color3.fromRGB(32, 32, 32)
     MainFrame.ClipsDescendants = true
     MainFrame.Position = UDim2.new(0.5, 0, 0.5, 0)
-    MainFrame.Size = UDim2.new(1, 0, 1, 0)
+    MainFrame.Size = UDim2.new(0, 650, 0, 400)
 
     UICorner.CornerRadius = UDim.new(0, 6)
     UICorner.Parent = MainFrame
