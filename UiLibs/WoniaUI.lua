@@ -585,7 +585,6 @@ function Library:Window(WindowConfig)
         Frame.BorderSizePixel = 0
         Frame.Size = UDim2.new(0, 220, 0, 42)
         Frame.Name = TabConfig.Text
-        Container.Position = UDim2.new(0, 220, 0, 42)
 
         Container.Visible = false
 
@@ -596,7 +595,7 @@ function Library:Window(WindowConfig)
             if page.Name ~= "UIPageLayout" and (page.Name == Container.Name and index == 2) then
                 IsTabOpened.Value = true
                 TweenService:Create(TabBtn, TweenInfo.new(.1, Enum.EasingStyle.Quad, Enum.EasingDirection.Out),
-                    { BackgroundTransparency = 0 }):Play()
+                    { BackgroundTransparency = 1 }):Play()
 
                 TweenService:Create(Indecator,
                     TweenInfo.new(.2, Enum.EasingStyle.Quad, Enum.EasingDirection.Out),
