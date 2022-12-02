@@ -425,7 +425,7 @@ function Library:Window(WindowConfig)
     Pages.BackgroundTransparency = 1.000
     Pages.BorderSizePixel = 0
     Pages.Position = UDim2.new(0.307838351, -4, 0, 10)
-    Pages.Size = UDim2.new(0.661538363, 0, 1, -42)
+    Pages.Size = UDim2.new(0, 220, 0, 42)
     Pages.ClipsDescendants = true
 
     UIPageLayout.Parent = Pages
@@ -617,22 +617,20 @@ function Library:Window(WindowConfig)
                     TweenService:Create(TabBtn, TweenInfo.new(.1, Enum.EasingStyle.Quad, Enum.EasingDirection.Out),
                         { BackgroundTransparency = 0 }):Play()
 
-                    TweenService:Create(Indecator,
+                    TweenService:Create(Button,
                         TweenInfo.new(.2, Enum.EasingStyle.Quad, Enum.EasingDirection.Out),
                         { BackgroundTransparency = 1 }):Play()
-                    TweenService:Create(Indecator,
+                    TweenService:Create(Button.Indecator,
                         TweenInfo.new(.2, Enum.EasingStyle.Quad, Enum.EasingDirection.Out),
                         { BackgroundTransparency = 1 }):Play()
-                    TweenService:Create(Text, TweenInfo.new(.3, Enum.EasingStyle.Quad, Enum.EasingDirection.Out),
+                    TweenService:Create(Button.Text, TweenInfo.new(.3, Enum.EasingStyle.Quad, Enum.EasingDirection.Out),
                         { TextColor3 = Color3.fromRGB(150, 150, 150) }):Play()
-                    TweenService:Create(Button.Parent, TweenInfo.new(0.1),
-                        { BackgroundTransparency = 1, BackgroundColor3 = Color3.fromRGB(255, 255, 255) }):Play()
                     Button.Value = false
                 end
             end
             for _, Page in next, Pages:GetChildren() do
                 if Page.Name ~= "UIPageLayout" and Page.Name ~= TabBtn then
-                    TweenService:Create(Page, TweenInfo.new(0.1), { BackgroundTransparency = 0 }):Play()
+                    TweenService:Create(Page.Container, TweenInfo.new(0.1), { BackgroundTransparency = 0 }):Play()
                 end
             end
 
