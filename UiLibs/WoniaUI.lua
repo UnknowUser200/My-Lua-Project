@@ -113,10 +113,6 @@ function Library:Window(WindowConfig)
 
     fs = false
 
-    local MainUi = Instance.new("Frame")
-    local Shadow = Instance.new("Frame")
-    local Image = Instance.new("ImageLabel")
-    local Image_2 = Instance.new("ImageLabel")
     local MainFrame = Instance.new("Frame")
     local UICorner = Instance.new("UICorner")
     local TopBar = Instance.new("ImageLabel")
