@@ -1072,7 +1072,7 @@ function lib:Window(text, preset, closebind)
                     Item.Size = UDim2.new(0, 335, 0, 25)
                     Item.AutoButtonColor = false
                     Item.Font = Enum.Font.Gotham
-                    Item.Text = v
+                    Item.Text = option
                     Item.TextColor3 = Color3.fromRGB(255, 255, 255)
                     Item.TextSize = 15.000
 
@@ -1213,7 +1213,7 @@ function lib:Window(text, preset, closebind)
                     Item.Size = UDim2.new(0, 335, 0, 25)
                     Item.AutoButtonColor = false
                     Item.Font = Enum.Font.Gotham
-                    Item.Text = v
+                    Item.Text = option
                     Item.TextColor3 = Color3.fromRGB(255, 255, 255)
                     Item.TextSize = 15.000
 
@@ -2557,7 +2557,7 @@ function lib:Window(text, preset, closebind)
                         Item.Size = UDim2.new(0, 335, 0, 25)
                         Item.AutoButtonColor = false
                         Item.Font = Enum.Font.Gotham
-                        Item.Text = v
+                        Item.Text = option
                         Item.TextColor3 = Color3.fromRGB(255, 255, 255)
                         Item.TextSize = 15.000
     
@@ -2698,7 +2698,7 @@ function lib:Window(text, preset, closebind)
                         Item.Size = UDim2.new(0, 335, 0, 25)
                         Item.AutoButtonColor = false
                         Item.Font = Enum.Font.Gotham
-                        Item.Text = v
+                        Item.Text = option
                         Item.TextColor3 = Color3.fromRGB(255, 255, 255)
                         Item.TextSize = 15.000
     
