@@ -2378,11 +2378,7 @@ function lib:Window(text, preset, closebind)
                 local function move(Input)
                     local pos =
                     UDim2.new(
-                    math.clamp((Input.Position.X - SlideFrame.AbsolutePosition.X) / SlideFrame.AbsoluteSize.X, 0, 1),
-                    -6,
-                    -1.30499995,
-                    0
-                    )
+                    math.clamp((Input.Position.X - SlideFrame.AbsolutePosition.X) / SlideFrame.AbsoluteSize.X, 0, 1),, 0, 1, 0)
                     local XSize = math.clamp((Input.Position.X - SlideCircle.AbsolutePosition.X) /
                         SlideCircle.AbsoluteSize.X, 0, 1)
                     local Increment = inc and (max / ((max - min) / (inc * 4))) or
@@ -2392,10 +2388,10 @@ function lib:Window(text, preset, closebind)
                         ), 0
                         , 1, 0)
                     TweenService:Create(CurrentValueFrame,
-                        TweenInfo.new(0.15, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), { Size = SizeRounded }):
+                        TweenInfo.new(0.12, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), { Size = SizeRounded }):
                         Play()
                     local Val = math.round((((SizeRounded.X.Scale * max) / max) * (max - min) + min) * 20) / 20
-                    SlideCircle:TweenPosition(pos, "Out", "Sine", 0.1, true)
+                    SlideCircle:TweenPosition(pos, "Out", "Sine", 0.12, true)
                     SliderValue.Text = tostring(Val)
                     Slider.Value = Val
                     callback(Slider.Value)
