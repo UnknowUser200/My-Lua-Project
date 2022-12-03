@@ -1106,7 +1106,7 @@ function lib:Window(text, preset, closebind)
                 AddOptions(opts)
             end
 
-            DropdownBtn.Btn.MouseButton1Click:Connect(function()
+            DropdownBtn.MouseButton1Click:Connect(function()
                 ToggleDrop()
             end)
 
@@ -1253,7 +1253,7 @@ function lib:Window(text, preset, closebind)
                 AddOptions(opts)
             end
 
-            DropdownBtn.Btn.MouseButton1Click:Connect(function()
+            DropdownBtn.MouseButton1Click:Connect(function()
                 ToggleDrop()
             end)
 
@@ -2591,7 +2591,7 @@ function lib:Window(text, preset, closebind)
                     AddOptions(opts)
                 end
     
-                DropdownBtn.Btn.MouseButton1Click:Connect(function()
+                DropdownBtn.MouseButton1Click:Connect(function()
                     ToggleDrop()
                 end)
     
@@ -2738,7 +2738,7 @@ function lib:Window(text, preset, closebind)
                     AddOptions(opts)
                 end
     
-                DropdownBtn.Btn.MouseButton1Click:Connect(function()
+                DropdownBtn.MouseButton1Click:Connect(function()
                     ToggleDrop()
                 end)
     
