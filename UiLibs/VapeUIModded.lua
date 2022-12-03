@@ -981,8 +981,7 @@ function lib:Window(text, preset, closebind)
         end
 
         function tabcontent:Dropdown(text, list, def, callback)
-            local Dropdown, DropMain, OptionPreset =
-            { Value = nil, Toggled = false, Options = list },
+            local DropMain, OptionPreset =
                 game:GetObjects("rbxassetid://7027964359")[1],
                 game:GetObjects("rbxassetid://7021432326")[1]
             DropMain.Parent = Tab
@@ -990,6 +989,8 @@ function lib:Window(text, preset, closebind)
             DropMain.Name = "Dropdown"
             Dropdown.BackgroundTransparency = 0
             Dropdown.BackgroundColor3 = 34, 34, 34
+            
+            local Dropdown = { Value = nil, Toggled = false, Options = list }
 
             local function ToggleDrop()
                 Dropdown.Toggled = not Dropdown.Toggled
@@ -1082,8 +1083,7 @@ function lib:Window(text, preset, closebind)
         end
 
         function tabcontent:MultiDropdown(text, list, def, callback)
-            local Dropdown, DropMain, OptionPreset =
-            { Value = {}, Toggled = false, Options = list },
+            local DropMain, OptionPreset =
                 game:GetObjects("rbxassetid://7027964359")[1],
                 game:GetObjects("rbxassetid://7021432326")[1]
             DropMain.Parent = Tab
@@ -1091,6 +1091,8 @@ function lib:Window(text, preset, closebind)
             DropMain.Name = text .. "element"
             Dropdown.BackgroundTransparency = 0
             Dropdown.BackgroundColor3 = 34, 34, 34
+            
+            local Dropdown = { Value = nil, Toggled = false, Options = list }
 
             local function ToggleDrop()
                 Dropdown.Toggled = not Dropdown.Toggled
@@ -2379,8 +2381,7 @@ function lib:Window(text, preset, closebind)
             end
 
             function SectionContent:Dropdown(text, list, def, callback)
-                local Dropdown, DropMain, OptionPreset =
-                { Value = nil, Toggled = false, Options = list },
+                local DropMain, OptionPreset =
                     game:GetObjects("rbxassetid://7027964359")[1],
                     game:GetObjects("rbxassetid://7021432326")[1]
                 DropMain.Parent = Section
@@ -2388,6 +2389,8 @@ function lib:Window(text, preset, closebind)
                 DropMain.Name = "Dropdown"
                 Dropdown.BackgroundTransparency = 0
                 Dropdown.BackgroundColor3 = 34, 34, 34
+                
+                local Dropdown = { Value = nil, Toggled = false, Options = list }
     
                 local function ToggleDrop()
                     Dropdown.Toggled = not Dropdown.Toggled
@@ -2474,8 +2477,7 @@ function lib:Window(text, preset, closebind)
             end
     
             function SectionContent:MultiDropdown(text, list, def, flag, callback)
-                local Dropdown, DropMain, OptionPreset =
-                { Value = {}, Toggled = false, Options = list },
+                local DropMain, OptionPreset =
                     game:GetObjects("rbxassetid://7027964359")[1],
                     game:GetObjects("rbxassetid://7021432326")[1]
                 DropMain.Parent = Section
@@ -2483,6 +2485,8 @@ function lib:Window(text, preset, closebind)
                 DropMain.Name = text .. "element"
                 Dropdown.BackgroundTransparency = 0
                 Dropdown.BackgroundColor3 = 34, 34, 34
+                
+                local Dropdown = { Value = nil, Toggled = false, Options = list }
     
                 local function ToggleDrop()
                     Dropdown.Toggled = not Dropdown.Toggled
