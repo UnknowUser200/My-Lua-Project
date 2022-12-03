@@ -392,7 +392,7 @@ function Library:Window(WindowConfig)
             TweenService:Create(Ico4, TweenInfo.new(0.3), { ImageTransparency = 1 }):Play()
             task.wait(0.3)
             ButtonHoldernn.Visible = false
-            MinimizeBtn:TweenSize(UDim2.new(0, 0, 0, 40), 0.2)
+            MinimizedUI:TweenSize(UDim2.new(0, 0, 0, 40), 0.2)
             task.wait(0.2)
             MinimizedUI.Visible = false
             uitoggled = true
@@ -405,7 +405,7 @@ function Library:Window(WindowConfig)
             LastPosition = MainFrame.Position
             task.wait(0.2)
             MinimizedUI.Visible = true
-            MinimizeBtn:TweenSize(UDim2.new(0, 264, 0, 40), 0.2)
+            MinimizedUI:TweenSize(UDim2.new(0, 264, 0, 40), 0.2)
 
             MainFrame:TweenPosition(UDim2.new(0.5, 0, -1.5, 0), "In", "Quint", 0.5, true)
             TweenService:Create(HideFrame, TweenInfo.new(0.15), { BackgroundTransparency = 0 }):Play()
@@ -414,15 +414,13 @@ function Library:Window(WindowConfig)
             TweenService:Create(Ico4, TweenInfo.new(0.3), { ImageTransparency = 0 }):Play()
             task.wait(0.3)
             ButtonHoldernn.Visible = false
-            MinimizeBtn:TweenSize(UDim2.new(0, 264, 0, 40), 0.2)
+            MinimizedUI:TweenSize(UDim2.new(0, 264, 0, 40), 0.2)
             task.wait(0.2)
             uitoggled = false
         end
     end)
 
     CloseBtnNN.MouseButton1Click:Connect(function()
-        ButtonHoldernn.Visible = false
-        MinimizeBtn:TweenSize(UDim2.new(0, 0, 0, 40), 0.2)
         task.wait(0.2)
         MinimizedUI.Destroy()
         MainFrame.Destroy()
@@ -438,8 +436,10 @@ function Library:Window(WindowConfig)
         TweenService:Create(Ico4, TweenInfo.new(0.3), { ImageTransparency = 1 }):Play()
         task.wait(0.3)
         ButtonHoldernn.Visible = false
-        MinimizeBtn:TweenSize(UDim2.new(0, 0, 0, 40), 0.2)
+        MinimizedUI:TweenSize(UDim2.new(0, 0, 0, 40), 0.2)
         task.wait(0.2)
+        TweenService:Create(HideFrame, TweenInfo.new(0.15), { BackgroundTransparency = 1 }):Play()
+        task.wait(0.13)
         MainFrame.Destroy()
         MinimizedUI.Destroy()
     end)
@@ -534,7 +534,7 @@ function Library:Window(WindowConfig)
         Container.CanvasSize = UDim2.new(0, 0, 0, 0)
         Container.ScrollBarThickness = 4
         Container.TopImage = "rbxasset://textures/ui/Scroll/scroll-middle.png"
-        Container.Visible = false
+        Container.Visible = true
 
         UIListLayout.Parent = Container
         UIListLayout.HorizontalAlignment = Enum.HorizontalAlignment.Center
@@ -677,7 +677,7 @@ function Library:Window(WindowConfig)
             UIPadding.PaddingBottom = UDim.new(0, 5)
             UIPadding.PaddingLeft = UDim.new(0, 7)
             UIPadding.PaddingRight = UDim.new(0, 7)
-            UIPadding.PaddingTop = UDim.new(0, 5)
+            UIPadding.PaddingTop = UDim.new(0, 8)
 
             UIListLayout_2.Parent = Section
             UIListLayout_2.SortOrder = Enum.SortOrder.LayoutOrder
@@ -685,13 +685,13 @@ function Library:Window(WindowConfig)
             Btn.MouseButton1Click:Connect(function()
                 if uitoggled == false then
                     TweenService:Create(chevron_right,
-                        TweenInfo.new(0.15, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), { Rotation = 120 }):Play()
+                        TweenInfo.new(0.15, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), { Rotation = 0 }):Play()
                     HolderDrop.Visible = false
                     Section.Size = UDim2.new(0, 421, 0, 40)
                     uitoggled = true
                 else
                     TweenService:Create(chevron_right,
-                        TweenInfo.new(0.15, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), { Rotation = 0 }):Play()
+                        TweenInfo.new(0.15, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), { Rotation = 100 }):Play()
                     HolderDrop.Visible = true
                     uitoggled = false
                 end
