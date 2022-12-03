@@ -2391,7 +2391,11 @@ function lib:Window(text, preset, closebind)
                         TweenInfo.new(0.12, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), { Size = SizeRounded }):
                         Play()
                     local Val = math.round((((SizeRounded.X.Scale * max) / max) * (max - min) + min) * 20) / 20
-                    SlideCircle:TweenPosition(pos, "Out", "Sine", 0.12, true)
+                    spawn(function()
+                    	while wait() do
+                    		SlideCircle:TweenPosition(pos, "Out", "Sine", 0.1, true)
+                    	end
+                    end)
                     SliderValue.Text = tostring(Val)
                     Slider.Value = Val
                     callback(Slider.Value)
