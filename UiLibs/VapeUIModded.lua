@@ -981,124 +981,77 @@ function lib:Window(text, preset, closebind)
         end
 
         function tabcontent:Dropdown(text, list, def, callback)
-            local Dropdown = Instance.new("Frame")
-            local DropdownCorner = Instance.new("UICorner")
-            local DropdownBtn = Instance.new("TextButton")
-            local DropdownTitle = Instance.new("TextLabel")
-            local ArrowImg = Instance.new("ImageLabel")
-            local DropItemHolder = Instance.new("ScrollingFrame")
-            local DropLayout = Instance.new("UIListLayout")
-
-            Dropdown.Name = "Dropdown"
-            Dropdown.Parent = Tab
-            Dropdown.BackgroundColor3 = Color3.fromRGB(34, 34, 34)
-            Dropdown.ClipsDescendants = true
-            Dropdown.Position = UDim2.new(-0.541071415, 0, -0.532915354, 0)
-            Dropdown.Size = UDim2.new(0, 363, 0, 42)
-
-            DropdownCorner.CornerRadius = UDim.new(0, 5)
-            DropdownCorner.Name = "DropdownCorner"
-            DropdownCorner.Parent = Dropdown
-
-            DropdownBtn.Name = "DropdownBtn"
-            DropdownBtn.Parent = Dropdown
-            DropdownBtn.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-            DropdownBtn.BackgroundTransparency = 1.000
-            DropdownBtn.Size = UDim2.new(0, 363, 0, 42)
-            DropdownBtn.Font = Enum.Font.SourceSans
-            DropdownBtn.Text = ""
-            DropdownBtn.TextColor3 = Color3.fromRGB(0, 0, 0)
-            DropdownBtn.TextSize = 14.000
-
-            DropdownTitle.Name = "DropdownTitle"
-            DropdownTitle.Parent = Dropdown
-            DropdownTitle.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-            DropdownTitle.BackgroundTransparency = 1.000
-            DropdownTitle.Position = UDim2.new(0.0358126722, 0, 0, 0)
-            DropdownTitle.Size = UDim2.new(0, 187, 0, 42)
-            DropdownTitle.Font = Enum.Font.Gotham
-            DropdownTitle.Text = text
-            DropdownTitle.TextColor3 = Color3.fromRGB(255, 255, 255)
-            DropdownTitle.TextSize = 14.000
-            DropdownTitle.TextXAlignment = Enum.TextXAlignment.Left
-
-            ArrowImg.Name = "ArrowImg"
-            ArrowImg.Parent = DropdownTitle
-            ArrowImg.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-            ArrowImg.BackgroundTransparency = 1.000
-            ArrowImg.Position = UDim2.new(1.65240645, 0, 0.190476194, 0)
-            ArrowImg.Size = UDim2.new(0, 26, 0, 26)
-            ArrowImg.Image = "http://www.roblox.com/asset/?id=6034818375"
-
-            DropItemHolder.Name = "DropItemHolder"
-            DropItemHolder.Parent = DropdownTitle
-            DropItemHolder.Active = true
-            DropItemHolder.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-            DropItemHolder.BackgroundTransparency = 1.000
-            DropItemHolder.BorderSizePixel = 0
-            DropItemHolder.Position = UDim2.new(-0.00400000019, 0, 1.04999995, 0)
-            DropItemHolder.Size = UDim2.new(0, 342, 0, 0)
-            DropItemHolder.CanvasSize = UDim2.new(0, 0, 0, 0)
-            DropItemHolder.ScrollBarThickness = 3
-
-            DropLayout.Name = "DropLayout"
-            DropLayout.Parent = DropItemHolder
-            DropLayout.SortOrder = Enum.SortOrder.LayoutOrder
-
-            local Dropdown = { Value = nil, Toggled = false, Options = list }
-
+            local Dropdown, DropMain, OptionPreset =
+            { Value = nil, Toggled = false, Options = list },
+                game:GetObjects("rbxassetid://7027964359")[1],
+                game:GetObjects("rbxassetid://7021432326")[1]
+            DropMain.Parent = Tab
+            DropMain.Btn.Title.Text = text
+            DropMain.Name = "Dropdown"
+            Dropdown.BackgroundTransparency = 0
+            Dropdown.BackgroundColor3 = 34, 34, 34
 
             local function ToggleDrop()
                 Dropdown.Toggled = not Dropdown.Toggled
-                DropItemHolder.Size = Dropdown.Toggled and
-                    UDim2.new(0, 363, 0, 6 + DropdownItemHolder.Layout.AbsoluteContentSize.Y) or UDim2.new(0, 363, 0, 0)
-                TweenService:Create(Dropdown, TweenInfo.new(0.15, Enum.EasingStyle.Quad, Enum.EasingDirection.Out),
-                    { Size = Dropdown.Toggled and UDim2.new(0, 363, 0, 38 + DropMain.Holder.Layout.AbsoluteContentSize.Y)
-                        or UDim2.new(0, 363, 0, 32) }):Play()
-                TweenService:Create(Arrow, TweenInfo.new(0.15, Enum.EasingStyle.Quad, Enum.EasingDirection.Out),
-                    { Rotation = Dropdown.Toggled and 270 or 180 }):Play()
-                DropItemHolder.Visible = Dropdown.Toggled
+                DropMain.Holder.Size =
+                Dropdown.Toggled and UDim2.new(0, 363, 0, 6 + DropMain.Holder.Layout.AbsoluteContentSize.Y) or
+                    UDim2.new(0, 363, 0, 0)
+                TweenService:Create(
+                    DropMain,
+                    TweenInfo.new(0.15, Enum.EasingStyle.Quad, Enum.EasingDirection.Out),
+                    {
+                        Size = Dropdown.Toggled and
+                            UDim2.new(0, 363, 0, 38 + DropMain.Holder.Layout.AbsoluteContentSize.Y) or
+                            UDim2.new(0, 363, 0, 32)
+                    }
+                ):Play()
+                TweenService:Create(
+                    DropMain.Btn.Ico,
+                    TweenInfo.new(0.15, Enum.EasingStyle.Quad, Enum.EasingDirection.Out),
+                    { Rotation = Dropdown.Toggled and 180 or 0 }
+                ):Play()
+                DropMain.Holder.Visible = Dropdown.Toggled
             end
 
             local function AddOptions(opts)
                 for _, option in pairs(opts) do
-                    local Item = Instance.new("TextButton")
-                    local ItemCorner = Instance.new("UICorner")
+                    local Option = OptionPreset:Clone()
+                    Option.Parent = DropMain.Holder
+                    Option.ItemText.Text = option
+                    Option.ClipsDescendants = true
 
-                    Item.Name = "Item"
-                    Item.Parent = DropItemHolder
-                    Item.BackgroundColor3 = Color3.fromRGB(34, 34, 34)
-                    Item.ClipsDescendants = true
-                    Item.Size = UDim2.new(0, 335, 0, 25)
-                    Item.AutoButtonColor = false
-                    Item.Font = Enum.Font.Gotham
-                    Item.Text = option
-                    Item.TextColor3 = Color3.fromRGB(255, 255, 255)
-                    Item.TextSize = 15.000
+                    Option.MouseButton1Click:Connect(
+                        function()
+                            Dropdown.Value = option
+                            DropMain.Btn.Title.Text = text .. " - " .. option
+                            Ripple(Option)
+                            return callback(Dropdown.Value)
+                        end
+                    )
 
-                    ItemCorner.CornerRadius = UDim.new(0, 4)
-                    ItemCorner.Name = "ItemCorner"
-                    ItemCorner.Parent = Item
-
-                    Item.MouseButton1Click:Connect(function()
-                        Dropdown.Value = option
-                        DropdownTitle.Text = text .. " - " .. option
-                        Ripple(Option)
-                        return callback(Dropdown.Value)
-                    end)
+                    spawn(
+                        function()
+                            while wait() do
+                                Option.BackgroundColor3 = Color3.fromRGB(34, 34, 34)
+                                DropMain.Btn.Title.TextColor3 = Color3.fromRGB(155, 155, 155)
+                            end
+                        end
+                    )
                 end
             end
 
             function Dropdown:Refresh(opts, del)
                 if del then
-                    for _, v in pairs(DropItemHolder:GetChildren()) do
+                    for _, v in pairs(DropMain.Holder:GetChildren()) do
                         if v:IsA "TextButton" then
                             v:Destroy()
-                            DropItemHolder.Size = Dropdown.Toggled and
-                                UDim2.new(0, 363, 0, 6 + DropItemHolder.Layout.AbsoluteContentSize.Y) or
+                            DropMain.Holder.Size =
+                            Dropdown.Toggled and
+                                UDim2.new(0, 363, 0, 6 + DropMain.Holder.Layout.AbsoluteContentSize.Y) or
                                 UDim2.new(0, 363, 0, 0)
-                            DropMain.Size = Dropdown.Toggled and
-                                UDim2.new(0, 363, 0, 38 + DropItemHolder.Layout.AbsoluteContentSize.Y) or
+                            DropMain.Size =
+                            Dropdown.Toggled and
+                                UDim2.new(0, 363, 0, 38 + DropMain.Holder.Layout.AbsoluteContentSize.Y) or
                                 UDim2.new(0, 363, 0, 32)
                         end
                     end
@@ -1106,146 +1059,107 @@ function lib:Window(text, preset, closebind)
                 AddOptions(opts)
             end
 
-            DropdownBtn.MouseButton1Click:Connect(function()
-                ToggleDrop()
-            end)
+            DropMain.Btn.MouseButton1Click:Connect(
+                function()
+                    ToggleDrop()
+                end
+            )
 
             function Dropdown:Set(val)
                 Dropdown.Value = val
-                DropdownTitle.Text = text .. " - " .. val
+                DropMain.Btn.Title.Text = text .. " - " .. val
                 return callback(Dropdown.Value)
             end
 
+            spawn(
+                function()
+                    while wait() do
+                        DropMain.Btn.BackgroundColor3 = Color3.fromRGB(34, 34, 34)
+                        DropMain.Btn.Ico.ImageColor3 = Color3.fromRGB(255, 255, 255)
+                    end
+                end
+            )
+
             Dropdown:Refresh(list, false)
             Dropdown:Set(def)
+
             return Dropdown
         end
 
-        function tabcontent:MultiDropdown(text, list, def, callback)
-            local Dropdown = Instance.new("Frame")
-            local DropdownCorner = Instance.new("UICorner")
-            local DropdownBtn = Instance.new("TextButton")
-            local DropdownTitle = Instance.new("TextLabel")
-            local ArrowImg = Instance.new("ImageLabel")
-            local DropItemHolder = Instance.new("ScrollingFrame")
-            local DropLayout = Instance.new("UIListLayout")
-
-            Dropdown.Name = "Dropdown"
-            Dropdown.Parent = Tab
-            Dropdown.BackgroundColor3 = Color3.fromRGB(34, 34, 34)
-            Dropdown.ClipsDescendants = true
-            Dropdown.Position = UDim2.new(-0.541071415, 0, -0.532915354, 0)
-            Dropdown.Size = UDim2.new(0, 363, 0, 42)
-
-            DropdownCorner.CornerRadius = UDim.new(0, 5)
-            DropdownCorner.Name = "DropdownCorner"
-            DropdownCorner.Parent = Dropdown
-
-            DropdownBtn.Name = "DropdownBtn"
-            DropdownBtn.Parent = Dropdown
-            DropdownBtn.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-            DropdownBtn.BackgroundTransparency = 1.000
-            DropdownBtn.Size = UDim2.new(0, 363, 0, 42)
-            DropdownBtn.Font = Enum.Font.SourceSans
-            DropdownBtn.Text = ""
-            DropdownBtn.TextColor3 = Color3.fromRGB(0, 0, 0)
-            DropdownBtn.TextSize = 14.000
-
-            DropdownTitle.Name = "DropdownTitle"
-            DropdownTitle.Parent = Dropdown
-            DropdownTitle.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-            DropdownTitle.BackgroundTransparency = 1.000
-            DropdownTitle.Position = UDim2.new(0.0358126722, 0, 0, 0)
-            DropdownTitle.Size = UDim2.new(0, 187, 0, 42)
-            DropdownTitle.Font = Enum.Font.Gotham
-            DropdownTitle.Text = text
-            DropdownTitle.TextColor3 = Color3.fromRGB(255, 255, 255)
-            DropdownTitle.TextSize = 14.000
-            DropdownTitle.TextXAlignment = Enum.TextXAlignment.Left
-
-            ArrowImg.Name = "ArrowImg"
-            ArrowImg.Parent = DropdownTitle
-            ArrowImg.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-            ArrowImg.BackgroundTransparency = 1.000
-            ArrowImg.Position = UDim2.new(1.65240645, 0, 0.190476194, 0)
-            ArrowImg.Size = UDim2.new(0, 26, 0, 26)
-            ArrowImg.Image = "http://www.roblox.com/asset/?id=6034818375"
-
-            DropItemHolder.Name = "DropItemHolder"
-            DropItemHolder.Parent = DropdownTitle
-            DropItemHolder.Active = true
-            DropItemHolder.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-            DropItemHolder.BackgroundTransparency = 1.000
-            DropItemHolder.BorderSizePixel = 0
-            DropItemHolder.Position = UDim2.new(-0.00400000019, 0, 1.04999995, 0)
-            DropItemHolder.Size = UDim2.new(0, 342, 0, 0)
-            DropItemHolder.CanvasSize = UDim2.new(0, 0, 0, 0)
-            DropItemHolder.ScrollBarThickness = 3
-
-            DropLayout.Name = "DropLayout"
-            DropLayout.Parent = DropItemHolder
-            DropLayout.SortOrder = Enum.SortOrder.LayoutOrder
-
-            local Dropdown = { Value = nil, Toggled = false, Options = list }
-
+        function tabcontent:MultiDropdown(text, list, def, flag, callback)
+            local Dropdown, DropMain, OptionPreset =
+            { Value = {}, Toggled = false, Options = list },
+                game:GetObjects("rbxassetid://7027964359")[1],
+                game:GetObjects("rbxassetid://7021432326")[1]
+            DropMain.Parent = Tab
+            DropMain.Btn.Title.Text = text
+            DropMain.Name = text .. "element"
+            Dropdown.BackgroundTransparency = 0
+            Dropdown.BackgroundColor3 = 34, 34, 34
 
             local function ToggleDrop()
                 Dropdown.Toggled = not Dropdown.Toggled
-                DropItemHolder.Size = Dropdown.Toggled and
-                    UDim2.new(0, 363, 0, 6 + DropdownItemHolder.Layout.AbsoluteContentSize.Y) or UDim2.new(0, 363, 0, 0)
-                TweenService:Create(Dropdown, TweenInfo.new(0.15, Enum.EasingStyle.Quad, Enum.EasingDirection.Out),
-                    { Size = Dropdown.Toggled and UDim2.new(0, 363, 0, 38 + DropMain.Holder.Layout.AbsoluteContentSize.Y)
-                        or UDim2.new(0, 363, 0, 32) }):Play()
-                TweenService:Create(Arrow, TweenInfo.new(0.15, Enum.EasingStyle.Quad, Enum.EasingDirection.Out),
-                    { Rotation = Dropdown.Toggled and 270 or 180 }):Play()
-                DropItemHolder.Visible = Dropdown.Toggled
+                DropMain.Holder.Size =
+                Dropdown.Toggled and UDim2.new(0, 363, 0, 6 + DropMain.Holder.Layout.AbsoluteContentSize.Y) or
+                    UDim2.new(0, 363, 0, 0)
+                TweenService:Create(
+                    DropMain,
+                    TweenInfo.new(0.15, Enum.EasingStyle.Quad, Enum.EasingDirection.Out),
+                    {
+                        Size = Dropdown.Toggled and
+                            UDim2.new(0, 363, 0, 38 + DropMain.Holder.Layout.AbsoluteContentSize.Y) or
+                            UDim2.new(0, 363, 0, 32)
+                    }
+                ):Play()
+                TweenService:Create(
+                    DropMain.Btn.Ico,
+                    TweenInfo.new(0.15, Enum.EasingStyle.Quad, Enum.EasingDirection.Out),
+                    { Rotation = Dropdown.Toggled and 180 or 0 }
+                ):Play()
+                DropMain.Holder.Visible = Dropdown.Toggled
             end
 
             local function AddOptions(opts)
                 for _, option in pairs(opts) do
-                    local Item = Instance.new("TextButton")
-                    local ItemCorner = Instance.new("UICorner")
+                    local Option = OptionPreset:Clone()
+                    Option.Parent = DropMain.Holder
+                    Option.ItemText.Text = option
+                    Option.ClipsDescendants = true
 
-                    Item.Name = "Item"
-                    Item.Parent = DropItemHolder
-                    Item.BackgroundColor3 = Color3.fromRGB(34, 34, 34)
-                    Item.ClipsDescendants = true
-                    Item.Size = UDim2.new(0, 335, 0, 25)
-                    Item.AutoButtonColor = false
-                    Item.Font = Enum.Font.Gotham
-                    Item.Text = option
-                    Item.TextColor3 = Color3.fromRGB(255, 255, 255)
-                    Item.TextSize = 15.000
-
-                    ItemCorner.CornerRadius = UDim.new(0, 4)
-                    ItemCorner.Name = "ItemCorner"
-                    ItemCorner.Parent = Item
-
-                    Item.MouseButton1Click:Connect(function()
-                        if table.find(Dropdown.Value, option) then
-                            table.remove(Dropdown.Value, table.find(Dropdown.Value, option))
-                            DropdownTitle.Text = text .. " - " .. table.concat(Dropdown.Value, ", ")
-                            callback(Dropdown.Value)
-                        else
-                            table.insert(Dropdown.Value, option)
-                            DropdownTitle.Text = text .. " - " .. table.concat(Dropdown.Value, ", ")
-                            callback(Dropdown.Value)
+                    Option.MouseButton1Click:Connect(
+                        function()
+                            if table.find(Dropdown.Value, option) then
+                                table.remove(Dropdown.Value, table.find(Dropdown.Value, option))
+                                DropMain.Btn.Title.Text = text .. " - " .. table.concat(Dropdown.Value, ", ")
+                                callback(Dropdown.Value)
+                            else
+                                table.insert(Dropdown.Value, option)
+                                DropMain.Btn.Title.Text = text .. " - " .. table.concat(Dropdown.Value, ", ")
+                                callback(Dropdown.Value)
+                            end
+                            Ripple(Option)
                         end
-                        Ripple(Option)
-                    end)
+                    )
+
+
+                    Option.BackgroundColor3 = Color3.fromRGB(34, 34, 34)
+                    DropMain.Btn.Title.TextColor3 = Color3.fromRGB(155, 155, 155)
+
                 end
             end
 
             function Dropdown:Refresh(opts, del)
                 if del then
-                    for _, v in pairs(DropItemHolder:GetChildren()) do
+                    for _, v in pairs(DropMain.Holder:GetChildren()) do
                         if v:IsA "TextButton" then
                             v:Destroy()
-                            DropItemHolder.Size = Dropdown.Toggled and
-                                UDim2.new(0, 363, 0, 6 + DropItemHolder.Layout.AbsoluteContentSize.Y) or
+                            DropMain.Holder.Size =
+                            Dropdown.Toggled and
+                                UDim2.new(0, 363, 0, 6 + DropMain.Holder.Layout.AbsoluteContentSize.Y) or
                                 UDim2.new(0, 363, 0, 0)
-                            DropMain.Size = Dropdown.Toggled and
-                                UDim2.new(0, 363, 0, 38 + DropItemHolder.Layout.AbsoluteContentSize.Y) or
+                            DropMain.Size =
+                            Dropdown.Toggled and
+                                UDim2.new(0, 363, 0, 38 + DropMain.Holder.Layout.AbsoluteContentSize.Y) or
                                 UDim2.new(0, 363, 0, 32)
                         end
                     end
@@ -1253,18 +1167,22 @@ function lib:Window(text, preset, closebind)
                 AddOptions(opts)
             end
 
-            DropdownBtn.MouseButton1Click:Connect(function()
-                ToggleDrop()
-            end)
+            DropMain.Btn.MouseButton1Click:Connect(
+                function()
+                    ToggleDrop()
+                end
+            )
 
             function Dropdown:Set(val)
                 Dropdown.Value = val
-                DropdownTitle.Text = text .. " - " .. table.concat(Dropdown.Value, ", ")
+                DropMain.Btn.Title.Text = text .. " - " .. table.concat(Dropdown.Value, ", ")
                 return callback(Dropdown.Value)
             end
 
+            DropMain.Btn.BackgroundColor3 = Color3.fromRGB(34, 34, 34)
+            DropMain.Btn.Ico.ImageColor3 = Color3.fromRGB(255, 255, 255)
+
             Dropdown:Refresh(list, false)
-            Dropdown:Set(def)
             return Dropdown
         end
 
@@ -2466,124 +2384,77 @@ function lib:Window(text, preset, closebind)
             end
 
             function SectionContent:Dropdown(text, list, def, callback)
-                local Dropdown = Instance.new("Frame")
-                local DropdownCorner = Instance.new("UICorner")
-                local DropdownBtn = Instance.new("TextButton")
-                local DropdownTitle = Instance.new("TextLabel")
-                local ArrowImg = Instance.new("ImageLabel")
-                local DropItemHolder = Instance.new("ScrollingFrame")
-                local DropLayout = Instance.new("UIListLayout")
-    
-                Dropdown.Name = "Dropdown"
-                Dropdown.Parent = Section
-                Dropdown.BackgroundColor3 = Color3.fromRGB(34, 34, 34)
-                Dropdown.ClipsDescendants = true
-                Dropdown.Position = UDim2.new(-0.541071415, 0, -0.532915354, 0)
-                Dropdown.Size = UDim2.new(0, 363, 0, 42)
-    
-                DropdownCorner.CornerRadius = UDim.new(0, 5)
-                DropdownCorner.Name = "DropdownCorner"
-                DropdownCorner.Parent = Dropdown
-    
-                DropdownBtn.Name = "DropdownBtn"
-                DropdownBtn.Parent = Dropdown
-                DropdownBtn.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-                DropdownBtn.BackgroundTransparency = 1.000
-                DropdownBtn.Size = UDim2.new(0, 363, 0, 42)
-                DropdownBtn.Font = Enum.Font.SourceSans
-                DropdownBtn.Text = ""
-                DropdownBtn.TextColor3 = Color3.fromRGB(0, 0, 0)
-                DropdownBtn.TextSize = 14.000
-    
-                DropdownTitle.Name = "DropdownTitle"
-                DropdownTitle.Parent = Dropdown
-                DropdownTitle.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-                DropdownTitle.BackgroundTransparency = 1.000
-                DropdownTitle.Position = UDim2.new(0.0358126722, 0, 0, 0)
-                DropdownTitle.Size = UDim2.new(0, 187, 0, 42)
-                DropdownTitle.Font = Enum.Font.Gotham
-                DropdownTitle.Text = text
-                DropdownTitle.TextColor3 = Color3.fromRGB(255, 255, 255)
-                DropdownTitle.TextSize = 14.000
-                DropdownTitle.TextXAlignment = Enum.TextXAlignment.Left
-    
-                ArrowImg.Name = "ArrowImg"
-                ArrowImg.Parent = DropdownTitle
-                ArrowImg.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-                ArrowImg.BackgroundTransparency = 1.000
-                ArrowImg.Position = UDim2.new(1.65240645, 0, 0.190476194, 0)
-                ArrowImg.Size = UDim2.new(0, 26, 0, 26)
-                ArrowImg.Image = "http://www.roblox.com/asset/?id=6034818375"
-    
-                DropItemHolder.Name = "DropItemHolder"
-                DropItemHolder.Parent = DropdownTitle
-                DropItemHolder.Active = true
-                DropItemHolder.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-                DropItemHolder.BackgroundTransparency = 1.000
-                DropItemHolder.BorderSizePixel = 0
-                DropItemHolder.Position = UDim2.new(-0.00400000019, 0, 1.04999995, 0)
-                DropItemHolder.Size = UDim2.new(0, 342, 0, 0)
-                DropItemHolder.CanvasSize = UDim2.new(0, 0, 0, 0)
-                DropItemHolder.ScrollBarThickness = 3
-    
-                DropLayout.Name = "DropLayout"
-                DropLayout.Parent = DropItemHolder
-                DropLayout.SortOrder = Enum.SortOrder.LayoutOrder
-    
-                local Dropdown = { Value = nil, Toggled = false, Options = list }
-    
+                local Dropdown, DropMain, OptionPreset =
+                { Value = nil, Toggled = false, Options = list },
+                    game:GetObjects("rbxassetid://7027964359")[1],
+                    game:GetObjects("rbxassetid://7021432326")[1]
+                DropMain.Parent = Section
+                DropMain.Btn.Title.Text = text
+                DropMain.Name = "Dropdown"
+                Dropdown.BackgroundTransparency = 0
+                Dropdown.BackgroundColor3 = 34, 34, 34
     
                 local function ToggleDrop()
                     Dropdown.Toggled = not Dropdown.Toggled
-                    DropItemHolder.Size = Dropdown.Toggled and
-                        UDim2.new(0, 363, 0, 6 + DropdownItemHolder.Layout.AbsoluteContentSize.Y) or UDim2.new(0, 363, 0, 0)
-                    TweenService:Create(Dropdown, TweenInfo.new(0.15, Enum.EasingStyle.Quad, Enum.EasingDirection.Out),
-                        { Size = Dropdown.Toggled and UDim2.new(0, 363, 0, 38 + DropMain.Holder.Layout.AbsoluteContentSize.Y)
-                            or UDim2.new(0, 363, 0, 32) }):Play()
-                    TweenService:Create(Arrow, TweenInfo.new(0.15, Enum.EasingStyle.Quad, Enum.EasingDirection.Out),
-                        { Rotation = Dropdown.Toggled and 270 or 180 }):Play()
-                    DropItemHolder.Visible = Dropdown.Toggled
+                    DropMain.Holder.Size =
+                    Dropdown.Toggled and UDim2.new(0, 363, 0, 6 + DropMain.Holder.Layout.AbsoluteContentSize.Y) or
+                        UDim2.new(0, 363, 0, 0)
+                    TweenService:Create(
+                        DropMain,
+                        TweenInfo.new(0.15, Enum.EasingStyle.Quad, Enum.EasingDirection.Out),
+                        {
+                            Size = Dropdown.Toggled and
+                                UDim2.new(0, 363, 0, 38 + DropMain.Holder.Layout.AbsoluteContentSize.Y) or
+                                UDim2.new(0, 363, 0, 32)
+                        }
+                    ):Play()
+                    TweenService:Create(
+                        DropMain.Btn.Ico,
+                        TweenInfo.new(0.15, Enum.EasingStyle.Quad, Enum.EasingDirection.Out),
+                        { Rotation = Dropdown.Toggled and 180 or 0 }
+                    ):Play()
+                    DropMain.Holder.Visible = Dropdown.Toggled
                 end
     
                 local function AddOptions(opts)
                     for _, option in pairs(opts) do
-                        local Item = Instance.new("TextButton")
-                        local ItemCorner = Instance.new("UICorner")
+                        local Option = OptionPreset:Clone()
+                        Option.Parent = DropMain.Holder
+                        Option.ItemText.Text = option
+                        Option.ClipsDescendants = true
     
-                        Item.Name = "Item"
-                        Item.Parent = DropItemHolder
-                        Item.BackgroundColor3 = Color3.fromRGB(34, 34, 34)
-                        Item.ClipsDescendants = true
-                        Item.Size = UDim2.new(0, 335, 0, 25)
-                        Item.AutoButtonColor = false
-                        Item.Font = Enum.Font.Gotham
-                        Item.Text = option
-                        Item.TextColor3 = Color3.fromRGB(255, 255, 255)
-                        Item.TextSize = 15.000
+                        Option.MouseButton1Click:Connect(
+                            function()
+                                Dropdown.Value = option
+                                DropMain.Btn.Title.Text = text .. " - " .. option
+                                Ripple(Option)
+                                return callback(Dropdown.Value)
+                            end
+                        )
     
-                        ItemCorner.CornerRadius = UDim.new(0, 4)
-                        ItemCorner.Name = "ItemCorner"
-                        ItemCorner.Parent = Item
-    
-                        Item.MouseButton1Click:Connect(function()
-                            Dropdown.Value = option
-                            DropdownTitle.Text = text .. " - " .. option
-                            Ripple(Option)
-                            return callback(Dropdown.Value)
-                        end)
+                        spawn(
+                            function()
+                                while wait() do
+                                    Option.BackgroundColor3 = Color3.fromRGB(34, 34, 34)
+                                    DropMain.Btn.Title.TextColor3 = Color3.fromRGB(155, 155, 155)
+                                end
+                            end
+                        )
                     end
                 end
     
                 function Dropdown:Refresh(opts, del)
                     if del then
-                        for _, v in pairs(DropItemHolder:GetChildren()) do
+                        for _, v in pairs(DropMain.Holder:GetChildren()) do
                             if v:IsA "TextButton" then
                                 v:Destroy()
-                                DropItemHolder.Size = Dropdown.Toggled and
-                                    UDim2.new(0, 363, 0, 6 + DropItemHolder.Layout.AbsoluteContentSize.Y) or
+                                DropMain.Holder.Size =
+                                Dropdown.Toggled and
+                                    UDim2.new(0, 363, 0, 6 + DropMain.Holder.Layout.AbsoluteContentSize.Y) or
                                     UDim2.new(0, 363, 0, 0)
-                                DropMain.Size = Dropdown.Toggled and
-                                    UDim2.new(0, 363, 0, 38 + DropItemHolder.Layout.AbsoluteContentSize.Y) or
+                                DropMain.Size =
+                                Dropdown.Toggled and
+                                    UDim2.new(0, 363, 0, 38 + DropMain.Holder.Layout.AbsoluteContentSize.Y) or
                                     UDim2.new(0, 363, 0, 32)
                             end
                         end
@@ -2591,146 +2462,107 @@ function lib:Window(text, preset, closebind)
                     AddOptions(opts)
                 end
     
-                DropdownBtn.MouseButton1Click:Connect(function()
-                    ToggleDrop()
-                end)
+                DropMain.Btn.MouseButton1Click:Connect(
+                    function()
+                        ToggleDrop()
+                    end
+                )
     
                 function Dropdown:Set(val)
                     Dropdown.Value = val
-                    DropdownTitle.Text = text .. " - " .. val
+                    DropMain.Btn.Title.Text = text .. " - " .. val
                     return callback(Dropdown.Value)
                 end
     
+                spawn(
+                    function()
+                        while wait() do
+                            DropMain.Btn.BackgroundColor3 = Color3.fromRGB(34, 34, 34)
+                            DropMain.Btn.Ico.ImageColor3 = Color3.fromRGB(255, 255, 255)
+                        end
+                    end
+                )
+    
                 Dropdown:Refresh(list, false)
                 Dropdown:Set(def)
+    
                 return Dropdown
             end
     
-            function SectionContent:MultiDropdown(text, list, def, callback)
-                local Dropdown = Instance.new("Frame")
-                local DropdownCorner = Instance.new("UICorner")
-                local DropdownBtn = Instance.new("TextButton")
-                local DropdownTitle = Instance.new("TextLabel")
-                local ArrowImg = Instance.new("ImageLabel")
-                local DropItemHolder = Instance.new("ScrollingFrame")
-                local DropLayout = Instance.new("UIListLayout")
-    
-                Dropdown.Name = "Dropdown"
-                Dropdown.Parent = Section
-                Dropdown.BackgroundColor3 = Color3.fromRGB(34, 34, 34)
-                Dropdown.ClipsDescendants = true
-                Dropdown.Position = UDim2.new(-0.541071415, 0, -0.532915354, 0)
-                Dropdown.Size = UDim2.new(0, 363, 0, 42)
-    
-                DropdownCorner.CornerRadius = UDim.new(0, 5)
-                DropdownCorner.Name = "DropdownCorner"
-                DropdownCorner.Parent = Dropdown
-    
-                DropdownBtn.Name = "DropdownBtn"
-                DropdownBtn.Parent = Dropdown
-                DropdownBtn.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-                DropdownBtn.BackgroundTransparency = 1.000
-                DropdownBtn.Size = UDim2.new(0, 363, 0, 42)
-                DropdownBtn.Font = Enum.Font.SourceSans
-                DropdownBtn.Text = ""
-                DropdownBtn.TextColor3 = Color3.fromRGB(0, 0, 0)
-                DropdownBtn.TextSize = 14.000
-    
-                DropdownTitle.Name = "DropdownTitle"
-                DropdownTitle.Parent = Dropdown
-                DropdownTitle.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-                DropdownTitle.BackgroundTransparency = 1.000
-                DropdownTitle.Position = UDim2.new(0.0358126722, 0, 0, 0)
-                DropdownTitle.Size = UDim2.new(0, 187, 0, 42)
-                DropdownTitle.Font = Enum.Font.Gotham
-                DropdownTitle.Text = text
-                DropdownTitle.TextColor3 = Color3.fromRGB(255, 255, 255)
-                DropdownTitle.TextSize = 14.000
-                DropdownTitle.TextXAlignment = Enum.TextXAlignment.Left
-    
-                ArrowImg.Name = "ArrowImg"
-                ArrowImg.Parent = DropdownTitle
-                ArrowImg.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-                ArrowImg.BackgroundTransparency = 1.000
-                ArrowImg.Position = UDim2.new(1.65240645, 0, 0.190476194, 0)
-                ArrowImg.Size = UDim2.new(0, 26, 0, 26)
-                ArrowImg.Image = "http://www.roblox.com/asset/?id=6034818375"
-    
-                DropItemHolder.Name = "DropItemHolder"
-                DropItemHolder.Parent = DropdownTitle
-                DropItemHolder.Active = true
-                DropItemHolder.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-                DropItemHolder.BackgroundTransparency = 1.000
-                DropItemHolder.BorderSizePixel = 0
-                DropItemHolder.Position = UDim2.new(-0.00400000019, 0, 1.04999995, 0)
-                DropItemHolder.Size = UDim2.new(0, 342, 0, 0)
-                DropItemHolder.CanvasSize = UDim2.new(0, 0, 0, 0)
-                DropItemHolder.ScrollBarThickness = 3
-    
-                DropLayout.Name = "DropLayout"
-                DropLayout.Parent = DropItemHolder
-                DropLayout.SortOrder = Enum.SortOrder.LayoutOrder
-    
-                local Dropdown = { Value = nil, Toggled = false, Options = list }
-    
+            function SectionContent:MultiDropdown(text, list, def, flag, callback)
+                local Dropdown, DropMain, OptionPreset =
+                { Value = {}, Toggled = false, Options = list },
+                    game:GetObjects("rbxassetid://7027964359")[1],
+                    game:GetObjects("rbxassetid://7021432326")[1]
+                DropMain.Parent = Section
+                DropMain.Btn.Title.Text = text
+                DropMain.Name = text .. "element"
+                Dropdown.BackgroundTransparency = 0
+                Dropdown.BackgroundColor3 = 34, 34, 34
     
                 local function ToggleDrop()
                     Dropdown.Toggled = not Dropdown.Toggled
-                    DropItemHolder.Size = Dropdown.Toggled and
-                        UDim2.new(0, 363, 0, 6 + DropdownItemHolder.Layout.AbsoluteContentSize.Y) or UDim2.new(0, 363, 0, 0)
-                    TweenService:Create(Dropdown, TweenInfo.new(0.15, Enum.EasingStyle.Quad, Enum.EasingDirection.Out),
-                        { Size = Dropdown.Toggled and UDim2.new(0, 363, 0, 38 + DropMain.Holder.Layout.AbsoluteContentSize.Y)
-                            or UDim2.new(0, 363, 0, 32) }):Play()
-                    TweenService:Create(Arrow, TweenInfo.new(0.15, Enum.EasingStyle.Quad, Enum.EasingDirection.Out),
-                        { Rotation = Dropdown.Toggled and 270 or 180 }):Play()
-                    DropItemHolder.Visible = Dropdown.Toggled
+                    DropMain.Holder.Size =
+                    Dropdown.Toggled and UDim2.new(0, 363, 0, 6 + DropMain.Holder.Layout.AbsoluteContentSize.Y) or
+                        UDim2.new(0, 363, 0, 0)
+                    TweenService:Create(
+                        DropMain,
+                        TweenInfo.new(0.15, Enum.EasingStyle.Quad, Enum.EasingDirection.Out),
+                        {
+                            Size = Dropdown.Toggled and
+                                UDim2.new(0, 363, 0, 38 + DropMain.Holder.Layout.AbsoluteContentSize.Y) or
+                                UDim2.new(0, 363, 0, 32)
+                        }
+                    ):Play()
+                    TweenService:Create(
+                        DropMain.Btn.Ico,
+                        TweenInfo.new(0.15, Enum.EasingStyle.Quad, Enum.EasingDirection.Out),
+                        { Rotation = Dropdown.Toggled and 180 or 0 }
+                    ):Play()
+                    DropMain.Holder.Visible = Dropdown.Toggled
                 end
     
                 local function AddOptions(opts)
                     for _, option in pairs(opts) do
-                        local Item = Instance.new("TextButton")
-                        local ItemCorner = Instance.new("UICorner")
+                        local Option = OptionPreset:Clone()
+                        Option.Parent = DropMain.Holder
+                        Option.ItemText.Text = option
+                        Option.ClipsDescendants = true
     
-                        Item.Name = "Item"
-                        Item.Parent = DropItemHolder
-                        Item.BackgroundColor3 = Color3.fromRGB(34, 34, 34)
-                        Item.ClipsDescendants = true
-                        Item.Size = UDim2.new(0, 335, 0, 25)
-                        Item.AutoButtonColor = false
-                        Item.Font = Enum.Font.Gotham
-                        Item.Text = option
-                        Item.TextColor3 = Color3.fromRGB(255, 255, 255)
-                        Item.TextSize = 15.000
-    
-                        ItemCorner.CornerRadius = UDim.new(0, 4)
-                        ItemCorner.Name = "ItemCorner"
-                        ItemCorner.Parent = Item
-    
-                        Item.MouseButton1Click:Connect(function()
-                            if table.find(Dropdown.Value, option) then
-                                table.remove(Dropdown.Value, table.find(Dropdown.Value, option))
-                                DropdownTitle.Text = text .. " - " .. table.concat(Dropdown.Value, ", ")
-                                callback(Dropdown.Value)
-                            else
-                                table.insert(Dropdown.Value, option)
-                                DropdownTitle.Text = text .. " - " .. table.concat(Dropdown.Value, ", ")
-                                callback(Dropdown.Value)
+                        Option.MouseButton1Click:Connect(
+                            function()
+                                if table.find(Dropdown.Value, option) then
+                                    table.remove(Dropdown.Value, table.find(Dropdown.Value, option))
+                                    DropMain.Btn.Title.Text = text .. " - " .. table.concat(Dropdown.Value, ", ")
+                                    callback(Dropdown.Value)
+                                else
+                                    table.insert(Dropdown.Value, option)
+                                    DropMain.Btn.Title.Text = text .. " - " .. table.concat(Dropdown.Value, ", ")
+                                    callback(Dropdown.Value)
+                                end
+                                Ripple(Option)
                             end
-                            Ripple(Option)
-                        end)
+                        )
+    
+    
+                        Option.BackgroundColor3 = Color3.fromRGB(34, 34, 34)
+                        DropMain.Btn.Title.TextColor3 = Color3.fromRGB(155, 155, 155)
+    
                     end
                 end
     
                 function Dropdown:Refresh(opts, del)
                     if del then
-                        for _, v in pairs(DropItemHolder:GetChildren()) do
+                        for _, v in pairs(DropMain.Holder:GetChildren()) do
                             if v:IsA "TextButton" then
                                 v:Destroy()
-                                DropItemHolder.Size = Dropdown.Toggled and
-                                    UDim2.new(0, 363, 0, 6 + DropItemHolder.Layout.AbsoluteContentSize.Y) or
+                                DropMain.Holder.Size =
+                                Dropdown.Toggled and
+                                    UDim2.new(0, 363, 0, 6 + DropMain.Holder.Layout.AbsoluteContentSize.Y) or
                                     UDim2.new(0, 363, 0, 0)
-                                DropMain.Size = Dropdown.Toggled and
-                                    UDim2.new(0, 363, 0, 38 + DropItemHolder.Layout.AbsoluteContentSize.Y) or
+                                DropMain.Size =
+                                Dropdown.Toggled and
+                                    UDim2.new(0, 363, 0, 38 + DropMain.Holder.Layout.AbsoluteContentSize.Y) or
                                     UDim2.new(0, 363, 0, 32)
                             end
                         end
@@ -2738,18 +2570,22 @@ function lib:Window(text, preset, closebind)
                     AddOptions(opts)
                 end
     
-                DropdownBtn.MouseButton1Click:Connect(function()
-                    ToggleDrop()
-                end)
+                DropMain.Btn.MouseButton1Click:Connect(
+                    function()
+                        ToggleDrop()
+                    end
+                )
     
                 function Dropdown:Set(val)
                     Dropdown.Value = val
-                    DropdownTitle.Text = text .. " - " .. table.concat(Dropdown.Value, ", ")
+                    DropMain.Btn.Title.Text = text .. " - " .. table.concat(Dropdown.Value, ", ")
                     return callback(Dropdown.Value)
                 end
     
+                DropMain.Btn.BackgroundColor3 = Color3.fromRGB(34, 34, 34)
+                DropMain.Btn.Ico.ImageColor3 = Color3.fromRGB(255, 255, 255)
+    
                 Dropdown:Refresh(list, false)
-                Dropdown:Set(def)
                 return Dropdown
             end
 
