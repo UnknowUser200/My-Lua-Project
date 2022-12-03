@@ -1804,7 +1804,7 @@ function lib:Window(text, preset, closebind)
             end)
 
 
-            TextBox.Text.FocusLost:Connect(function()
+            TextBox.FocusLost:Connect(function()
                 local txt = TextBox.Text
                 if disapper then
                     TextBox.Text = ""
@@ -3216,7 +3216,7 @@ function lib:Window(text, preset, closebind)
                 end)
 
 
-                TextBox.Text.FocusLost:Connect(function()
+                TextBox.FocusLost:Connect(function()
                     local txt = TextBox.Text
                     if disapper then
                         TextBox.Text = ""
