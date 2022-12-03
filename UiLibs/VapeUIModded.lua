@@ -29,15 +29,18 @@ coroutine.wrap(
     end
 )()
 
-local WhitelistedMouse = {Enum.UserInputType.MouseButton1, Enum.UserInputType.MouseButton2,Enum.UserInputType.MouseButton3}
-local BlacklistedKeys = {Enum.KeyCode.Unknown,Enum.KeyCode.W,Enum.KeyCode.A,Enum.KeyCode.S,Enum.KeyCode.D,Enum.KeyCode.Up,Enum.KeyCode.Left,Enum.KeyCode.Down,Enum.KeyCode.Right,Enum.KeyCode.Slash,Enum.KeyCode.Tab,Enum.KeyCode.Backspace,Enum.KeyCode.Escape}
+local WhitelistedMouse = { Enum.UserInputType.MouseButton1, Enum.UserInputType.MouseButton2,
+    Enum.UserInputType.MouseButton3 }
+local BlacklistedKeys = { Enum.KeyCode.Unknown, Enum.KeyCode.W, Enum.KeyCode.A, Enum.KeyCode.S, Enum.KeyCode.D,
+    Enum.KeyCode.Up, Enum.KeyCode.Left, Enum.KeyCode.Down, Enum.KeyCode.Right, Enum.KeyCode.Slash, Enum.KeyCode.Tab,
+    Enum.KeyCode.Backspace, Enum.KeyCode.Escape }
 
 local function CheckKey(tab, key)
-	for i, v in next, tab do
-		if v == key then
-			return true
-		end
-	end
+    for i, v in next, tab do
+        if v == key then
+            return true
+        end
+    end
 end
 
 local function MakeDraggable(topbarobject, object)
@@ -879,117 +882,51 @@ function lib:Window(text, preset, closebind)
             return Toggle
         end
 
-        function tabcontent:Slider(text, min, max, start, callback)
-            local Slider = Instance.new("TextButton")
-            local SliderCorner = Instance.new("UICorner")
-            local SliderTitle = Instance.new("TextLabel")
-            local SliderValue = Instance.new("TextLabel")
-            local SlideFrame = Instance.new("Frame")
-            local CurrentValueFrame = Instance.new("Frame")
-            local SlideCircle = Instance.new("ImageButton")
-
-            Slider.Name = "Slider"
-            Slider.Parent = Tab
-            Slider.BackgroundColor3 = Color3.fromRGB(34, 34, 34)
-            Slider.Position = UDim2.new(-0.48035714, 0, -0.570532918, 0)
-            Slider.Size = UDim2.new(0, 363, 0, 60)
-            Slider.AutoButtonColor = false
-            Slider.Font = Enum.Font.SourceSans
-            Slider.Text = ""
-            Slider.TextColor3 = Color3.fromRGB(0, 0, 0)
-            Slider.TextSize = 14.000
-
-            SliderCorner.CornerRadius = UDim.new(0, 5)
-            SliderCorner.Name = "SliderCorner"
-            SliderCorner.Parent = Slider
-
-            SliderTitle.Name = "SliderTitle"
-            SliderTitle.Parent = Slider
-            SliderTitle.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-            SliderTitle.BackgroundTransparency = 1.000
-            SliderTitle.Position = UDim2.new(0.0358126722, 0, 0, 0)
-            SliderTitle.Size = UDim2.new(0, 187, 0, 42)
-            SliderTitle.Font = Enum.Font.Gotham
-            SliderTitle.Text = text
-            SliderTitle.TextColor3 = Color3.fromRGB(255, 255, 255)
-            SliderTitle.TextSize = 14.000
-            SliderTitle.TextXAlignment = Enum.TextXAlignment.Left
-
-            SliderValue.Name = "SliderValue"
-            SliderValue.Parent = Slider
-            SliderValue.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-            SliderValue.BackgroundTransparency = 1.000
-            SliderValue.Position = UDim2.new(0.0358126722, 0, 0, 0)
-            SliderValue.Size = UDim2.new(0, 335, 0, 42)
-            SliderValue.Font = Enum.Font.Gotham
-            SliderValue.Text = tostring(start and math.floor((start / max) * (max - min) + min) or 0)
-            SliderValue.TextColor3 = Color3.fromRGB(255, 255, 255)
-            SliderValue.TextSize = 14.000
-            SliderValue.TextXAlignment = Enum.TextXAlignment.Right
-
-            SlideFrame.Name = "SlideFrame"
-            SlideFrame.Parent = Slider
-            SlideFrame.BackgroundColor3 = Color3.fromRGB(50, 50, 50)
-            SlideFrame.BorderSizePixel = 0
-            SlideFrame.Position = UDim2.new(0.0342647657, 0, 0.686091602, 0)
-            SlideFrame.Size = UDim2.new(0, 335, 0, 3)
-
-            CurrentValueFrame.Name = "CurrentValueFrame"
-            CurrentValueFrame.Parent = SlideFrame
-            CurrentValueFrame.BackgroundColor3 = PresetColor
-            CurrentValueFrame.BorderSizePixel = 0
-            CurrentValueFrame.Size = UDim2.new((start or 0) / max, 0, 0, 3)
-
-            coroutine.wrap(
-                function()
-                    while wait() do
-                        CurrentValueFrame.BackgroundColor3 = PresetColor
-                        SlideCircle.ImageColor3 = PresetColor
-                    end
-                end
-            )()
-
-            local Slider = {}
+        function tabcontent:Slider(text, min, max, start, inc, callback)
+            local Slider, SliderMain = { Value = start }, game:GetObjects("rbxassetid://6967573727")[1]
+            SliderMain.Parent = Tab
+            SliderMain.SliderText.Text = text
+            SliderMain.Name = "Slider"
             local dragging = false
 
-            local function move(Input)
-                    local XSize = math.clamp((Input.Position.X - CurrentValueFrame.AbsolutePosition.X) /
-                        CurrentValueFrame.AbsoluteSize.X, 0, 1)
-                    local Increment = inc and (max / ((max - min) / (inc * 4))) or
-                        (max >= 50 and max / ((max - min) / 4)) or
-                        (max >= 25 and max / ((max - min) / 2)) or (max / (max - min))
-                    local SizeRounded = UDim2.new((math.round(XSize * ((max / Increment) * 4)) / ((max / Increment) * 4)
-                        ), 0
-                        , 1, 0)
-                    TweenService:Create(CurrentValueFrame,
-                        TweenInfo.new(0.12, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), { Size = SizeRounded }):
-                        Play()
-                    local Val = math.round((((SizeRounded.X.Scale * max) / max) * (max - min) + min) * 20) / 20
-                    SliderValue.Text = tostring(Val)
-                    Slider.Value = Val
-                    callback(Slider.Value)
-                end
+            SliderMain.BackgroundColor3 = Color3.fromRGB(34, 34, 34)
+            SliderMain.SliderFrame.BackgroundColor3 = Color3.fromRGB(50, 50, 50)
+            SliderMain.SliderFrame.SliderCurrentFrame.BackgroundColor3 = PresetColor
+            SliderMain.SliderText.TextColor3 = Color3.fromRGB(255, 255, 255)
+            SliderMain.SliderVal.TextColor3 = Color3.fromRGB(255, 255, 255)
 
-                CurrentValueFrame.InputBegan:Connect(function(input) if input.UserInputType ==
-                        Enum.UserInputType.MouseButton1 then dragging = true end
-                end)
-                CurrentValueFrame.InputEnded:Connect(function(input) if input.UserInputType ==
-                        Enum.UserInputType.MouseButton1 then dragging = false end
-                end)
-                game:GetService("UserInputService").InputChanged:Connect(function(input) if dragging and
-                        input.UserInputType == Enum.UserInputType.MouseMovement then move(input) end
-                end)
+            local function move(Input)
+                local XSize = math.clamp((Input.Position.X - SliderMain.SliderFrame.AbsolutePosition.X) /
+                    SliderMain.SliderFrame.AbsoluteSize.X, 0, 1)
+                local Increment = inc and (max / ((max - min) / (inc * 4))) or (max >= 50 and max / ((max - min) / 4)) or
+                    (max >= 25 and max / ((max - min) / 2)) or (max / (max - min))
+                local SizeRounded = UDim2.new((math.round(XSize * ((max / Increment) * 4)) / ((max / Increment) * 4)), 0
+                    , 1, 0)
+                TweenService:Create(SliderMain.SliderFrame.SliderCurrentFrame,
+                    TweenInfo.new(0.15, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), { Size = SizeRounded }):Play()
+                local Val = math.round((((SizeRounded.X.Scale * max) / max) * (max - min) + min) * 20) / 20
+                SliderMain.SliderVal.Text = tostring(Val)
+                Slider.Value = Val
+                callback(Slider.Value)
+            end
+
+            SliderMain.SliderFrame.InputBegan:Connect(function(input) if input.UserInputType ==
+                Enum.UserInputType.MouseButton1 then dragging = true end end)
+            SliderMain.SliderFrame.InputEnded:Connect(function(input) if input.UserInputType ==
+                Enum.UserInputType.MouseButton1 then dragging = false end end)
+            game:GetService("UserInputService").InputChanged:Connect(function(input) if dragging and
+                    input.UserInputType == Enum.UserInputType.MouseMovement then move(input) end
+            end)
 
             function Slider:Set(val)
                 local a = tostring(val and (val / max) * (max - min) + min) or 0
-                SliderValue.Text = tostring(a)
-                CurrentValueFrame.Size = UDim2.new((val or 0) / max, 0, 1, 0)
+                SliderMain.SliderVal.Text = tostring(a)
+                SliderMain.SliderFrame.SliderCurrentFrame.Size = UDim2.new((val or 0) / max, 0, 1, 0)
                 Slider.Value = val
                 return callback(Slider.Value)
             end
 
-            Tab.CanvasSize = UDim2.new(0, 0, 0, TabLayout.AbsoluteContentSize.Y)
-
+            Slider:Set(start)
             return Slider
         end
 
@@ -1727,197 +1664,102 @@ function lib:Window(text, preset, closebind)
         end
 
         function tabcontent:Textbox(text, disapper, callback)
-            local Textbox = Instance.new("Frame")
-            local TextboxCorner = Instance.new("UICorner")
-            local TextboxTitle = Instance.new("TextLabel")
-            local TextboxFrame = Instance.new("Frame")
-            local TextboxFrameCorner = Instance.new("UICorner")
-            local TextBox = Instance.new("TextBox")
+            local Textbox, TextboxFrame = {}, game:GetObjects("rbxassetid://7147292392")[1]
+            TextboxFrame.Parent = Tab
+            TextboxFrame.Title.Text = text
+            TextboxFrame.Name = "TextBox"
+            TextboxFrame.BackgroundColor3 = Color3.fromRGB(34, 34, 34)
+            TextboxFrame.Title.TextColor3 = Color3.fromRGB(255, 255, 255)
+            TextboxFrame.Box.BackgroundColor3 = Color3.fromRGB(37, 37, 37)
+            TextboxFrame.Box.TextColor3 = Color3.fromRGB(240, 240, 240)
 
-            Textbox.Name = "Textbox"
-            Textbox.Parent = Tab
-            Textbox.BackgroundColor3 = Color3.fromRGB(34, 34, 34)
-            Textbox.ClipsDescendants = true
-            Textbox.Position = UDim2.new(-0.541071415, 0, -0.532915354, 0)
-            Textbox.Size = UDim2.new(0, 363, 0, 42)
-
-            TextboxCorner.CornerRadius = UDim.new(0, 5)
-            TextboxCorner.Name = "TextboxCorner"
-            TextboxCorner.Parent = Textbox
-
-            TextboxTitle.Name = "TextboxTitle"
-            TextboxTitle.Parent = Textbox
-            TextboxTitle.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-            TextboxTitle.BackgroundTransparency = 1.000
-            TextboxTitle.Position = UDim2.new(0.0358126722, 0, 0, 0)
-            TextboxTitle.Size = UDim2.new(0, 187, 0, 42)
-            TextboxTitle.Font = Enum.Font.Gotham
-            TextboxTitle.Text = text
-            TextboxTitle.TextColor3 = Color3.fromRGB(255, 255, 255)
-            TextboxTitle.TextSize = 14.000
-            TextboxTitle.TextXAlignment = Enum.TextXAlignment.Left
-
-            TextboxFrame.Name = "TextboxFrame"
-            TextboxFrame.Parent = TextboxTitle
-            TextboxFrame.BackgroundColor3 = Color3.fromRGB(37, 37, 37)
-            TextboxFrame.Position = UDim2.new(1.28877008, 0, 0.214285716, 0)
-            TextboxFrame.Size = UDim2.new(0, 100, 0, 23)
-
-            TextboxFrameCorner.CornerRadius = UDim.new(0, 5)
-            TextboxFrameCorner.Name = "TextboxFrameCorner"
-            TextboxFrameCorner.Parent = TextboxFrame
-
-            TextBox.Parent = TextboxFrame
-            TextBox.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-            TextBox.BackgroundTransparency = 1.000
-            TextBox.Size = UDim2.new(0, 100, 0, 23)
-            TextBox.Font = Enum.Font.Gotham
-            TextBox.Text = ""
-            TextBox.TextColor3 = Color3.fromRGB(255, 255, 255)
-            TextBox.TextSize = 14.000
-
-            TextBox.Changed:Connect(function()
-                TextBox.Size = UDim2.new(0, TextBox.TextBounds.X + 16, 0, 23)
+            TextboxFrame.Box.Changed:Connect(function()
+                TextboxFrame.Box.Size = UDim2.new(0, TextboxFrame.Box.TextBounds.X + 16, 0, 22)
             end)
+            TextboxFrame.Box.PlaceholderText = "                  "
 
             TextboxFrame.InputBegan:Connect(function(input)
                 if input.UserInputType == Enum.UserInputType.MouseButton1 then
-                    TextBox:CaptureFocus()
+                    TextboxFrame.Box:CaptureFocus()
                 end
             end)
 
-			TextBox.FocusLost:Connect(
-                function(ep)
-                    if ep then
-                        if #TextBox.Text > 0 then
-                            pcall(callback, TextBox.Text)
-                            if disapper then
-                                TextBox.Text = ""
-                            end
-                        end
-                    end
+
+            TextboxFrame.Box.FocusLost:Connect(function()
+                local txt = TextboxFrame.Box.Text
+                if disapper then
+                    TextboxFrame.Box.Text = ""
                 end
-            )
+                return callback(txt)
+            end)
 
             UserInputService.InputBegan:Connect(function(input)
-                if input.KeyCode == Enum.KeyCode.Escape and TextBox:IsFocused() then
-                    TextBox:ReleaseFocus()
+                if input.KeyCode == Enum.KeyCode.Escape and TextboxFrame.Box:IsFocused() then
+                    TextboxFrame.Box:ReleaseFocus()
                 end
             end)
-            Tab.CanvasSize = UDim2.new(0, 0, 0, TabLayout.AbsoluteContentSize.Y)
+
+            return Textbox
         end
 
         function tabcontent:Bind(text, preset, holdmode, callback)
-            local Bind = Instance.new("TextButton")
-            local BindCorner = Instance.new("UICorner")
-            local BindTitle = Instance.new("TextLabel")
-            local BindText = Instance.new("TextLabel")
+            local Bind, BindFrame = { Value, Binding = false, Holding = false },
+                game:GetObjects("rbxassetid://7126874744")[1]
+            BindFrame.Parent = Tab
+            BindFrame.Title.Text = text
+            BindFrame.Name = "Bind"
+            BindFrame.BackgroundColor3 = Color3.fromRGB(34, 34, 34)
+            BindFrame.Title.TextColor3 = Color3.fromRGB(255, 255, 255)
+            BindFrame.BText.TextColor3 = Color3.fromRGB(200, 200, 200)
 
-            Bind.Name = "Bind"
-            Bind.Parent = Tab
-            Bind.BackgroundColor3 = Color3.fromRGB(34, 34, 34)
-            Bind.Size = UDim2.new(0, 363, 0, 42)
-            Bind.AutoButtonColor = false
-            Bind.Font = Enum.Font.SourceSans
-            Bind.Text = ""
-            Bind.TextColor3 = Color3.fromRGB(0, 0, 0)
-            Bind.TextSize = 14.000
+            BindFrame.InputEnded:Connect(function(Input)
+                if Input.UserInputType == Enum.UserInputType.MouseButton1 then
+                    if Bind.Binding then return end
+                    Bind.Binding = true
+                    BindFrame.BText.Text = "Waiting For Input"
+                end
+            end)
 
-            BindCorner.CornerRadius = UDim.new(0, 5)
-            BindCorner.Name = "BindCorner"
-            BindCorner.Parent = Bind
-
-            BindTitle.Name = "BindTitle"
-            BindTitle.Parent = Bind
-            BindTitle.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-            BindTitle.BackgroundTransparency = 1.000
-            BindTitle.Position = UDim2.new(0.0358126722, 0, 0, 0)
-            BindTitle.Size = UDim2.new(0, 187, 0, 42)
-            BindTitle.Font = Enum.Font.Gotham
-            BindTitle.Text = text
-            BindTitle.TextColor3 = Color3.fromRGB(255, 255, 255)
-            BindTitle.TextSize = 14.000
-            BindTitle.TextXAlignment = Enum.TextXAlignment.Left
-
-            BindText.Name = "BindText"
-            BindText.Parent = Bind
-            BindText.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-            BindText.BackgroundTransparency = 1.000
-            BindText.Position = UDim2.new(0.0358126722, 0, 0, 0)
-            BindText.Size = UDim2.new(0, 337, 0, 42)
-            BindText.Font = Enum.Font.Gotham
-            BindText.TextColor3 = Color3.fromRGB(255, 255, 255)
-            BindText.TextSize = 14.000
-            BindText.TextXAlignment = Enum.TextXAlignment.Right
-
-            Tab.CanvasSize = UDim2.new(0, 0, 0, TabLayout.AbsoluteContentSize.Y)
-
-            local Bind = { Value, Binding = false, Holding = false }
-
-            Bind.InputEnded:Connect(
-                function(Input)
-                    if Input.UserInputType == Enum.UserInputType.MouseButton1 then
-                        if Bind.Binding then
-                            return
+            UserInputService.InputBegan:Connect(function(Input)
+                if UserInputService:GetFocusedTextBox() then return end
+                if (Input.KeyCode.Name == Bind.Value or Input.UserInputType.Name == Bind.Value) and not Bind.Binding then
+                    if holdmode then
+                        Holding = true
+                        callback(Holding)
+                    else
+                        callback()
+                    end
+                elseif Bind.Binding then
+                    local Key
+                    pcall(function()
+                        if not CheckKey(BlacklistedKeys, Input.KeyCode) then
+                            Key = Input.KeyCode
                         end
-                        Bind.Binding = true
-                        BindText.Text = "Waiting for input"
+                    end)
+                    pcall(function()
+                        if CheckKey(WhitelistedMouse, Input.UserInputType) and not Key then
+                            Key = Input.UserInputType
+                        end
+                    end)
+                    Key = Key or Bind.Value
+                    Bind:Set(Key)
+                end
+            end)
+
+            UserInputService.InputEnded:Connect(function(Input)
+                if Input.KeyCode.Name == Bind.Value or Input.UserInputType.Name == Bind.Value then
+                    if holdmode and Holding then
+                        Holding = false
+                        callback(Holding)
                     end
                 end
-            )
-
-            UserInputService.InputBegan:Connect(
-                function(Input)
-                    if UserInputService:GetFocusedTextBox() then
-                        return
-                    end
-                    if (Input.KeyCode.Name == Bind.Value or Input.UserInputType.Name == Bind.Value) and
-                        not Bind.Binding
-                    then
-                        if holdmode then
-                            Holding = true
-                            callback(Holding)
-                        else
-                            callback()
-                        end
-                    elseif Bind.Binding then
-                        local Key
-                        pcall(
-                            function()
-                                if not CheckKey(BlacklistedKeys, Input.KeyCode) then
-                                    Key = Input.KeyCode
-                                end
-                            end
-                        )
-                        pcall(
-                            function()
-                                if CheckKey(WhitelistedMouse, Input.UserInputType) and not Key then
-                                    Key = Input.UserInputType
-                                end
-                            end
-                        )
-                        Key = Key or Bind.Value
-                        Bind:Set(Key)
-                    end
-                end
-            )
-
-            UserInputService.InputEnded:Connect(
-                function(Input)
-                    if Input.KeyCode.Name == Bind.Value or Input.UserInputType.Name == Bind.Value then
-                        if holdmode and Holding then
-                            Holding = false
-                            callback(Holding)
-                        end
-                    end
-                end
-            )
+            end)
 
             function Bind:Set(key)
                 self.Binding = false
                 self.Value = key or self.Value
                 self.Value = self.Value.Name or self.Value
-                BindText.Text = self.Value
+                BindFrame.BText.Text = self.Value
             end
 
             Bind:Set(preset)
@@ -2277,115 +2119,52 @@ function lib:Window(text, preset, closebind)
             end
 
             function SectionContent:Slider(text, min, max, start, inc, callback)
-                local Slider = Instance.new("TextButton")
-                local SliderCorner = Instance.new("UICorner")
-                local SliderTitle = Instance.new("TextLabel")
-                local SliderValue = Instance.new("TextLabel")
-                local SlideFrame = Instance.new("Frame")
-                local CurrentValueFrame = Instance.new("Frame")
-                local SlideCircle = Instance.new("ImageButton")
-
-                Slider.Name = "Slider"
-                Slider.Parent = Section
-                Slider.BackgroundColor3 = Color3.fromRGB(34, 34, 34)
-                Slider.Position = UDim2.new(-0.48035714, 0, -0.570532918, 0)
-                Slider.Size = UDim2.new(0, 363, 0, 60)
-                Slider.AutoButtonColor = false
-                Slider.Font = Enum.Font.SourceSans
-                Slider.Text = ""
-                Slider.TextColor3 = Color3.fromRGB(0, 0, 0)
-                Slider.TextSize = 14.000
-
-                SliderCorner.CornerRadius = UDim.new(0, 5)
-                SliderCorner.Name = "SliderCorner"
-                SliderCorner.Parent = Slider
-
-                SliderTitle.Name = "SliderTitle"
-                SliderTitle.Parent = Slider
-                SliderTitle.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-                SliderTitle.BackgroundTransparency = 1.000
-                SliderTitle.Position = UDim2.new(0.0358126722, 0, 0, 0)
-                SliderTitle.Size = UDim2.new(0, 187, 0, 42)
-                SliderTitle.Font = Enum.Font.Gotham
-                SliderTitle.Text = text
-                SliderTitle.TextColor3 = Color3.fromRGB(255, 255, 255)
-                SliderTitle.TextSize = 14.000
-                SliderTitle.TextXAlignment = Enum.TextXAlignment.Left
-
-                SliderValue.Name = "SliderValue"
-                SliderValue.Parent = Slider
-                SliderValue.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-                SliderValue.BackgroundTransparency = 1.000
-                SliderValue.Position = UDim2.new(0.0358126722, 0, 0, 0)
-                SliderValue.Size = UDim2.new(0, 335, 0, 42)
-                SliderValue.Font = Enum.Font.Gotham
-                SliderValue.Text = tostring(start and math.floor((start / max) * (max - min) + min) or 0)
-                SliderValue.TextColor3 = Color3.fromRGB(255, 255, 255)
-                SliderValue.TextSize = 14.000
-                SliderValue.TextXAlignment = Enum.TextXAlignment.Right
-
-                SlideFrame.Name = "SlideFrame"
-                SlideFrame.Parent = Slider
-                SlideFrame.BackgroundColor3 = Color3.fromRGB(50, 50, 50)
-                SlideFrame.BorderSizePixel = 0
-                SlideFrame.Position = UDim2.new(0.0342647657, 0, 0.686091602, 0)
-                SlideFrame.Size = UDim2.new(0, 335, 0, 3)
-
-                CurrentValueFrame.Name = "CurrentValueFrame"
-                CurrentValueFrame.Parent = SlideFrame
-                CurrentValueFrame.BackgroundColor3 = PresetColor
-                CurrentValueFrame.BorderSizePixel = 0
-                CurrentValueFrame.Size = UDim2.new((start or 0) / max, 0, 0, 3)
-
-                coroutine.wrap(
-                    function()
-                        while wait() do
-                            CurrentValueFrame.BackgroundColor3 = PresetColor
-                        end
-                    end
-                )()
-
-                local Slider = {}
+                local Slider, SliderMain = { Value = start }, game:GetObjects("rbxassetid://6967573727")[1]
+                SliderMain.Parent = Section
+                SliderMain.SliderText.Text = text
+                SliderMain.Name = "Slider"
                 local dragging = false
 
+                SliderMain.BackgroundColor3 = Color3.fromRGB(34, 34, 34)
+                SliderMain.SliderFrame.BackgroundColor3 = Color3.fromRGB(50, 50, 50)
+                SliderMain.SliderFrame.SliderCurrentFrame.BackgroundColor3 = PresetColor
+                SliderMain.SliderText.TextColor3 = Color3.fromRGB(255, 255, 255)
+                SliderMain.SliderVal.TextColor3 = Color3.fromRGB(255, 255, 255)
+
                 local function move(Input)
-                    local XSize = math.clamp((Input.Position.X - CurrentValueFrame.AbsolutePosition.X) /
-                        CurrentValueFrame.AbsoluteSize.X, 0, 1)
+                    local XSize = math.clamp((Input.Position.X - SliderMain.SliderFrame.AbsolutePosition.X) /
+                        SliderMain.SliderFrame.AbsoluteSize.X, 0, 1)
                     local Increment = inc and (max / ((max - min) / (inc * 4))) or
                         (max >= 50 and max / ((max - min) / 4)) or
                         (max >= 25 and max / ((max - min) / 2)) or (max / (max - min))
                     local SizeRounded = UDim2.new((math.round(XSize * ((max / Increment) * 4)) / ((max / Increment) * 4)
-                        ), 0
-                        , 1, 0)
-                    TweenService:Create(CurrentValueFrame,
-                        TweenInfo.new(0.12, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), { Size = SizeRounded }):
+                        ), 0, 1, 0)
+                    TweenService:Create(SliderMain.SliderFrame.SliderCurrentFrame,
+                        TweenInfo.new(0.15, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), { Size = SizeRounded }):
                         Play()
                     local Val = math.round((((SizeRounded.X.Scale * max) / max) * (max - min) + min) * 20) / 20
-                    SliderValue.Text = tostring(Val)
+                    SliderMain.SliderVal.Text = tostring(Val)
                     Slider.Value = Val
                     callback(Slider.Value)
                 end
 
-                CurrentValueFrame.InputBegan:Connect(function(input) if input.UserInputType ==
-                        Enum.UserInputType.MouseButton1 then dragging = true end
-                end)
-                CurrentValueFrame.InputEnded:Connect(function(input) if input.UserInputType ==
-                        Enum.UserInputType.MouseButton1 then dragging = false end
-                end)
+                SliderMain.SliderFrame.InputBegan:Connect(function(input) if input.UserInputType ==
+                    Enum.UserInputType.MouseButton1 then dragging = true end end)
+                SliderMain.SliderFrame.InputEnded:Connect(function(input) if input.UserInputType ==
+                    Enum.UserInputType.MouseButton1 then dragging = false end end)
                 game:GetService("UserInputService").InputChanged:Connect(function(input) if dragging and
                         input.UserInputType == Enum.UserInputType.MouseMovement then move(input) end
                 end)
 
                 function Slider:Set(val)
                     local a = tostring(val and (val / max) * (max - min) + min) or 0
-                    SliderValue.Text = tostring(a)
-                    CurrentValueFrame.Size = UDim2.new((val or 0) / max, 0, 1, 0)
+                    SliderMain.SliderVal.Text = tostring(a)
+                    SliderMain.SliderFrame.SliderCurrentFrame.Size = UDim2.new((val or 0) / max, 0, 1, 0)
                     Slider.Value = val
                     return callback(Slider.Value)
                 end
 
-                Tab.CanvasSize = UDim2.new(0, 0, 0, TabLayout.AbsoluteContentSize.Y)
-
+                Slider:Set(start)
                 return Slider
             end
 
@@ -2399,7 +2178,7 @@ function lib:Window(text, preset, closebind)
                 DropMain.Name = "Dropdown"
                 Dropdown.BackgroundTransparency = 0
                 Dropdown.BackgroundColor3 = 34, 34, 34
-    
+
                 local function ToggleDrop()
                     Dropdown.Toggled = not Dropdown.Toggled
                     DropMain.Holder.Size =
@@ -2421,14 +2200,14 @@ function lib:Window(text, preset, closebind)
                     ):Play()
                     DropMain.Holder.Visible = Dropdown.Toggled
                 end
-    
+
                 local function AddOptions(opts)
                     for _, option in pairs(opts) do
                         local Option = OptionPreset:Clone()
                         Option.Parent = DropMain.Holder
                         Option.ItemText.Text = option
                         Option.ClipsDescendants = true
-    
+
                         Option.MouseButton1Click:Connect(
                             function()
                                 Dropdown.Value = option
@@ -2437,7 +2216,7 @@ function lib:Window(text, preset, closebind)
                                 return callback(Dropdown.Value)
                             end
                         )
-    
+
                         spawn(
                             function()
                                 while wait() do
@@ -2448,7 +2227,7 @@ function lib:Window(text, preset, closebind)
                         )
                     end
                 end
-    
+
                 function Dropdown:Refresh(opts, del)
                     if del then
                         for _, v in pairs(DropMain.Holder:GetChildren()) do
@@ -2467,19 +2246,19 @@ function lib:Window(text, preset, closebind)
                     end
                     AddOptions(opts)
                 end
-    
+
                 DropMain.Btn.MouseButton1Click:Connect(
                     function()
                         ToggleDrop()
                     end
                 )
-    
+
                 function Dropdown:Set(val)
                     Dropdown.Value = val
                     DropMain.Btn.Title.Text = text .. " - " .. val
                     return callback(Dropdown.Value)
                 end
-    
+
                 spawn(
                     function()
                         while wait() do
@@ -2488,13 +2267,13 @@ function lib:Window(text, preset, closebind)
                         end
                     end
                 )
-    
+
                 Dropdown:Refresh(list, false)
                 Dropdown:Set(def)
-    
+
                 return Dropdown
             end
-    
+
             function SectionContent:MultiDropdown(text, list, def, flag, callback)
                 local Dropdown, DropMain, OptionPreset =
                 { Value = {}, Toggled = false, Options = list },
@@ -2505,7 +2284,7 @@ function lib:Window(text, preset, closebind)
                 DropMain.Name = text .. "element"
                 Dropdown.BackgroundTransparency = 0
                 Dropdown.BackgroundColor3 = 34, 34, 34
-    
+
                 local function ToggleDrop()
                     Dropdown.Toggled = not Dropdown.Toggled
                     DropMain.Holder.Size =
@@ -2527,14 +2306,14 @@ function lib:Window(text, preset, closebind)
                     ):Play()
                     DropMain.Holder.Visible = Dropdown.Toggled
                 end
-    
+
                 local function AddOptions(opts)
                     for _, option in pairs(opts) do
                         local Option = OptionPreset:Clone()
                         Option.Parent = DropMain.Holder
                         Option.ItemText.Text = option
                         Option.ClipsDescendants = true
-    
+
                         Option.MouseButton1Click:Connect(
                             function()
                                 if table.find(Dropdown.Value, option) then
@@ -2549,14 +2328,14 @@ function lib:Window(text, preset, closebind)
                                 Ripple(Option)
                             end
                         )
-    
-    
+
+
                         Option.BackgroundColor3 = Color3.fromRGB(34, 34, 34)
                         DropMain.Btn.Title.TextColor3 = Color3.fromRGB(155, 155, 155)
-    
+
                     end
                 end
-    
+
                 function Dropdown:Refresh(opts, del)
                     if del then
                         for _, v in pairs(DropMain.Holder:GetChildren()) do
@@ -2575,22 +2354,22 @@ function lib:Window(text, preset, closebind)
                     end
                     AddOptions(opts)
                 end
-    
+
                 DropMain.Btn.MouseButton1Click:Connect(
                     function()
                         ToggleDrop()
                     end
                 )
-    
+
                 function Dropdown:Set(val)
                     Dropdown.Value = val
                     DropMain.Btn.Title.Text = text .. " - " .. table.concat(Dropdown.Value, ", ")
                     return callback(Dropdown.Value)
                 end
-    
+
                 DropMain.Btn.BackgroundColor3 = Color3.fromRGB(34, 34, 34)
                 DropMain.Btn.Ico.ImageColor3 = Color3.fromRGB(255, 255, 255)
-    
+
                 Dropdown:Refresh(list, false)
                 return Dropdown
             end
@@ -3124,196 +2903,102 @@ function lib:Window(text, preset, closebind)
             end
 
             function SectionContent:Textbox(text, disapper, callback)
-                local Textbox = Instance.new("Frame")
-                local TextboxCorner = Instance.new("UICorner")
-                local TextboxTitle = Instance.new("TextLabel")
-                local TextboxFrame = Instance.new("Frame")
-                local TextboxFrameCorner = Instance.new("UICorner")
-                local TextBox = Instance.new("TextBox")
-
-                Textbox.Name = "Textbox"
-                Textbox.Parent = Section
-                Textbox.BackgroundColor3 = Color3.fromRGB(34, 34, 34)
-                Textbox.ClipsDescendants = true
-                Textbox.Position = UDim2.new(-0.541071415, 0, -0.532915354, 0)
-                Textbox.Size = UDim2.new(0, 363, 0, 42)
-
-                TextboxCorner.CornerRadius = UDim.new(0, 5)
-                TextboxCorner.Name = "TextboxCorner"
-                TextboxCorner.Parent = Textbox
-
-                TextboxTitle.Name = "TextboxTitle"
-                TextboxTitle.Parent = Textbox
-                TextboxTitle.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-                TextboxTitle.BackgroundTransparency = 1.000
-                TextboxTitle.Position = UDim2.new(0.0358126722, 0, 0, 0)
-                TextboxTitle.Size = UDim2.new(0, 187, 0, 42)
-                TextboxTitle.Font = Enum.Font.Gotham
-                TextboxTitle.Text = text
-                TextboxTitle.TextColor3 = Color3.fromRGB(255, 255, 255)
-                TextboxTitle.TextSize = 14.000
-                TextboxTitle.TextXAlignment = Enum.TextXAlignment.Left
-
-                TextboxFrame.Name = "TextboxFrame"
-                TextboxFrame.Parent = TextboxTitle
-                TextboxFrame.BackgroundColor3 = Color3.fromRGB(37, 37, 37)
-                TextboxFrame.Position = UDim2.new(1.28877008, 0, 0.214285716, 0)
-                TextboxFrame.Size = UDim2.new(0, 100, 0, 23)
-
-                TextboxFrameCorner.CornerRadius = UDim.new(0, 5)
-                TextboxFrameCorner.Name = "TextboxFrameCorner"
-                TextboxFrameCorner.Parent = TextboxFrame
-
-                TextBox.Parent = TextboxFrame
-                TextBox.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-                TextBox.BackgroundTransparency = 1.000
-                TextBox.Size = UDim2.new(0, 100, 0, 23)
-                TextBox.Font = Enum.Font.Gotham
-                TextBox.Text = ""
-                TextBox.TextColor3 = Color3.fromRGB(255, 255, 255)
-                TextBox.TextSize = 14.000
-
-                TextBox.Changed:Connect(function()
-                    TextBox.Size = UDim2.new(0, TextBox.TextBounds.X + 16, 0, 23)
+                local Textbox, TextboxFrame = {}, game:GetObjects("rbxassetid://7147292392")[1]
+                TextboxFrame.Parent = Section
+                TextboxFrame.Title.Text = text
+                TextboxFrame.Name = "TextBox"
+                TextboxFrame.BackgroundColor3 = Color3.fromRGB(34, 34, 34)
+                TextboxFrame.Title.TextColor3 = Color3.fromRGB(255, 255, 255)
+                TextboxFrame.Box.BackgroundColor3 = Color3.fromRGB(37, 37, 37)
+                TextboxFrame.Box.TextColor3 = Color3.fromRGB(240, 240, 240)
+    
+                TextboxFrame.Box.Changed:Connect(function()
+                    TextboxFrame.Box.Size = UDim2.new(0, TextboxFrame.Box.TextBounds.X + 16, 0, 22)
                 end)
-
+                TextboxFrame.Box.PlaceholderText = "                  "
+    
                 TextboxFrame.InputBegan:Connect(function(input)
                     if input.UserInputType == Enum.UserInputType.MouseButton1 then
-                        TextBox:CaptureFocus()
+                        TextboxFrame.Box:CaptureFocus()
                     end
                 end)
-
-				TextBox.FocusLost:Connect(
-                function(ep)
-                    if ep then
-                        if #TextBox.Text > 0 then
-                            pcall(callback, TextBox.Text)
-                            if disapper then
-                                TextBox.Text = ""
-                            end
-                        end
+    
+    
+                TextboxFrame.Box.FocusLost:Connect(function()
+                    local txt = TextboxFrame.Box.Text
+                    if disapper then
+                        TextboxFrame.Box.Text = ""
                     end
+                    return callback(txt)
                 end)
-
+    
                 UserInputService.InputBegan:Connect(function(input)
-                    if input.KeyCode == Enum.KeyCode.Escape and TextBox:IsFocused() then
-                        TextBox:ReleaseFocus()
+                    if input.KeyCode == Enum.KeyCode.Escape and TextboxFrame.Box:IsFocused() then
+                        TextboxFrame.Box:ReleaseFocus()
                     end
                 end)
-                Tab.CanvasSize = UDim2.new(0, 0, 0, TabLayout.AbsoluteContentSize.Y)
+    
+                return Textbox
             end
 
             function SectionContent:Bind(text, preset, holdmode, callback)
-                local Bind = Instance.new("TextButton")
-                local BindCorner = Instance.new("UICorner")
-                local BindTitle = Instance.new("TextLabel")
-                local BindText = Instance.new("TextLabel")
+                local Bind, BindFrame = { Value, Binding = false, Holding = false },
+                    game:GetObjects("rbxassetid://7126874744")[1]
+                BindFrame.Parent = Section
+                BindFrame.Title.Text = text
+                BindFrame.Name = "Bind"
+                BindFrame.BackgroundColor3 = Color3.fromRGB(34, 34, 34)
+                BindFrame.Title.TextColor3 = Color3.fromRGB(255, 255, 255)
+                BindFrame.BText.TextColor3 = Color3.fromRGB(200, 200, 200)
 
-                Bind.Name = "Bind"
-                Bind.Parent = Section
-                Bind.BackgroundColor3 = Color3.fromRGB(34, 34, 34)
-                Bind.Size = UDim2.new(0, 363, 0, 42)
-                Bind.AutoButtonColor = false
-                Bind.Font = Enum.Font.SourceSans
-                Bind.Text = ""
-                Bind.TextColor3 = Color3.fromRGB(0, 0, 0)
-                Bind.TextSize = 14.000
+                BindFrame.InputEnded:Connect(function(Input)
+                    if Input.UserInputType == Enum.UserInputType.MouseButton1 then
+                        if Bind.Binding then return end
+                        Bind.Binding = true
+                        BindFrame.BText.Text = "Waiting For Input"
+                    end
+                end)
 
-                BindCorner.CornerRadius = UDim.new(0, 5)
-                BindCorner.Name = "BindCorner"
-                BindCorner.Parent = Bind
-
-                BindTitle.Name = "BindTitle"
-                BindTitle.Parent = Bind
-                BindTitle.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-                BindTitle.BackgroundTransparency = 1.000
-                BindTitle.Position = UDim2.new(0.0358126722, 0, 0, 0)
-                BindTitle.Size = UDim2.new(0, 187, 0, 42)
-                BindTitle.Font = Enum.Font.Gotham
-                BindTitle.Text = text
-                BindTitle.TextColor3 = Color3.fromRGB(255, 255, 255)
-                BindTitle.TextSize = 14.000
-                BindTitle.TextXAlignment = Enum.TextXAlignment.Left
-
-                BindText.Name = "BindText"
-                BindText.Parent = Bind
-                BindText.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-                BindText.BackgroundTransparency = 1.000
-                BindText.Position = UDim2.new(0.0358126722, 0, 0, 0)
-                BindText.Size = UDim2.new(0, 337, 0, 42)
-                BindText.Font = Enum.Font.Gotham
-                BindText.TextColor3 = Color3.fromRGB(255, 255, 255)
-                BindText.TextSize = 14.000
-                BindText.TextXAlignment = Enum.TextXAlignment.Right
-
-                Tab.CanvasSize = UDim2.new(0, 0, 0, TabLayout.AbsoluteContentSize.Y)
-
-                local Bind = { Value, Binding = false, Holding = false }
-
-                Bind.InputEnded:Connect(
-                    function(Input)
-                        if Input.UserInputType == Enum.UserInputType.MouseButton1 then
-                            if Bind.Binding then
-                                return
+                UserInputService.InputBegan:Connect(function(Input)
+                    if UserInputService:GetFocusedTextBox() then return end
+                    if (Input.KeyCode.Name == Bind.Value or Input.UserInputType.Name == Bind.Value) and not Bind.Binding then
+                        if holdmode then
+                            Holding = true
+                            callback(Holding)
+                        else
+                            callback()
+                        end
+                    elseif Bind.Binding then
+                        local Key
+                        pcall(function()
+                            if not CheckKey(BlacklistedKeys, Input.KeyCode) then
+                                Key = Input.KeyCode
                             end
-                            Bind.Binding = true
-                            BindText.Text = "Waiting for input"
+                        end)
+                        pcall(function()
+                            if CheckKey(WhitelistedMouse, Input.UserInputType) and not Key then
+                                Key = Input.UserInputType
+                            end
+                        end)
+                        Key = Key or Bind.Value
+                        Bind:Set(Key)
+                    end
+                end)
+
+                UserInputService.InputEnded:Connect(function(Input)
+                    if Input.KeyCode.Name == Bind.Value or Input.UserInputType.Name == Bind.Value then
+                        if holdmode and Holding then
+                            Holding = false
+                            callback(Holding)
                         end
                     end
-                )
-
-                UserInputService.InputBegan:Connect(
-                    function(Input)
-                        if UserInputService:GetFocusedTextBox() then
-                            return
-                        end
-                        if (Input.KeyCode.Name == Bind.Value or Input.UserInputType.Name == Bind.Value) and
-                            not Bind.Binding
-                        then
-                            if holdmode then
-                                Holding = true
-                                callback(Holding)
-                            else
-                                callback()
-                            end
-                        elseif Bind.Binding then
-                            local Key
-                            pcall(
-                                function()
-                                    if not CheckKey(BlacklistedKeys, Input.KeyCode) then
-                                        Key = Input.KeyCode
-                                    end
-                                end
-                            )
-                            pcall(
-                                function()
-                                    if CheckKey(WhitelistedMouse, Input.UserInputType) and not Key then
-                                        Key = Input.UserInputType
-                                    end
-                                end
-                            )
-                            Key = Key or Bind.Value
-                            Bind:Set(Key)
-                        end
-                    end
-                )
-
-                UserInputService.InputEnded:Connect(
-                    function(Input)
-                        if Input.KeyCode.Name == Bind.Value or Input.UserInputType.Name == Bind.Value then
-                            if holdmode and Holding then
-                                Holding = false
-                                callback(Holding)
-                            end
-                        end
-                    end
-                )
+                end)
 
                 function Bind:Set(key)
                     self.Binding = false
                     self.Value = key or self.Value
                     self.Value = self.Value.Name or self.Value
-                    BindText.Text = self.Value
+                    BindFrame.BText.Text = self.Value
                 end
 
                 Bind:Set(preset)
