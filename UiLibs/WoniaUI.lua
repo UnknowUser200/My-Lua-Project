@@ -467,7 +467,6 @@ function Library:Window(WindowConfig)
         TabBtn.Text = ""
         TabBtn.TextColor3 = Color3.fromRGB(0, 0, 0)
         TabBtn.TextSize = 14.000
-        TabBtn.BackgroundTransparency = 1
 
         UICorner.CornerRadius = UDim.new(0, 4)
         UICorner.Parent = TabBtn
@@ -480,7 +479,6 @@ function Library:Window(WindowConfig)
         Indecator.BorderSizePixel = 0
         Indecator.Position = UDim2.new(0, 0, 0.5, 0)
         Indecator.Size = UDim2.new(0, 3, 0, 15)
-        Indecator.BackgroundTransparency = 1
 
         UIPadding.Parent = TabBtn
         UIPadding.PaddingLeft = UDim.new(0, 2)
@@ -509,10 +507,8 @@ function Library:Window(WindowConfig)
         Text.TextTransparency = 1
 
         task.wait(0.1)
-        TweenService:Create(Indecator, TweenInfo.new(.2, Enum.EasingStyle.Quad, Enum.EasingDirection.Out),
-            { BackgroundTransparency = 1 }):Play()
-        TweenService:Create(Indecator, TweenInfo.new(.2, Enum.EasingStyle.Quad, Enum.EasingDirection.Out),
-            { BackgroundTransparency = 1 }):Play()
+        TweenService:Create(Icon, TweenInfo.new(.2, Enum.EasingStyle.Quad, Enum.EasingDirection.Out),
+            { ImageTransparency = 0 }):Play()
         TweenService:Create(Text, TweenInfo.new(.3, Enum.EasingStyle.Quad, Enum.EasingDirection.Out),
             { TextColor3 = Color3.fromRGB(150, 150, 150) }):Play()
 
