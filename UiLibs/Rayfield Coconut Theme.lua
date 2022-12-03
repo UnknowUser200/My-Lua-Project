@@ -998,15 +998,8 @@ function RayfieldLibrary:CreateWindow(Settings)
 		-- Animate
 		wait(0.1)
 		if FirstTab then
+		    TabButton.BackgroundTransparency = 1
 			TabButton.BackgroundColor3 = Color3.fromRGB(30, 30, 30)
-			TabButton.BackgroundTransparency = 1
-			TweenService:Create(TabButton, TweenInfo.new(0.7, Enum.EasingStyle.Quint), {Transparency = 0}):Play()
-			TweenService:Create(TabButton.Title, TweenInfo.new(0.7, Enum.EasingStyle.Quint), {TextTransparency = 0.2}):Play()
-			TweenService:Create(TabButton.Image, TweenInfo.new(0.7, Enum.EasingStyle.Quint), {ImageTransparency = 0.2}):Play()
-			TweenService:Create(TabButton.UIStroke, TweenInfo.new(0.7, Enum.EasingStyle.Quint), {Transparency = 0}):Play()
-			TweenService:Create(TabButton.UIStroke, TweenInfo.new(0.7, Enum.EasingStyle.Quint), {Color = Color3.fromRGB(114, 1, 184)}):Play()
-		else
-			FirstTab = Name
 			TabButton.BackgroundColor3 = Color3.fromRGB(27, 27, 27)
 			TabButton.Image.ImageColor3 = Color3.fromRGB(240,240,240)
 			TabButton.Title.TextColor3 = Color3.fromRGB(240,240,240)
@@ -1015,6 +1008,13 @@ function RayfieldLibrary:CreateWindow(Settings)
 			TweenService:Create(TabButton, TweenInfo.new(0.7, Enum.EasingStyle.Quint), {BackgroundTransparency = 1}):Play()
 			TweenService:Create(TabButton.Title, TweenInfo.new(0.7, Enum.EasingStyle.Quint), {TextTransparency = 0}):Play()
 			TweenService:Create(TabButton.UIStroke, TweenInfo.new(0.7, Enum.EasingStyle.Quint), {Color = Color3.fromRGB(27,27,27)}):Play()
+			else
+			FirstTab = Name
+			TweenService:Create(TabButton, TweenInfo.new(0.7, Enum.EasingStyle.Quint), {Transparency = 0}):Play()
+			TweenService:Create(TabButton.Title, TweenInfo.new(0.7, Enum.EasingStyle.Quint), {TextTransparency = 0.2}):Play()
+			TweenService:Create(TabButton.Image, TweenInfo.new(0.7, Enum.EasingStyle.Quint), {ImageTransparency = 0.2}):Play()
+			TweenService:Create(TabButton.UIStroke, TweenInfo.new(0.7, Enum.EasingStyle.Quint), {Transparency = 0}):Play()
+			TweenService:Create(TabButton.UIStroke, TweenInfo.new(0.7, Enum.EasingStyle.Quint), {Color = Color3.fromRGB(114, 1, 184)}):Play()
 		end
 
 		TabButton.Interact.MouseButton1Click:Connect(function()
