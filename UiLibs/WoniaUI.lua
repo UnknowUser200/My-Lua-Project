@@ -456,7 +456,7 @@ function Library:Window(WindowConfig)
         local Icon = Instance.new("ImageLabel")
         local Text = Instance.new("TextLabel")
 
-        TabBtn.Name = TabConfig.Text
+        TabBtn.Name = "TabBtn"
         TabBtn.Parent = Holder
         TabBtn.BackgroundColor3 = Color3.fromRGB(44, 45, 44)
         TabBtn.BorderSizePixel = 0
@@ -681,6 +681,7 @@ function Library:Window(WindowConfig)
 
             UIListLayout_2.Parent = Section
             UIListLayout_2.SortOrder = Enum.SortOrder.LayoutOrder
+            UIListLayout_2.Padding = UDim.new(0, 3)
 
             Btn.MouseButton1Click:Connect(function()
                 if uitoggled == false then
@@ -691,7 +692,7 @@ function Library:Window(WindowConfig)
                     uitoggled = true
                 else
                     TweenService:Create(chevron_right,
-                        TweenInfo.new(0.15, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), { Rotation = 100 }):Play()
+                        TweenInfo.new(0.15, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), { Rotation = 80 }):Play()
                     HolderDrop.Visible = true
                     uitoggled = false
                 end
