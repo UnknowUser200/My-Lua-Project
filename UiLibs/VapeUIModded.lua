@@ -1803,14 +1803,18 @@ function lib:Window(text, preset, closebind)
                 end
             end)
 
-
-            TextBox.FocusLost:Connect(function()
-                local txt = TextBox.Text
-                if disapper then
-                    TextBox.Text = ""
+			TextBox.FocusLost:Connect(
+                function(ep)
+                    if ep then
+                        if #TextBox.Text > 0 then
+                            pcall(callback, TextBox.Text)
+                            if disapper then
+                                TextBox.Text = ""
+                            end
+                        end
+                    end
                 end
-                return callback(txt)
-            end)
+            )
 
             UserInputService.InputBegan:Connect(function(input)
                 if input.KeyCode == Enum.KeyCode.Escape and TextBox:IsFocused() then
@@ -3215,13 +3219,16 @@ function lib:Window(text, preset, closebind)
                     end
                 end)
 
-
-                TextBox.FocusLost:Connect(function()
-                    local txt = TextBox.Text
-                    if disapper then
-                        TextBox.Text = ""
+				TextBox.FocusLost:Connect(
+                function(ep)
+                    if ep then
+                        if #TextBox.Text > 0 then
+                            pcall(callback, TextBox.Text)
+                            if disapper then
+                                TextBox.Text = ""
+                            end
+                        end
                     end
-                    return callback(txt)
                 end)
 
                 UserInputService.InputBegan:Connect(function(input)
