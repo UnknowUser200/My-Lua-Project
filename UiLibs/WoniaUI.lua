@@ -491,7 +491,6 @@ function Library:Window(WindowConfig)
         Icon.Position = UDim2.new(0, 10, 0, 5)
         Icon.Size = UDim2.new(0, 25, 0, 25)
         Icon.Image = "http://www.roblox.com/asset/?id=10955379800"
-        Icon.ImageTransparency = 1
 
         Text.Name = "Text"
         Text.Parent = TabBtn
@@ -504,13 +503,6 @@ function Library:Window(WindowConfig)
         Text.TextColor3 = Color3.fromRGB(150, 150, 150)
         Text.TextSize = 14.000
         Text.TextXAlignment = Enum.TextXAlignment.Left
-        Text.TextTransparency = 1
-
-        task.wait(0.1)
-        TweenService:Create(Icon, TweenInfo.new(.2, Enum.EasingStyle.Quad, Enum.EasingDirection.Out),
-            { ImageTransparency = 0 }):Play()
-        TweenService:Create(Text, TweenInfo.new(.3, Enum.EasingStyle.Quad, Enum.EasingDirection.Out),
-            { TextColor3 = Color3.fromRGB(150, 150, 150) }):Play()
 
         local Container = Instance.new("ScrollingFrame")
         local UIListLayout = Instance.new("UIListLayout")
@@ -692,7 +684,7 @@ function Library:Window(WindowConfig)
                     uitoggled = true
                 else
                     TweenService:Create(chevron_right,
-                        TweenInfo.new(0.15, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), { Rotation = 80 }):Play()
+                        TweenInfo.new(0.15, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), { Rotation = 90 }):Play()
                     HolderDrop.Visible = true
                     uitoggled = false
                 end
