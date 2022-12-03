@@ -584,7 +584,9 @@ function lib:Window(text, preset, closebind)
             Tab.CanvasSize = UDim2.new(0, 0, 0, TabLayout.AbsoluteContentSize.Y)
         end
 
-        function tabcontent:Toggle(text, default, callback)
+        function tabcontent:Toggle(text,default, callback)
+            local toggled = false
+
             local Toggle = Instance.new("TextButton")
             local ToggleCorner = Instance.new("UICorner")
             local ToggleTitle = Instance.new("TextLabel")
@@ -668,35 +670,147 @@ function lib:Window(text, preset, closebind)
                 end
             )()
 
+            Toggle.MouseButton1Click:Connect(
+                function()
+                    if toggled == false then
+                        TweenService:Create(
+                            Toggle,
+                            TweenInfo.new(.3, Enum.EasingStyle.Quad, Enum.EasingDirection.Out),
+                            {BackgroundColor3 = Color3.fromRGB(37, 37, 37)}
+                        ):Play()
+                        TweenService:Create(
+                            FrameToggle1,
+                            TweenInfo.new(.3, Enum.EasingStyle.Quad, Enum.EasingDirection.Out),
+                            {BackgroundTransparency = 1}
+                        ):Play()
+                        TweenService:Create(
+                            FrameToggle2,
+                            TweenInfo.new(.3, Enum.EasingStyle.Quad, Enum.EasingDirection.Out),
+                            {BackgroundTransparency = 1}
+                        ):Play()
+                        TweenService:Create(
+                            FrameToggle3,
+                            TweenInfo.new(.3, Enum.EasingStyle.Quad, Enum.EasingDirection.Out),
+                            {BackgroundTransparency = 0}
+                        ):Play()
+                        TweenService:Create(
+                            FrameToggleCircle,
+                            TweenInfo.new(.3, Enum.EasingStyle.Quad, Enum.EasingDirection.Out),
+                            {BackgroundColor3 = Color3.fromRGB(255, 255, 255)}
+                        ):Play()
+                        FrameToggleCircle:TweenPosition(
+                            UDim2.new(0.587, 0, 0.222000003, 0),
+                            Enum.EasingDirection.Out,
+                            Enum.EasingStyle.Quart,
+                            .2,
+                            true
+                        )
+                    else
+                        TweenService:Create(
+                            Toggle,
+                            TweenInfo.new(.3, Enum.EasingStyle.Quad, Enum.EasingDirection.Out),
+                            {BackgroundColor3 = Color3.fromRGB(34, 34, 34)}
+                        ):Play()
+                        TweenService:Create(
+                            FrameToggle1,
+                            TweenInfo.new(.3, Enum.EasingStyle.Quad, Enum.EasingDirection.Out),
+                            {BackgroundTransparency = 0}
+                        ):Play()
+                        TweenService:Create(
+                            FrameToggle2,
+                            TweenInfo.new(.3, Enum.EasingStyle.Quad, Enum.EasingDirection.Out),
+                            {BackgroundTransparency = 0}
+                        ):Play()
+                        TweenService:Create(
+                            FrameToggle3,
+                            TweenInfo.new(.3, Enum.EasingStyle.Quad, Enum.EasingDirection.Out),
+                            {BackgroundTransparency = 1}
+                        ):Play()
+                        TweenService:Create(
+                            FrameToggleCircle,
+                            TweenInfo.new(.3, Enum.EasingStyle.Quad, Enum.EasingDirection.Out),
+                            {BackgroundColor3 = Color3.fromRGB(50, 50, 50)}
+                        ):Play()
+                        FrameToggleCircle:TweenPosition(
+                            UDim2.new(0.127000004, 0, 0.222000003, 0),
+                            Enum.EasingDirection.Out,
+                            Enum.EasingStyle.Quart,
+                            .2,
+                            true
+                        )
+                    end
+                    toggled = not toggled
+                    pcall(callback, toggled)
+                end
+            )
+
+            if default == true then
+                TweenService:Create(
+                    Toggle,
+                    TweenInfo.new(.3, Enum.EasingStyle.Quad, Enum.EasingDirection.Out),
+                    {BackgroundColor3 = Color3.fromRGB(37, 37, 37)}
+                ):Play()
+                TweenService:Create(
+                    FrameToggle1,
+                    TweenInfo.new(.3, Enum.EasingStyle.Quad, Enum.EasingDirection.Out),
+                    {BackgroundTransparency = 1}
+                ):Play()
+                TweenService:Create(
+                    FrameToggle2,
+                    TweenInfo.new(.3, Enum.EasingStyle.Quad, Enum.EasingDirection.Out),
+                    {BackgroundTransparency = 1}
+                ):Play()
+                TweenService:Create(
+                    FrameToggle3,
+                    TweenInfo.new(.3, Enum.EasingStyle.Quad, Enum.EasingDirection.Out),
+                    {BackgroundTransparency = 0}
+                ):Play()
+                TweenService:Create(
+                    FrameToggleCircle,
+                    TweenInfo.new(.3, Enum.EasingStyle.Quad, Enum.EasingDirection.Out),
+                    {BackgroundColor3 = Color3.fromRGB(255, 255, 255)}
+                ):Play()
+                FrameToggleCircle:TweenPosition(
+                    UDim2.new(0.587, 0, 0.222000003, 0),
+                    Enum.EasingDirection.Out,
+                    Enum.EasingStyle.Quart,
+                    .2,
+                    true
+                )
+                toggled = not toggled
+            end
+
             local Toggle = {}
 
-            function Toggle:Set(value)
-                Toggle.Value = value
-                if Toggle.Value == false then
+            function Toggle:Set(def)
+                default = def
+                toggled = def
+
+                if toggled == false then
                     TweenService:Create(
                         Toggle,
                         TweenInfo.new(.3, Enum.EasingStyle.Quad, Enum.EasingDirection.Out),
-                        { BackgroundColor3 = Color3.fromRGB(37, 37, 37) }
+                        {BackgroundColor3 = Color3.fromRGB(37, 37, 37)}
                     ):Play()
                     TweenService:Create(
                         FrameToggle1,
                         TweenInfo.new(.3, Enum.EasingStyle.Quad, Enum.EasingDirection.Out),
-                        { BackgroundTransparency = 1 }
+                        {BackgroundTransparency = 1}
                     ):Play()
                     TweenService:Create(
                         FrameToggle2,
                         TweenInfo.new(.3, Enum.EasingStyle.Quad, Enum.EasingDirection.Out),
-                        { BackgroundTransparency = 1 }
+                        {BackgroundTransparency = 1}
                     ):Play()
                     TweenService:Create(
                         FrameToggle3,
                         TweenInfo.new(.3, Enum.EasingStyle.Quad, Enum.EasingDirection.Out),
-                        { BackgroundTransparency = 0 }
+                        {BackgroundTransparency = 0}
                     ):Play()
                     TweenService:Create(
                         FrameToggleCircle,
                         TweenInfo.new(.3, Enum.EasingStyle.Quad, Enum.EasingDirection.Out),
-                        { BackgroundColor3 = Color3.fromRGB(255, 255, 255) }
+                        {BackgroundColor3 = Color3.fromRGB(255, 255, 255)}
                     ):Play()
                     FrameToggleCircle:TweenPosition(
                         UDim2.new(0.587, 0, 0.222000003, 0),
@@ -709,27 +823,27 @@ function lib:Window(text, preset, closebind)
                     TweenService:Create(
                         Toggle,
                         TweenInfo.new(.3, Enum.EasingStyle.Quad, Enum.EasingDirection.Out),
-                        { BackgroundColor3 = Color3.fromRGB(34, 34, 34) }
+                        {BackgroundColor3 = Color3.fromRGB(34, 34, 34)}
                     ):Play()
                     TweenService:Create(
                         FrameToggle1,
                         TweenInfo.new(.3, Enum.EasingStyle.Quad, Enum.EasingDirection.Out),
-                        { BackgroundTransparency = 0 }
+                        {BackgroundTransparency = 0}
                     ):Play()
                     TweenService:Create(
                         FrameToggle2,
                         TweenInfo.new(.3, Enum.EasingStyle.Quad, Enum.EasingDirection.Out),
-                        { BackgroundTransparency = 0 }
+                        {BackgroundTransparency = 0}
                     ):Play()
                     TweenService:Create(
                         FrameToggle3,
                         TweenInfo.new(.3, Enum.EasingStyle.Quad, Enum.EasingDirection.Out),
-                        { BackgroundTransparency = 1 }
+                        {BackgroundTransparency = 1}
                     ):Play()
                     TweenService:Create(
                         FrameToggleCircle,
                         TweenInfo.new(.3, Enum.EasingStyle.Quad, Enum.EasingDirection.Out),
-                        { BackgroundColor3 = Color3.fromRGB(50, 50, 50) }
+                        {BackgroundColor3 = Color3.fromRGB(50, 50, 50)}
                     ):Play()
                     FrameToggleCircle:TweenPosition(
                         UDim2.new(0.127000004, 0, 0.222000003, 0),
@@ -739,17 +853,9 @@ function lib:Window(text, preset, closebind)
                         true
                     )
                 end
-                return callback(Toggle.Value)
             end
 
-            Toggle.MouseButton1Click:Connect(function()
-                Toggle.Value = not Toggle.Value
-                Toggle:Set(Toggle.Value)
-            end)
-
             Tab.CanvasSize = UDim2.new(0, 0, 0, TabLayout.AbsoluteContentSize.Y)
-
-            Toggle:Set(default)
 
             return Toggle
         end
@@ -1949,7 +2055,9 @@ function lib:Window(text, preset, closebind)
                 Tab.CanvasSize = UDim2.new(0, 0, 0, TabLayout.AbsoluteContentSize.Y)
             end
 
-            function SectionContent:Toggle(text, default, callback)
+            function SectionContent:Toggle(text,default, callback)
+                local toggled = false
+    
                 local Toggle = Instance.new("TextButton")
                 local ToggleCorner = Instance.new("UICorner")
                 local ToggleTitle = Instance.new("TextLabel")
@@ -1961,7 +2069,7 @@ function lib:Window(text, preset, closebind)
                 local FrameToggle3Corner = Instance.new("UICorner")
                 local FrameToggleCircle = Instance.new("Frame")
                 local FrameToggleCircleCorner = Instance.new("UICorner")
-
+    
                 Toggle.Name = "Toggle"
                 Toggle.Parent = Section
                 Toggle.BackgroundColor3 = Color3.fromRGB(34, 34, 34)
@@ -1972,11 +2080,11 @@ function lib:Window(text, preset, closebind)
                 Toggle.Text = ""
                 Toggle.TextColor3 = Color3.fromRGB(0, 0, 0)
                 Toggle.TextSize = 14.000
-
+    
                 ToggleCorner.CornerRadius = UDim.new(0, 5)
                 ToggleCorner.Name = "ToggleCorner"
                 ToggleCorner.Parent = Toggle
-
+    
                 ToggleTitle.Name = "ToggleTitle"
                 ToggleTitle.Parent = Toggle
                 ToggleTitle.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
@@ -1988,43 +2096,43 @@ function lib:Window(text, preset, closebind)
                 ToggleTitle.TextColor3 = Color3.fromRGB(255, 255, 255)
                 ToggleTitle.TextSize = 14.000
                 ToggleTitle.TextXAlignment = Enum.TextXAlignment.Left
-
+    
                 FrameToggle1.Name = "FrameToggle1"
                 FrameToggle1.Parent = Toggle
                 FrameToggle1.BackgroundColor3 = Color3.fromRGB(50, 50, 50)
                 FrameToggle1.Position = UDim2.new(0.859504104, 0, 0.285714298, 0)
                 FrameToggle1.Size = UDim2.new(0, 37, 0, 18)
-
+    
                 FrameToggle1Corner.Name = "FrameToggle1Corner"
                 FrameToggle1Corner.Parent = FrameToggle1
-
+    
                 FrameToggle2.Name = "FrameToggle2"
                 FrameToggle2.Parent = FrameToggle1
                 FrameToggle2.BackgroundColor3 = Color3.fromRGB(34, 34, 34)
                 FrameToggle2.Position = UDim2.new(0.0489999987, 0, 0.0930000022, 0)
                 FrameToggle2.Size = UDim2.new(0, 33, 0, 14)
-
+    
                 FrameToggle2Corner.Name = "FrameToggle2Corner"
                 FrameToggle2Corner.Parent = FrameToggle2
-
+    
                 FrameToggle3.Name = "FrameToggle3"
                 FrameToggle3.Parent = FrameToggle1
                 FrameToggle3.BackgroundColor3 = PresetColor
                 FrameToggle3.BackgroundTransparency = 1.000
                 FrameToggle3.Size = UDim2.new(0, 37, 0, 18)
-
+    
                 FrameToggle3Corner.Name = "FrameToggle3Corner"
                 FrameToggle3Corner.Parent = FrameToggle3
-
+    
                 FrameToggleCircle.Name = "FrameToggleCircle"
                 FrameToggleCircle.Parent = FrameToggle1
                 FrameToggleCircle.BackgroundColor3 = Color3.fromRGB(50, 50, 50)
                 FrameToggleCircle.Position = UDim2.new(0.127000004, 0, 0.222000003, 0)
                 FrameToggleCircle.Size = UDim2.new(0, 10, 0, 10)
-
+    
                 FrameToggleCircleCorner.Name = "FrameToggleCircleCorner"
                 FrameToggleCircleCorner.Parent = FrameToggleCircle
-
+    
                 coroutine.wrap(
                     function()
                         while wait() do
@@ -2032,36 +2140,148 @@ function lib:Window(text, preset, closebind)
                         end
                     end
                 )()
-
+    
+                Toggle.MouseButton1Click:Connect(
+                    function()
+                        if toggled == false then
+                            TweenService:Create(
+                                Toggle,
+                                TweenInfo.new(.3, Enum.EasingStyle.Quad, Enum.EasingDirection.Out),
+                                {BackgroundColor3 = Color3.fromRGB(37, 37, 37)}
+                            ):Play()
+                            TweenService:Create(
+                                FrameToggle1,
+                                TweenInfo.new(.3, Enum.EasingStyle.Quad, Enum.EasingDirection.Out),
+                                {BackgroundTransparency = 1}
+                            ):Play()
+                            TweenService:Create(
+                                FrameToggle2,
+                                TweenInfo.new(.3, Enum.EasingStyle.Quad, Enum.EasingDirection.Out),
+                                {BackgroundTransparency = 1}
+                            ):Play()
+                            TweenService:Create(
+                                FrameToggle3,
+                                TweenInfo.new(.3, Enum.EasingStyle.Quad, Enum.EasingDirection.Out),
+                                {BackgroundTransparency = 0}
+                            ):Play()
+                            TweenService:Create(
+                                FrameToggleCircle,
+                                TweenInfo.new(.3, Enum.EasingStyle.Quad, Enum.EasingDirection.Out),
+                                {BackgroundColor3 = Color3.fromRGB(255, 255, 255)}
+                            ):Play()
+                            FrameToggleCircle:TweenPosition(
+                                UDim2.new(0.587, 0, 0.222000003, 0),
+                                Enum.EasingDirection.Out,
+                                Enum.EasingStyle.Quart,
+                                .2,
+                                true
+                            )
+                        else
+                            TweenService:Create(
+                                Toggle,
+                                TweenInfo.new(.3, Enum.EasingStyle.Quad, Enum.EasingDirection.Out),
+                                {BackgroundColor3 = Color3.fromRGB(34, 34, 34)}
+                            ):Play()
+                            TweenService:Create(
+                                FrameToggle1,
+                                TweenInfo.new(.3, Enum.EasingStyle.Quad, Enum.EasingDirection.Out),
+                                {BackgroundTransparency = 0}
+                            ):Play()
+                            TweenService:Create(
+                                FrameToggle2,
+                                TweenInfo.new(.3, Enum.EasingStyle.Quad, Enum.EasingDirection.Out),
+                                {BackgroundTransparency = 0}
+                            ):Play()
+                            TweenService:Create(
+                                FrameToggle3,
+                                TweenInfo.new(.3, Enum.EasingStyle.Quad, Enum.EasingDirection.Out),
+                                {BackgroundTransparency = 1}
+                            ):Play()
+                            TweenService:Create(
+                                FrameToggleCircle,
+                                TweenInfo.new(.3, Enum.EasingStyle.Quad, Enum.EasingDirection.Out),
+                                {BackgroundColor3 = Color3.fromRGB(50, 50, 50)}
+                            ):Play()
+                            FrameToggleCircle:TweenPosition(
+                                UDim2.new(0.127000004, 0, 0.222000003, 0),
+                                Enum.EasingDirection.Out,
+                                Enum.EasingStyle.Quart,
+                                .2,
+                                true
+                            )
+                        end
+                        toggled = not toggled
+                        pcall(callback, toggled)
+                    end
+                )
+    
+                if default == true then
+                    TweenService:Create(
+                        Toggle,
+                        TweenInfo.new(.3, Enum.EasingStyle.Quad, Enum.EasingDirection.Out),
+                        {BackgroundColor3 = Color3.fromRGB(37, 37, 37)}
+                    ):Play()
+                    TweenService:Create(
+                        FrameToggle1,
+                        TweenInfo.new(.3, Enum.EasingStyle.Quad, Enum.EasingDirection.Out),
+                        {BackgroundTransparency = 1}
+                    ):Play()
+                    TweenService:Create(
+                        FrameToggle2,
+                        TweenInfo.new(.3, Enum.EasingStyle.Quad, Enum.EasingDirection.Out),
+                        {BackgroundTransparency = 1}
+                    ):Play()
+                    TweenService:Create(
+                        FrameToggle3,
+                        TweenInfo.new(.3, Enum.EasingStyle.Quad, Enum.EasingDirection.Out),
+                        {BackgroundTransparency = 0}
+                    ):Play()
+                    TweenService:Create(
+                        FrameToggleCircle,
+                        TweenInfo.new(.3, Enum.EasingStyle.Quad, Enum.EasingDirection.Out),
+                        {BackgroundColor3 = Color3.fromRGB(255, 255, 255)}
+                    ):Play()
+                    FrameToggleCircle:TweenPosition(
+                        UDim2.new(0.587, 0, 0.222000003, 0),
+                        Enum.EasingDirection.Out,
+                        Enum.EasingStyle.Quart,
+                        .2,
+                        true
+                    )
+                    toggled = not toggled
+                end
+    
                 local Toggle = {}
-
-                function Toggle:Set(value)
-                    Toggle.Value = value
-                    if Toggle.Value == false then
+    
+                function Toggle:Set(def)
+                    default = def
+                    toggled = def
+    
+                    if toggled == false then
                         TweenService:Create(
                             Toggle,
                             TweenInfo.new(.3, Enum.EasingStyle.Quad, Enum.EasingDirection.Out),
-                            { BackgroundColor3 = Color3.fromRGB(37, 37, 37) }
+                            {BackgroundColor3 = Color3.fromRGB(37, 37, 37)}
                         ):Play()
                         TweenService:Create(
                             FrameToggle1,
                             TweenInfo.new(.3, Enum.EasingStyle.Quad, Enum.EasingDirection.Out),
-                            { BackgroundTransparency = 1 }
+                            {BackgroundTransparency = 1}
                         ):Play()
                         TweenService:Create(
                             FrameToggle2,
                             TweenInfo.new(.3, Enum.EasingStyle.Quad, Enum.EasingDirection.Out),
-                            { BackgroundTransparency = 1 }
+                            {BackgroundTransparency = 1}
                         ):Play()
                         TweenService:Create(
                             FrameToggle3,
                             TweenInfo.new(.3, Enum.EasingStyle.Quad, Enum.EasingDirection.Out),
-                            { BackgroundTransparency = 0 }
+                            {BackgroundTransparency = 0}
                         ):Play()
                         TweenService:Create(
                             FrameToggleCircle,
                             TweenInfo.new(.3, Enum.EasingStyle.Quad, Enum.EasingDirection.Out),
-                            { BackgroundColor3 = Color3.fromRGB(255, 255, 255) }
+                            {BackgroundColor3 = Color3.fromRGB(255, 255, 255)}
                         ):Play()
                         FrameToggleCircle:TweenPosition(
                             UDim2.new(0.587, 0, 0.222000003, 0),
@@ -2074,27 +2294,27 @@ function lib:Window(text, preset, closebind)
                         TweenService:Create(
                             Toggle,
                             TweenInfo.new(.3, Enum.EasingStyle.Quad, Enum.EasingDirection.Out),
-                            { BackgroundColor3 = Color3.fromRGB(34, 34, 34) }
+                            {BackgroundColor3 = Color3.fromRGB(34, 34, 34)}
                         ):Play()
                         TweenService:Create(
                             FrameToggle1,
                             TweenInfo.new(.3, Enum.EasingStyle.Quad, Enum.EasingDirection.Out),
-                            { BackgroundTransparency = 0 }
+                            {BackgroundTransparency = 0}
                         ):Play()
                         TweenService:Create(
                             FrameToggle2,
                             TweenInfo.new(.3, Enum.EasingStyle.Quad, Enum.EasingDirection.Out),
-                            { BackgroundTransparency = 0 }
+                            {BackgroundTransparency = 0}
                         ):Play()
                         TweenService:Create(
                             FrameToggle3,
                             TweenInfo.new(.3, Enum.EasingStyle.Quad, Enum.EasingDirection.Out),
-                            { BackgroundTransparency = 1 }
+                            {BackgroundTransparency = 1}
                         ):Play()
                         TweenService:Create(
                             FrameToggleCircle,
                             TweenInfo.new(.3, Enum.EasingStyle.Quad, Enum.EasingDirection.Out),
-                            { BackgroundColor3 = Color3.fromRGB(50, 50, 50) }
+                            {BackgroundColor3 = Color3.fromRGB(50, 50, 50)}
                         ):Play()
                         FrameToggleCircle:TweenPosition(
                             UDim2.new(0.127000004, 0, 0.222000003, 0),
@@ -2104,18 +2324,10 @@ function lib:Window(text, preset, closebind)
                             true
                         )
                     end
-                    return callback(Toggle.Value)
                 end
-
-                Toggle.MouseButton1Click:Connect(function()
-                    Toggle.Value = not Toggle.Value
-                    Toggle:Set(Toggle.Value)
-                end)
-
+    
                 Tab.CanvasSize = UDim2.new(0, 0, 0, TabLayout.AbsoluteContentSize.Y)
-
-                Toggle:Set(default)
-
+    
                 return Toggle
             end
 
