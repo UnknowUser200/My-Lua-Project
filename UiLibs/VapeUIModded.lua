@@ -1071,14 +1071,9 @@ function lib:Window(text, preset, closebind)
                 return callback(Dropdown.Value)
             end
 
-            spawn(
-                function()
-                    while wait() do
-                        DropMain.Btn.BackgroundColor3 = Color3.fromRGB(34, 34, 34)
-                        DropMain.Btn.Ico.ImageColor3 = Color3.fromRGB(255, 255, 255)
-                    end
-                end
-            )
+
+            DropMain.Btn.BackgroundColor3 = Color3.fromRGB(34, 34, 34)
+            DropMain.Btn.Ico.ImageColor3 = Color3.fromRGB(255, 255, 255)
 
             Dropdown:Refresh(list, false)
             Dropdown:Set(def)
@@ -1086,7 +1081,7 @@ function lib:Window(text, preset, closebind)
             return Dropdown
         end
 
-        function tabcontent:MultiDropdown(text, list, def, flag, callback)
+        function tabcontent:MultiDropdown(text, list, def, callback)
             local Dropdown, DropMain, OptionPreset =
             { Value = {}, Toggled = false, Options = list },
                 game:GetObjects("rbxassetid://7027964359")[1],
@@ -2431,15 +2426,10 @@ function lib:Window(text, preset, closebind)
                                 return callback(Dropdown.Value)
                             end
                         )
-    
-                        spawn(
-                            function()
-                                while wait() do
-                                    Option.BackgroundColor3 = Color3.fromRGB(34, 34, 34)
-                                    DropMain.Btn.Title.TextColor3 = Color3.fromRGB(155, 155, 155)
-                                end
-                            end
-                        )
+
+                        Option.BackgroundColor3 = Color3.fromRGB(34, 34, 34)
+                        DropMain.Btn.Title.TextColor3 = Color3.fromRGB(155, 155, 155)
+
                     end
                 end
     
@@ -2473,15 +2463,9 @@ function lib:Window(text, preset, closebind)
                     DropMain.Btn.Title.Text = text .. " - " .. val
                     return callback(Dropdown.Value)
                 end
-    
-                spawn(
-                    function()
-                        while wait() do
-                            DropMain.Btn.BackgroundColor3 = Color3.fromRGB(34, 34, 34)
-                            DropMain.Btn.Ico.ImageColor3 = Color3.fromRGB(255, 255, 255)
-                        end
-                    end
-                )
+
+                DropMain.Btn.BackgroundColor3 = Color3.fromRGB(34, 34, 34)
+                DropMain.Btn.Ico.ImageColor3 = Color3.fromRGB(255, 255, 255)
     
                 Dropdown:Refresh(list, false)
                 Dropdown:Set(def)
