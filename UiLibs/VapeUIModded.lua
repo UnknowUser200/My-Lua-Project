@@ -894,6 +894,7 @@ function lib:Window(text, preset, closebind)
             SliderMain.SliderFrame.SliderCurrentFrame.BackgroundColor3 = PresetColor
             SliderMain.SliderText.TextColor3 = Color3.fromRGB(255, 255, 255)
             SliderMain.SliderVal.TextColor3 = Color3.fromRGB(255, 255, 255)
+            SliderMain.Size = UIDim2.new(0,363, 0, 44)
 
             local function move(Input)
                 local XSize = math.clamp((Input.Position.X - SliderMain.SliderFrame.AbsolutePosition.X) /
@@ -911,9 +912,11 @@ function lib:Window(text, preset, closebind)
             end
 
             SliderMain.SliderFrame.InputBegan:Connect(function(input) if input.UserInputType ==
-                Enum.UserInputType.MouseButton1 then dragging = true end end)
+                    Enum.UserInputType.MouseButton1 then dragging = true end
+            end)
             SliderMain.SliderFrame.InputEnded:Connect(function(input) if input.UserInputType ==
-                Enum.UserInputType.MouseButton1 then dragging = false end end)
+                    Enum.UserInputType.MouseButton1 then dragging = false end
+            end)
             game:GetService("UserInputService").InputChanged:Connect(function(input) if dragging and
                     input.UserInputType == Enum.UserInputType.MouseMovement then move(input) end
             end)
@@ -937,9 +940,11 @@ function lib:Window(text, preset, closebind)
                 game:GetObjects("rbxassetid://7021432326")[1]
             DropMain.Parent = Tab
             DropMain.Btn.Title.Text = text
+            DropMain.Btn.Title.TextColor3 = Color3.fromRGB(255, 255, 255)
             DropMain.Name = "Dropdown"
             Dropdown.BackgroundTransparency = 0
-            Dropdown.BackgroundColor3 = 34, 34, 34
+            Dropdown.BackgroundColor3 = Color3.fromRGB(34, 34, 34)
+            Dropdown.Size = UIDim2.new(0, 363, 0, 32)
 
             local function ToggleDrop()
                 Dropdown.Toggled = not Dropdown.Toggled
@@ -979,14 +984,8 @@ function lib:Window(text, preset, closebind)
                         end
                     )
 
-                    spawn(
-                        function()
-                            while wait() do
-                                Option.BackgroundColor3 = Color3.fromRGB(34, 34, 34)
-                                DropMain.Btn.Title.TextColor3 = Color3.fromRGB(155, 155, 155)
-                            end
-                        end
-                    )
+                    Option.BackgroundColor3 = Color3.fromRGB(34, 34, 34)
+                    DropMain.Btn.Title.TextColor3 = Color3.fromRGB(155, 155, 155)
                 end
             end
 
@@ -1021,14 +1020,9 @@ function lib:Window(text, preset, closebind)
                 return callback(Dropdown.Value)
             end
 
-            spawn(
-                function()
-                    while wait() do
-                        DropMain.Btn.BackgroundColor3 = Color3.fromRGB(34, 34, 34)
-                        DropMain.Btn.Ico.ImageColor3 = Color3.fromRGB(255, 255, 255)
-                    end
-                end
-            )
+            DropMain.Btn.BackgroundColor3 = Color3.fromRGB(34, 34, 34)
+            DropMain.Btn.Ico.ImageColor3 = Color3.fromRGB(255, 255, 255)
+
 
             Dropdown:Refresh(list, false)
             Dropdown:Set(def)
@@ -1043,9 +1037,11 @@ function lib:Window(text, preset, closebind)
                 game:GetObjects("rbxassetid://7021432326")[1]
             DropMain.Parent = Tab
             DropMain.Btn.Title.Text = text
-            DropMain.Name = text .. "element"
+            DropMain.Btn.Title.TextColor3 = Color3.fromRGB(255, 255, 255)
+            DropMain.Name = "Dropdown"
             Dropdown.BackgroundTransparency = 0
-            Dropdown.BackgroundColor3 = 34, 34, 34
+            Dropdown.BackgroundColor3 = Color3.fromRGB(34, 34, 34)
+            Dropdown.Size = UIDim2.new(0, 363, 0, 32)
 
             local function ToggleDrop()
                 Dropdown.Toggled = not Dropdown.Toggled
@@ -1672,6 +1668,7 @@ function lib:Window(text, preset, closebind)
             TextboxFrame.Title.TextColor3 = Color3.fromRGB(255, 255, 255)
             TextboxFrame.Box.BackgroundColor3 = Color3.fromRGB(37, 37, 37)
             TextboxFrame.Box.TextColor3 = Color3.fromRGB(240, 240, 240)
+            TextboxFrame.Size = UIDim2.new(0,363, 0, 32)
 
             TextboxFrame.Box.Changed:Connect(function()
                 TextboxFrame.Box.Size = UDim2.new(0, TextboxFrame.Box.TextBounds.X + 16, 0, 22)
@@ -1711,6 +1708,7 @@ function lib:Window(text, preset, closebind)
             BindFrame.BackgroundColor3 = Color3.fromRGB(34, 34, 34)
             BindFrame.Title.TextColor3 = Color3.fromRGB(255, 255, 255)
             BindFrame.BText.TextColor3 = Color3.fromRGB(200, 200, 200)
+            BindFrame.Size = UIDim2.new(0,363, 0, 32)
 
             BindFrame.InputEnded:Connect(function(Input)
                 if Input.UserInputType == Enum.UserInputType.MouseButton1 then
@@ -2130,6 +2128,7 @@ function lib:Window(text, preset, closebind)
                 SliderMain.SliderFrame.SliderCurrentFrame.BackgroundColor3 = PresetColor
                 SliderMain.SliderText.TextColor3 = Color3.fromRGB(255, 255, 255)
                 SliderMain.SliderVal.TextColor3 = Color3.fromRGB(255, 255, 255)
+                SliderMain.Size = UIDim2.new(0,363, 0, 44)
 
                 local function move(Input)
                     local XSize = math.clamp((Input.Position.X - SliderMain.SliderFrame.AbsolutePosition.X) /
@@ -2149,9 +2148,11 @@ function lib:Window(text, preset, closebind)
                 end
 
                 SliderMain.SliderFrame.InputBegan:Connect(function(input) if input.UserInputType ==
-                    Enum.UserInputType.MouseButton1 then dragging = true end end)
+                        Enum.UserInputType.MouseButton1 then dragging = true end
+                end)
                 SliderMain.SliderFrame.InputEnded:Connect(function(input) if input.UserInputType ==
-                    Enum.UserInputType.MouseButton1 then dragging = false end end)
+                        Enum.UserInputType.MouseButton1 then dragging = false end
+                end)
                 game:GetService("UserInputService").InputChanged:Connect(function(input) if dragging and
                         input.UserInputType == Enum.UserInputType.MouseMovement then move(input) end
                 end)
@@ -2175,9 +2176,11 @@ function lib:Window(text, preset, closebind)
                     game:GetObjects("rbxassetid://7021432326")[1]
                 DropMain.Parent = Section
                 DropMain.Btn.Title.Text = text
+                DropMain.Btn.Title.TextColor3 = Color3.fromRGB(255, 255, 255)
                 DropMain.Name = "Dropdown"
                 Dropdown.BackgroundTransparency = 0
-                Dropdown.BackgroundColor3 = 34, 34, 34
+                Dropdown.BackgroundColor3 = Color3.fromRGB(34, 34, 34)
+                Dropdown.Size = UIDim2.new(0, 363, 0, 32)
 
                 local function ToggleDrop()
                     Dropdown.Toggled = not Dropdown.Toggled
@@ -2217,14 +2220,9 @@ function lib:Window(text, preset, closebind)
                             end
                         )
 
-                        spawn(
-                            function()
-                                while wait() do
-                                    Option.BackgroundColor3 = Color3.fromRGB(34, 34, 34)
-                                    DropMain.Btn.Title.TextColor3 = Color3.fromRGB(155, 155, 155)
-                                end
-                            end
-                        )
+                        Option.BackgroundColor3 = Color3.fromRGB(34, 34, 34)
+                        DropMain.Btn.Title.TextColor3 = Color3.fromRGB(155, 155, 155)
+
                     end
                 end
 
@@ -2281,9 +2279,11 @@ function lib:Window(text, preset, closebind)
                     game:GetObjects("rbxassetid://7021432326")[1]
                 DropMain.Parent = Section
                 DropMain.Btn.Title.Text = text
-                DropMain.Name = text .. "element"
+                DropMain.Btn.Title.TextColor3 = Color3.fromRGB(255, 255, 255)
+                DropMain.Name = "Dropdown"
                 Dropdown.BackgroundTransparency = 0
-                Dropdown.BackgroundColor3 = 34, 34, 34
+                Dropdown.BackgroundColor3 = Color3.fromRGB(34, 34, 34)
+                Dropdown.Size = UIDim2.new(0, 363, 0, 32)
 
                 local function ToggleDrop()
                     Dropdown.Toggled = not Dropdown.Toggled
@@ -2911,19 +2911,20 @@ function lib:Window(text, preset, closebind)
                 TextboxFrame.Title.TextColor3 = Color3.fromRGB(255, 255, 255)
                 TextboxFrame.Box.BackgroundColor3 = Color3.fromRGB(37, 37, 37)
                 TextboxFrame.Box.TextColor3 = Color3.fromRGB(240, 240, 240)
-    
+                Textbox.Size = UIDim2.new(0, 363, 0, 32)
+
                 TextboxFrame.Box.Changed:Connect(function()
                     TextboxFrame.Box.Size = UDim2.new(0, TextboxFrame.Box.TextBounds.X + 16, 0, 22)
                 end)
                 TextboxFrame.Box.PlaceholderText = "                  "
-    
+
                 TextboxFrame.InputBegan:Connect(function(input)
                     if input.UserInputType == Enum.UserInputType.MouseButton1 then
                         TextboxFrame.Box:CaptureFocus()
                     end
                 end)
-    
-    
+
+
                 TextboxFrame.Box.FocusLost:Connect(function()
                     local txt = TextboxFrame.Box.Text
                     if disapper then
@@ -2931,13 +2932,13 @@ function lib:Window(text, preset, closebind)
                     end
                     return callback(txt)
                 end)
-    
+
                 UserInputService.InputBegan:Connect(function(input)
                     if input.KeyCode == Enum.KeyCode.Escape and TextboxFrame.Box:IsFocused() then
                         TextboxFrame.Box:ReleaseFocus()
                     end
                 end)
-    
+
                 return Textbox
             end
 
@@ -2950,6 +2951,7 @@ function lib:Window(text, preset, closebind)
                 BindFrame.BackgroundColor3 = Color3.fromRGB(34, 34, 34)
                 BindFrame.Title.TextColor3 = Color3.fromRGB(255, 255, 255)
                 BindFrame.BText.TextColor3 = Color3.fromRGB(200, 200, 200)
+                BindFrame.Size = UIDim2.new(0, 363, 0, 32)
 
                 BindFrame.InputEnded:Connect(function(Input)
                     if Input.UserInputType == Enum.UserInputType.MouseButton1 then
