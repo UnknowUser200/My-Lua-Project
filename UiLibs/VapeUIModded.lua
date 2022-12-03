@@ -992,7 +992,7 @@ function lib:Window(text, preset, closebind)
             local BottomLine = Instance.new("Frame")
 
             Dropdown.Name = "Dropdown"
-            Dropdown.Parent = game.StarterGui.ScreenGui
+            Dropdown.Parent = Tab
             Dropdown.BackgroundColor3 = Color3.fromRGB(34, 34, 34)
             Dropdown.BorderSizePixel = 0
             Dropdown.Size = UDim2.new(0, 363, 0, 32)
@@ -2339,7 +2339,7 @@ function lib:Window(text, preset, closebind)
                 local SlideFrame = Instance.new("Frame")
                 local CurrentValueFrame = Instance.new("Frame")
                 local SlideCircle = Instance.new("ImageButton")
-
+    
                 Slider.Name = "Slider"
                 Slider.Parent = Section
                 Slider.BackgroundColor3 = Color3.fromRGB(34, 34, 34)
@@ -2350,11 +2350,11 @@ function lib:Window(text, preset, closebind)
                 Slider.Text = ""
                 Slider.TextColor3 = Color3.fromRGB(0, 0, 0)
                 Slider.TextSize = 14.000
-
+    
                 SliderCorner.CornerRadius = UDim.new(0, 5)
                 SliderCorner.Name = "SliderCorner"
                 SliderCorner.Parent = Slider
-
+    
                 SliderTitle.Name = "SliderTitle"
                 SliderTitle.Parent = Slider
                 SliderTitle.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
@@ -2366,7 +2366,7 @@ function lib:Window(text, preset, closebind)
                 SliderTitle.TextColor3 = Color3.fromRGB(255, 255, 255)
                 SliderTitle.TextSize = 14.000
                 SliderTitle.TextXAlignment = Enum.TextXAlignment.Left
-
+    
                 SliderValue.Name = "SliderValue"
                 SliderValue.Parent = Slider
                 SliderValue.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
@@ -2378,20 +2378,20 @@ function lib:Window(text, preset, closebind)
                 SliderValue.TextColor3 = Color3.fromRGB(255, 255, 255)
                 SliderValue.TextSize = 14.000
                 SliderValue.TextXAlignment = Enum.TextXAlignment.Right
-
+    
                 SlideFrame.Name = "SlideFrame"
                 SlideFrame.Parent = Slider
                 SlideFrame.BackgroundColor3 = Color3.fromRGB(50, 50, 50)
                 SlideFrame.BorderSizePixel = 0
                 SlideFrame.Position = UDim2.new(0.0342647657, 0, 0.686091602, 0)
                 SlideFrame.Size = UDim2.new(0, 335, 0, 3)
-
+    
                 CurrentValueFrame.Name = "CurrentValueFrame"
                 CurrentValueFrame.Parent = SlideFrame
                 CurrentValueFrame.BackgroundColor3 = PresetColor
                 CurrentValueFrame.BorderSizePixel = 0
                 CurrentValueFrame.Size = UDim2.new((start or 0) / max, 0, 0, 3)
-
+    
                 SlideCircle.Name = "SlideCircle"
                 SlideCircle.Parent = SlideFrame
                 SlideCircle.BackgroundColor3 = PresetColor
@@ -2400,7 +2400,7 @@ function lib:Window(text, preset, closebind)
                 SlideCircle.Size = UDim2.new(0, 11, 0, 11)
                 SlideCircle.Image = "rbxassetid://3570695787"
                 SlideCircle.ImageColor3 = PresetColor
-
+    
                 coroutine.wrap(
                     function()
                         while wait() do
@@ -2409,28 +2409,25 @@ function lib:Window(text, preset, closebind)
                         end
                     end
                 )()
-
+    
                 local Slider = {}
                 local dragging = false
-
+    
                 local function move(Input)
                     local XSize = math.clamp((Input.Position.X - SlideCircle.AbsolutePosition.X) /
                         SlideCircle.AbsoluteSize.X, 0, 1)
-                    local Increment = inc and (max / ((max - min) / (inc * 4))) or
-                        (max >= 50 and max / ((max - min) / 4)) or
+                    local Increment = inc and (max / ((max - min) / (inc * 4))) or (max >= 50 and max / ((max - min) / 4)) or
                         (max >= 25 and max / ((max - min) / 2)) or (max / (max - min))
-                    local SizeRounded = UDim2.new((math.round(XSize * ((max / Increment) * 4)) / ((max / Increment) * 4)
-                        ), 0
+                    local SizeRounded = UDim2.new((math.round(XSize * ((max / Increment) * 4)) / ((max / Increment) * 4)), 0
                         , 1, 0)
                     TweenService:Create(CurrentValueFrame,
-                        TweenInfo.new(0.15, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), { Size = SizeRounded }):
-                        Play()
+                        TweenInfo.new(0.15, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), { Size = SizeRounded }):Play()
                     local Val = math.round((((SizeRounded.X.Scale * max) / max) * (max - min) + min) * 20) / 20
                     SliderValue.Text = tostring(Val)
                     Slider.Value = Val
                     callback(Slider.Value)
                 end
-
+    
                 SlideCircle.InputBegan:Connect(function(input) if input.UserInputType ==
                         Enum.UserInputType.MouseButton1 then dragging = true end
                 end)
@@ -2440,7 +2437,7 @@ function lib:Window(text, preset, closebind)
                 game:GetService("UserInputService").InputChanged:Connect(function(input) if dragging and
                         input.UserInputType == Enum.UserInputType.MouseMovement then move(input) end
                 end)
-
+    
                 function Slider:Set(val)
                     local a = tostring(val and (val / max) * (max - min) + min) or 0
                     SliderValue.Text = tostring(a)
@@ -2448,9 +2445,9 @@ function lib:Window(text, preset, closebind)
                     Slider.Value = val
                     return callback(Slider.Value)
                 end
-
+    
                 Tab.CanvasSize = UDim2.new(0, 0, 0, TabLayout.AbsoluteContentSize.Y)
-
+    
                 return Slider
             end
 
@@ -2466,7 +2463,7 @@ function lib:Window(text, preset, closebind)
                 local BottomLine = Instance.new("Frame")
 
                 Dropdown.Name = "Dropdown"
-                Dropdown.Parent = game.StarterGui.ScreenGui
+                Dropdown.Parent = Section
                 Dropdown.BackgroundColor3 = Color3.fromRGB(34, 34, 34)
                 Dropdown.BorderSizePixel = 0
                 Dropdown.Size = UDim2.new(0, 363, 0, 32)
