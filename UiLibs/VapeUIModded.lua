@@ -964,7 +964,7 @@ function lib:Window(text, preset, closebind)
             local function move(Input)
                 local pos =
                 UDim2.new(
-                math.clamp((input.Position.X - SlideFrame.AbsolutePosition.X) / SlideFrame.AbsoluteSize.X, 0, 1),
+                math.clamp((Input.Position.X - SlideFrame.AbsolutePosition.X) / SlideFrame.AbsoluteSize.X, 0, 1),
                 -6,
                 -1.30499995,
                 0
@@ -1863,7 +1863,6 @@ function lib:Window(text, preset, closebind)
             BindText.Position = UDim2.new(0.0358126722, 0, 0, 0)
             BindText.Size = UDim2.new(0, 337, 0, 42)
             BindText.Font = Enum.Font.Gotham
-            BindText.Text = Key
             BindText.TextColor3 = Color3.fromRGB(255, 255, 255)
             BindText.TextSize = 14.000
             BindText.TextXAlignment = Enum.TextXAlignment.Right
@@ -2379,7 +2378,7 @@ function lib:Window(text, preset, closebind)
                 local function move(Input)
                     local pos =
                     UDim2.new(
-                    math.clamp((input.Position.X - SlideFrame.AbsolutePosition.X) / SlideFrame.AbsoluteSize.X, 0, 1),
+                    math.clamp((Input.Position.X - SlideFrame.AbsolutePosition.X) / SlideFrame.AbsoluteSize.X, 0, 1),
                     -6,
                     -1.30499995,
                     0
@@ -3278,7 +3277,6 @@ function lib:Window(text, preset, closebind)
                 BindText.Position = UDim2.new(0.0358126722, 0, 0, 0)
                 BindText.Size = UDim2.new(0, 337, 0, 42)
                 BindText.Font = Enum.Font.Gotham
-                BindText.Text = Key
                 BindText.TextColor3 = Color3.fromRGB(255, 255, 255)
                 BindText.TextSize = 14.000
                 BindText.TextXAlignment = Enum.TextXAlignment.Right
