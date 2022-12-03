@@ -29,6 +29,17 @@ coroutine.wrap(
     end
 )()
 
+local WhitelistedMouse = {Enum.UserInputType.MouseButton1, Enum.UserInputType.MouseButton2,Enum.UserInputType.MouseButton3}
+local BlacklistedKeys = {Enum.KeyCode.Unknown,Enum.KeyCode.W,Enum.KeyCode.A,Enum.KeyCode.S,Enum.KeyCode.D,Enum.KeyCode.Up,Enum.KeyCode.Left,Enum.KeyCode.Down,Enum.KeyCode.Right,Enum.KeyCode.Slash,Enum.KeyCode.Tab,Enum.KeyCode.Backspace,Enum.KeyCode.Escape}
+
+local function CheckKey(tab, key)
+	for i, v in next, tab do
+		if v == key then
+			return true
+		end
+	end
+end
+
 local function MakeDraggable(topbarobject, object)
     local Dragging = nil
     local DragInput = nil
@@ -484,6 +495,14 @@ function lib:Window(text, preset, closebind)
             TabTitle.TextColor3 = Color3.fromRGB(255, 255, 255)
             Tab.Visible = true
         end
+
+        spawn(function()
+            while wait() do
+                Tab.CanvasSize = UDim2.new(0, 0, 0, TabLayout.AbsoluteContentSize.Y)
+            end
+        end)
+
+        Tab.CanvasSize = UDim2.new(0, 0, 0, TabLayout.AbsoluteContentSize.Y)
 
         TabBtn.MouseButton1Click:Connect(
             function()
@@ -943,15 +962,26 @@ function lib:Window(text, preset, closebind)
             local dragging = false
 
             local function move(Input)
+                local pos =
+                UDim2.new(
+                math.clamp((input.Position.X - SlideFrame.AbsolutePosition.X) / SlideFrame.AbsoluteSize.X, 0, 1),
+                -6,
+                -1.30499995,
+                0
+                )
                 local XSize = math.clamp((Input.Position.X - SlideCircle.AbsolutePosition.X) /
                     SlideCircle.AbsoluteSize.X, 0, 1)
-                local Increment = inc and (max / ((max - min) / (inc * 4))) or (max >= 50 and max / ((max - min) / 4)) or
+                local Increment = inc and (max / ((max - min) / (inc * 4))) or
+                    (max >= 50 and max / ((max - min) / 4)) or
                     (max >= 25 and max / ((max - min) / 2)) or (max / (max - min))
-                local SizeRounded = UDim2.new((math.round(XSize * ((max / Increment) * 4)) / ((max / Increment) * 4)), 0
+                local SizeRounded = UDim2.new((math.round(XSize * ((max / Increment) * 4)) / ((max / Increment) * 4)
+                    ), 0
                     , 1, 0)
                 TweenService:Create(CurrentValueFrame,
-                    TweenInfo.new(0.15, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), { Size = SizeRounded }):Play()
+                    TweenInfo.new(0.15, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), { Size = SizeRounded }):
+                    Play()
                 local Val = math.round((((SizeRounded.X.Scale * max) / max) * (max - min) + min) * 20) / 20
+                SlideCircle:TweenPosition(pos, "Out", "Sine", 0.1, true)
                 SliderValue.Text = tostring(Val)
                 Slider.Value = Val
                 callback(Slider.Value)
@@ -981,7 +1011,8 @@ function lib:Window(text, preset, closebind)
         end
 
         function tabcontent:Dropdown(text, list, def, callback)
-            local DropMain, OptionPreset =
+            local Dropdown, DropMain, OptionPreset =
+            { Value = nil, Toggled = false, Options = list },
                 game:GetObjects("rbxassetid://7027964359")[1],
                 game:GetObjects("rbxassetid://7021432326")[1]
             DropMain.Parent = Tab
@@ -989,8 +1020,6 @@ function lib:Window(text, preset, closebind)
             DropMain.Name = "Dropdown"
             Dropdown.BackgroundTransparency = 0
             Dropdown.BackgroundColor3 = 34, 34, 34
-            
-            local Dropdown = { Value = nil, Toggled = false, Options = list }
 
             local function ToggleDrop()
                 Dropdown.Toggled = not Dropdown.Toggled
@@ -1072,9 +1101,14 @@ function lib:Window(text, preset, closebind)
                 return callback(Dropdown.Value)
             end
 
-
-            DropMain.Btn.BackgroundColor3 = Color3.fromRGB(34, 34, 34)
-            DropMain.Btn.Ico.ImageColor3 = Color3.fromRGB(255, 255, 255)
+            spawn(
+                function()
+                    while wait() do
+                        DropMain.Btn.BackgroundColor3 = Color3.fromRGB(34, 34, 34)
+                        DropMain.Btn.Ico.ImageColor3 = Color3.fromRGB(255, 255, 255)
+                    end
+                end
+            )
 
             Dropdown:Refresh(list, false)
             Dropdown:Set(def)
@@ -1082,8 +1116,9 @@ function lib:Window(text, preset, closebind)
             return Dropdown
         end
 
-        function tabcontent:MultiDropdown(text, list, def, callback)
-            local DropMain, OptionPreset =
+        function tabcontent:MultiDropdown(text, list, def, flag, callback)
+            local Dropdown, DropMain, OptionPreset =
+            { Value = {}, Toggled = false, Options = list },
                 game:GetObjects("rbxassetid://7027964359")[1],
                 game:GetObjects("rbxassetid://7021432326")[1]
             DropMain.Parent = Tab
@@ -1091,8 +1126,6 @@ function lib:Window(text, preset, closebind)
             DropMain.Name = text .. "element"
             Dropdown.BackgroundTransparency = 0
             Dropdown.BackgroundColor3 = 34, 34, 34
-            
-            local Dropdown = { Value = nil, Toggled = false, Options = list }
 
             local function ToggleDrop()
                 Dropdown.Toggled = not Dropdown.Toggled
@@ -2257,7 +2290,7 @@ function lib:Window(text, preset, closebind)
                 return Toggle
             end
 
-            function SectionContent:Slider(text, min, max, start, callback)
+            function SectionContent:Slider(text, min, max, start, inc, callback)
                 local Slider = Instance.new("TextButton")
                 local SliderCorner = Instance.new("UICorner")
                 local SliderTitle = Instance.new("TextLabel")
@@ -2340,6 +2373,13 @@ function lib:Window(text, preset, closebind)
                 local dragging = false
 
                 local function move(Input)
+                    local pos =
+                    UDim2.new(
+                    math.clamp((input.Position.X - SlideFrame.AbsolutePosition.X) / SlideFrame.AbsoluteSize.X, 0, 1),
+                    -6,
+                    -1.30499995,
+                    0
+                    )
                     local XSize = math.clamp((Input.Position.X - SlideCircle.AbsolutePosition.X) /
                         SlideCircle.AbsoluteSize.X, 0, 1)
                     local Increment = inc and (max / ((max - min) / (inc * 4))) or
@@ -2352,6 +2392,7 @@ function lib:Window(text, preset, closebind)
                         TweenInfo.new(0.15, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), { Size = SizeRounded }):
                         Play()
                     local Val = math.round((((SizeRounded.X.Scale * max) / max) * (max - min) + min) * 20) / 20
+                    SlideCircle:TweenPosition(pos, "Out", "Sine", 0.1, true)
                     SliderValue.Text = tostring(Val)
                     Slider.Value = Val
                     callback(Slider.Value)
@@ -2381,7 +2422,8 @@ function lib:Window(text, preset, closebind)
             end
 
             function SectionContent:Dropdown(text, list, def, callback)
-                local DropMain, OptionPreset =
+                local Dropdown, DropMain, OptionPreset =
+                { Value = nil, Toggled = false, Options = list },
                     game:GetObjects("rbxassetid://7027964359")[1],
                     game:GetObjects("rbxassetid://7021432326")[1]
                 DropMain.Parent = Section
@@ -2389,8 +2431,6 @@ function lib:Window(text, preset, closebind)
                 DropMain.Name = "Dropdown"
                 Dropdown.BackgroundTransparency = 0
                 Dropdown.BackgroundColor3 = 34, 34, 34
-                
-                local Dropdown = { Value = nil, Toggled = false, Options = list }
     
                 local function ToggleDrop()
                     Dropdown.Toggled = not Dropdown.Toggled
@@ -2429,10 +2469,15 @@ function lib:Window(text, preset, closebind)
                                 return callback(Dropdown.Value)
                             end
                         )
-
-                        Option.BackgroundColor3 = Color3.fromRGB(34, 34, 34)
-                        DropMain.Btn.Title.TextColor3 = Color3.fromRGB(155, 155, 155)
-
+    
+                        spawn(
+                            function()
+                                while wait() do
+                                    Option.BackgroundColor3 = Color3.fromRGB(34, 34, 34)
+                                    DropMain.Btn.Title.TextColor3 = Color3.fromRGB(155, 155, 155)
+                                end
+                            end
+                        )
                     end
                 end
     
@@ -2466,9 +2511,15 @@ function lib:Window(text, preset, closebind)
                     DropMain.Btn.Title.Text = text .. " - " .. val
                     return callback(Dropdown.Value)
                 end
-
-                DropMain.Btn.BackgroundColor3 = Color3.fromRGB(34, 34, 34)
-                DropMain.Btn.Ico.ImageColor3 = Color3.fromRGB(255, 255, 255)
+    
+                spawn(
+                    function()
+                        while wait() do
+                            DropMain.Btn.BackgroundColor3 = Color3.fromRGB(34, 34, 34)
+                            DropMain.Btn.Ico.ImageColor3 = Color3.fromRGB(255, 255, 255)
+                        end
+                    end
+                )
     
                 Dropdown:Refresh(list, false)
                 Dropdown:Set(def)
@@ -2477,7 +2528,8 @@ function lib:Window(text, preset, closebind)
             end
     
             function SectionContent:MultiDropdown(text, list, def, flag, callback)
-                local DropMain, OptionPreset =
+                local Dropdown, DropMain, OptionPreset =
+                { Value = {}, Toggled = false, Options = list },
                     game:GetObjects("rbxassetid://7027964359")[1],
                     game:GetObjects("rbxassetid://7021432326")[1]
                 DropMain.Parent = Section
@@ -2485,8 +2537,6 @@ function lib:Window(text, preset, closebind)
                 DropMain.Name = text .. "element"
                 Dropdown.BackgroundTransparency = 0
                 Dropdown.BackgroundColor3 = 34, 34, 34
-                
-                local Dropdown = { Value = nil, Toggled = false, Options = list }
     
                 local function ToggleDrop()
                     Dropdown.Toggled = not Dropdown.Toggled
