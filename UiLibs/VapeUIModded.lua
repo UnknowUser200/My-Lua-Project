@@ -2354,20 +2354,10 @@ function lib:Window(text, preset, closebind)
                 CurrentValueFrame.BorderSizePixel = 0
                 CurrentValueFrame.Size = UDim2.new((start or 0) / max, 0, 0, 3)
 
-                SlideCircle.Name = "SlideCircle"
-                SlideCircle.Parent = SlideFrame
-                SlideCircle.BackgroundColor3 = PresetColor
-                SlideCircle.BackgroundTransparency = 1.000
-                SlideCircle.Position = UDim2.new((start or 0) / max, -6, -1.30499995, 0)
-                SlideCircle.Size = UDim2.new(0, 11, 0, 11)
-                SlideCircle.Image = "rbxassetid://3570695787"
-                SlideCircle.ImageColor3 = PresetColor
-
                 coroutine.wrap(
                     function()
                         while wait() do
                             CurrentValueFrame.BackgroundColor3 = PresetColor
-                            SlideCircle.ImageColor3 = PresetColor
                         end
                     end
                 )()
@@ -2376,11 +2366,8 @@ function lib:Window(text, preset, closebind)
                 local dragging = false
 
                 local function move(Input)
-                    local pos =
-                    UDim2.new(
-                    math.clamp((Input.Position.X - SlideFrame.AbsolutePosition.X) / SlideFrame.AbsoluteSize.X, 0, 1),, 0, 1, 0)
-                    local XSize = math.clamp((Input.Position.X - SlideCircle.AbsolutePosition.X) /
-                        SlideCircle.AbsoluteSize.X, 0, 1)
+                    local XSize = math.clamp((Input.Position.X - CurrentValueFrame.AbsolutePosition.X) /
+                        CurrentValueFrame.AbsoluteSize.X, 0, 1)
                     local Increment = inc and (max / ((max - min) / (inc * 4))) or
                         (max >= 50 and max / ((max - min) / 4)) or
                         (max >= 25 and max / ((max - min) / 2)) or (max / (max - min))
@@ -2391,20 +2378,15 @@ function lib:Window(text, preset, closebind)
                         TweenInfo.new(0.12, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), { Size = SizeRounded }):
                         Play()
                     local Val = math.round((((SizeRounded.X.Scale * max) / max) * (max - min) + min) * 20) / 20
-                    spawn(function()
-                    	while wait() do
-                    		SlideCircle:TweenPosition(pos, "Out", "Sine", 0.1, true)
-                    	end
-                    end)
                     SliderValue.Text = tostring(Val)
                     Slider.Value = Val
                     callback(Slider.Value)
                 end
 
-                SlideCircle.InputBegan:Connect(function(input) if input.UserInputType ==
+                CurrentValueFrame.InputBegan:Connect(function(input) if input.UserInputType ==
                         Enum.UserInputType.MouseButton1 then dragging = true end
                 end)
-                SlideCircle.InputEnded:Connect(function(input) if input.UserInputType ==
+                CurrentValueFrame.InputEnded:Connect(function(input) if input.UserInputType ==
                         Enum.UserInputType.MouseButton1 then dragging = false end
                 end)
                 game:GetService("UserInputService").InputChanged:Connect(function(input) if dragging and
