@@ -1714,7 +1714,7 @@ function lib:Window(text, preset, closebind)
             Input.BackgroundTransparency = 0
             Input.BorderSizePixel = 0
             Input.Position = UDim2.new(0, 0, 0.486315489, 0)
-            Input.Size = UDim2.new(0, 360, 0, 42)
+            Input.Size = UDim2.new(0, 187, 0, 42)
 
             UICorner.Parent = Input
             UICorner.CornerRadius = UDim.new(0, 4)
@@ -1826,55 +1826,74 @@ function lib:Window(text, preset, closebind)
             BindText.Position = UDim2.new(0.0358126722, 0, 0, 0)
             BindText.Size = UDim2.new(0, 337, 0, 42)
             BindText.Font = Enum.Font.Gotham
-            BindText.Text = preset
             BindText.TextColor3 = Color3.fromRGB(255, 255, 255)
             BindText.TextSize = 14.000
             BindText.TextXAlignment = Enum.TextXAlignment.Right
 
+            Tab.CanvasSize = UDim2.new(0, 0, 0, TabLayout.AbsoluteContentSize.Y)
+
             local Bind = { Value, Binding = false, Holding = false }
 
-            Bind.InputEnded:Connect(function(Input)
-                if Input.UserInputType == Enum.UserInputType.MouseButton1 then
-                    if Bind.Binding then return end
-                    Bind.Binding = true
-                    BindText.Text = "Waiting For Input"
-                end
-            end)
-
-            UserInputService.InputBegan:Connect(function(Input)
-                if UserInputService:GetFocusedTextBox() then return end
-                if (Input.KeyCode.Name == Bind.Value or Input.UserInputType.Name == Bind.Value) and not Bind.Binding then
-                    if holdmode then
-                        Holding = true
-                        callback(Holding)
-                    else
-                        callback()
-                    end
-                elseif Bind.Binding then
-                    local Key
-                    pcall(function()
-                        if not CheckKey(BlacklistedKeys, Input.KeyCode) then
-                            Key = Input.KeyCode
+            Bind.InputEnded:Connect(
+                function(Input)
+                    if Input.UserInputType == Enum.UserInputType.MouseButton1 then
+                        if Bind.Binding then
+                            return
                         end
-                    end)
-                    pcall(function()
-                        if CheckKey(WhitelistedMouse, Input.UserInputType) and not Key then
-                            Key = Input.UserInputType
-                        end
-                    end)
-                    Key = Key or Bind.Value
-                    Bind:Set(Key)
-                end
-            end)
-
-            UserInputService.InputEnded:Connect(function(Input)
-                if Input.KeyCode.Name == Bind.Value or Input.UserInputType.Name == Bind.Value then
-                    if holdmode and Holding then
-                        Holding = false
-                        callback(Holding)
+                        Bind.Binding = true
+                        BindText.Text = "Waiting for input"
                     end
                 end
-            end)
+            )
+
+            UserInputService.InputBegan:Connect(
+                function(Input)
+                    if UserInputService:GetFocusedTextBox() then
+                        return
+                    end
+                    if (Input.KeyCode.Name == Bind.Value or Input.UserInputType.Name == Bind.Value) and
+                        not Bind.Binding
+                    then
+                        if holdmode then
+                            Holding = true
+                            callback(Holding)
+                        else
+                            callback()
+                        end
+                    elseif Bind.Binding then
+                        local Key
+                        pcall(
+                            function()
+                                if not CheckKey(BlacklistedKeys, Input.KeyCode) then
+                                    Key = Input.KeyCode
+                                end
+                            end
+                        )
+                        pcall(
+                            function()
+                                if CheckKey(WhitelistedMouse, Input.UserInputType) and not Key then
+                                    Key = Input.UserInputType
+                                end
+                            end
+                        )
+                        Key = Key or Bind.Value
+                        Bind:Set(Key)
+                    end
+                end
+            )
+
+            BindText.Text = Bind.Value
+
+            UserInputService.InputEnded:Connect(
+                function(Input)
+                    if Input.KeyCode.Name == Bind.Value or Input.UserInputType.Name == Bind.Value then
+                        if holdmode and Holding then
+                            Holding = false
+                            callback(Holding)
+                        end
+                    end
+                end
+            )
 
             function Bind:Set(key)
                 self.Binding = false
