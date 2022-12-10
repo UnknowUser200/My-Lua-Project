@@ -55,7 +55,7 @@ function Ripple(Object)
         Circle.Parent = Object
         Circle.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
         Circle.BackgroundTransparency = 1.000
-        Circle.ZIndex = 10
+        Circle.ZIndex = 1
         Circle.Image = "rbxassetid://266543268"
         Circle.ImageColor3 = Color3.fromRGB(210, 210, 210)
         Circle.ImageTransparency = 0.8
@@ -1145,12 +1145,12 @@ function lib:Window(text, preset, closebind)
                             v:Destroy()
                             DropMain.Holder.Size =
                             Dropdown.Toggled and
-                                UDim2.new(0, 363, 0, 6 + DropMain.Holder.Layout.AbsoluteContentSize.Y) or
-                                UDim2.new(0, 363, 0, 0)
+                                UDim2.new(0, 187, 0, 6 + DropMain.Holder.Layout.AbsoluteContentSize.Y) or
+                                UDim2.new(0, 187, 0, 0)
                             DropMain.Size =
                             Dropdown.Toggled and
-                                UDim2.new(0, 363, 0, 38 + DropMain.Holder.Layout.AbsoluteContentSize.Y) or
-                                UDim2.new(0, 363, 0, 32)
+                                UDim2.new(0, 187, 0, 38 + DropMain.Holder.Layout.AbsoluteContentSize.Y) or
+                                UDim2.new(0, 187, 0, 32)
                         end
                     end
                 end
