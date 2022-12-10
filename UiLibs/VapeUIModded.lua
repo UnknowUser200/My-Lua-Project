@@ -938,7 +938,7 @@ function lib:Window(text, preset, closebind)
             SliderMain.SliderFrame.SliderCurrentFrame.BackgroundColor3 = PresetColor
             SliderMain.SliderText.TextColor3 = Color3.fromRGB(255, 255, 255)
             SliderMain.SliderVal.TextColor3 = Color3.fromRGB(255, 255, 255)
-            SliderMain.Size = UDim2.new(0, 187, 0, 44)
+            SliderMain.Size = UDim2.new(0, 363, 0, 44)
 
             local function move(Input)
                 local XSize = math.clamp((Input.Position.X - SliderMain.SliderFrame.AbsolutePosition.X) /
@@ -989,6 +989,7 @@ function lib:Window(text, preset, closebind)
             Dropdown.BackgroundTransparency = 0
             Dropdown.BackgroundColor3 = Color3.fromRGB(34, 34, 34)
             Dropdown.Size = UDim2.new(0, 363, 0, 32)
+            DropMain.Btn = UDim2.new(0, 363, 0, 32)
 
             local function ToggleDrop()
                 Dropdown.Toggled = not Dropdown.Toggled
@@ -1086,6 +1087,7 @@ function lib:Window(text, preset, closebind)
             Dropdown.BackgroundTransparency = 0
             Dropdown.BackgroundColor3 = Color3.fromRGB(34, 34, 34)
             Dropdown.Size = UDim2.new(0, 363, 0, 32)
+            DropMain.Btn = UDim2.new(0, 363, 0, 32)
 
             local function ToggleDrop()
                 Dropdown.Toggled = not Dropdown.Toggled
@@ -1816,4 +1818,3 @@ function lib:Window(text, preset, closebind)
 end
 
 return lib
--- lolo
