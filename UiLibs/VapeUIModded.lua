@@ -1693,7 +1693,7 @@ function lib:Window(text, preset, closebind)
             TextboxFrame.Title.TextColor3 = Color3.fromRGB(255, 255, 255)
             TextboxFrame.Box.BackgroundColor3 = Color3.fromRGB(37, 37, 37)
             TextboxFrame.Box.TextColor3 = Color3.fromRGB(240, 240, 240)
-            Textbox.Size = UDim2.new(0, 363, 0, 32)
+            TextboxFrame.Size = UDim2.new(0, 363, 0, 32)
 
             TextboxFrame.Box.Changed:Connect(function()
                 TextboxFrame.Box.Size = UDim2.new(0, TextboxFrame.Box.TextBounds.X + 16, 0, 22)
