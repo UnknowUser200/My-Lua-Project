@@ -988,20 +988,20 @@ function lib:Window(text, preset, closebind)
             DropMain.Name = "Dropdown"
             Dropdown.BackgroundTransparency = 0
             Dropdown.BackgroundColor3 = Color3.fromRGB(34, 34, 34)
-            Dropdown.Size = UDim2.new(0, 187, 0, 32)
+            Dropdown.Size = UDim2.new(0, 363, 0, 32)
 
             local function ToggleDrop()
                 Dropdown.Toggled = not Dropdown.Toggled
                 DropMain.Holder.Size =
-                Dropdown.Toggled and UDim2.new(0, 187, 0, 6 + DropMain.Holder.Layout.AbsoluteContentSize.Y) or
-                    UDim2.new(0, 187, 0, 0)
+                Dropdown.Toggled and UDim2.new(0, 363, 0, 6 + DropMain.Holder.Layout.AbsoluteContentSize.Y) or
+                    UDim2.new(0, 363, 0, 0)
                 TweenService:Create(
                     DropMain,
                     TweenInfo.new(0.15, Enum.EasingStyle.Quad, Enum.EasingDirection.Out),
                     {
                         Size = Dropdown.Toggled and
-                            UDim2.new(0, 187, 0, 38 + DropMain.Holder.Layout.AbsoluteContentSize.Y) or
-                            UDim2.new(0, 187, 0, 32)
+                            UDim2.new(0, 363, 0, 38 + DropMain.Holder.Layout.AbsoluteContentSize.Y) or
+                            UDim2.new(0, 363, 0, 32)
                     }
                 ):Play()
                 TweenService:Create(
@@ -1040,12 +1040,12 @@ function lib:Window(text, preset, closebind)
                             v:Destroy()
                             DropMain.Holder.Size =
                             Dropdown.Toggled and
-                                UDim2.new(0, 187, 0, 6 + DropMain.Holder.Layout.AbsoluteContentSize.Y) or
-                                UDim2.new(0, 187, 0, 0)
+                                UDim2.new(0, 363, 0, 6 + DropMain.Holder.Layout.AbsoluteContentSize.Y) or
+                                UDim2.new(0, 363, 0, 0)
                             DropMain.Size =
                             Dropdown.Toggled and
-                                UDim2.new(0, 187, 0, 38 + DropMain.Holder.Layout.AbsoluteContentSize.Y) or
-                                UDim2.new(0, 187, 0, 32)
+                                UDim2.new(0, 363, 0, 38 + DropMain.Holder.Layout.AbsoluteContentSize.Y) or
+                                UDim2.new(0, 363, 0, 32)
                         end
                     end
                 end
@@ -1085,20 +1085,20 @@ function lib:Window(text, preset, closebind)
             DropMain.Name = "Dropdown"
             Dropdown.BackgroundTransparency = 0
             Dropdown.BackgroundColor3 = Color3.fromRGB(34, 34, 34)
-            Dropdown.Size = UDim2.new(0, 187, 0, 32)
+            Dropdown.Size = UDim2.new(0, 363, 0, 32)
 
             local function ToggleDrop()
                 Dropdown.Toggled = not Dropdown.Toggled
                 DropMain.Holder.Size =
-                Dropdown.Toggled and UDim2.new(0, 187, 0, 6 + DropMain.Holder.Layout.AbsoluteContentSize.Y) or
-                    UDim2.new(0, 187, 0, 0)
+                Dropdown.Toggled and UDim2.new(0, 363, 0, 6 + DropMain.Holder.Layout.AbsoluteContentSize.Y) or
+                    UDim2.new(0, 363, 0, 0)
                 TweenService:Create(
                     DropMain,
                     TweenInfo.new(0.15, Enum.EasingStyle.Quad, Enum.EasingDirection.Out),
                     {
                         Size = Dropdown.Toggled and
-                            UDim2.new(0, 187, 0, 38 + DropMain.Holder.Layout.AbsoluteContentSize.Y) or
-                            UDim2.new(0, 187, 0, 32)
+                            UDim2.new(0, 363, 0, 38 + DropMain.Holder.Layout.AbsoluteContentSize.Y) or
+                            UDim2.new(0, 363, 0, 32)
                     }
                 ):Play()
                 TweenService:Create(
@@ -1145,12 +1145,12 @@ function lib:Window(text, preset, closebind)
                             v:Destroy()
                             DropMain.Holder.Size =
                             Dropdown.Toggled and
-                                UDim2.new(0, 187, 0, 6 + DropMain.Holder.Layout.AbsoluteContentSize.Y) or
-                                UDim2.new(0, 187, 0, 0)
+                                UDim2.new(0, 363, 0, 6 + DropMain.Holder.Layout.AbsoluteContentSize.Y) or
+                                UDim2.new(0, 363, 0, 0)
                             DropMain.Size =
                             Dropdown.Toggled and
-                                UDim2.new(0, 187, 0, 38 + DropMain.Holder.Layout.AbsoluteContentSize.Y) or
-                                UDim2.new(0, 187, 0, 32)
+                                UDim2.new(0, 363, 0, 38 + DropMain.Holder.Layout.AbsoluteContentSize.Y) or
+                                UDim2.new(0, 363, 0, 32)
                         end
                     end
                 end
@@ -1713,7 +1713,7 @@ function lib:Window(text, preset, closebind)
             TextboxFrame.Title.TextColor3 = Color3.fromRGB(255, 255, 255)
             TextboxFrame.Box.BackgroundColor3 = Color3.fromRGB(37, 37, 37)
             TextboxFrame.Box.TextColor3 = Color3.fromRGB(240, 240, 240)
-            Textbox.Size = UDim2.new(0, 187, 0, 32)
+            Textbox.Size = UDim2.new(0, 363, 0, 32)
 
             TextboxFrame.Box.Changed:Connect(function()
                 TextboxFrame.Box.Size = UDim2.new(0, TextboxFrame.Box.TextBounds.X + 16, 0, 22)
@@ -1753,7 +1753,7 @@ function lib:Window(text, preset, closebind)
             BindFrame.BackgroundColor3 = Color3.fromRGB(34, 34, 34)
             BindFrame.Title.TextColor3 = Color3.fromRGB(255, 255, 255)
             BindFrame.BText.TextColor3 = Color3.fromRGB(200, 200, 200)
-            BindFrame.Size = UDim2.new(0, 187, 0, 32)
+            BindFrame.Size = UDim2.new(0, 363, 0, 32)
 
             BindFrame.InputEnded:Connect(function(Input)
                 if Input.UserInputType == Enum.UserInputType.MouseButton1 then
