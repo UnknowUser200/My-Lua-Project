@@ -1700,9 +1700,7 @@ function lib:Window(text, preset, closebind)
             return LabelFuns
         end
 
-        function tabcontent:Textbox(text, disapper, Plahold, callback)
-            Plahold = Plahold or ""
-
+        function tabcontent:Textbox(text, disapper, callback)
             local Input = Instance.new("Frame")
             local UICorner = Instance.new("UICorner")
             local Title = Instance.new("TextLabel")
@@ -1755,7 +1753,7 @@ function lib:Window(text, preset, closebind)
             InputBox.Size = UDim2.new(1, -15, 0, 14)
             InputBox.ClearTextOnFocus = false
             InputBox.Font = Enum.Font.GothamMedium
-            InputBox.PlaceholderText = Plahold
+            InputBox.PlaceholderText = "           "
             InputBox.Text = ""
             InputBox.TextColor3 = Color3.fromRGB(240, 240, 240)
             InputBox.TextSize = 14
