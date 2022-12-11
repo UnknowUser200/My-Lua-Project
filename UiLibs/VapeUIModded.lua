@@ -192,7 +192,7 @@ function lib:Notif(NotificationConfig)
         Label.Position = UDim2.new(0, 30, 0, 0)
         Label.Size = UDim2.new(1, -30, 0, 20)
         Label.Font = Enum.Font.Gotham
-        Label.TextColor3 = Color3.fromRGB(76, 76, 76)
+        Label.TextColor3 = Color3.fromRGB(230, 230, 230)
         Label.TextSize = 15.000
         Label.TextXAlignment = Enum.TextXAlignment.Left
         Label.Text = NotificationConfig.Name
@@ -916,17 +916,70 @@ function lib:Window(text, preset, closebind)
             return Toggle
         end
 
-        function tabcontent:Slider(text, min, max, start, inc, callback)
-            local Slider, SliderMain = { Value = start }, game:GetObjects("rbxassetid://6967573727")[1]
-            SliderMain.Parent = Tab
-            SliderMain.SliderText.Text = text
-            SliderMain.Name = "Slider"
+        function tabcontent:Slider(text, min, max, start, callback)
             local dragging = false
-
+            local Slider = Instance.new("TextButton")
+            local SliderCorner = Instance.new("UICorner")
+            local SliderTitle = Instance.new("TextLabel")
+            local SliderValue = Instance.new("TextLabel")
+            local SlideFrame = Instance.new("Frame")
+            local CurrentValueFrame = Instance.new("Frame")
             local SlideCircle = Instance.new("ImageButton")
 
+            Slider.Name = "Slider"
+            Slider.Parent = Tab
+            Slider.BackgroundColor3 = Color3.fromRGB(34, 34, 34)
+            Slider.Position = UDim2.new(-0.48035714, 0, -0.570532918, 0)
+            Slider.Size = UDim2.new(0, 363, 0, 60)
+            Slider.AutoButtonColor = false
+            Slider.Font = Enum.Font.SourceSans
+            Slider.Text = ""
+            Slider.TextColor3 = Color3.fromRGB(0, 0, 0)
+            Slider.TextSize = 14.000
+
+            SliderCorner.CornerRadius = UDim.new(0, 5)
+            SliderCorner.Name = "SliderCorner"
+            SliderCorner.Parent = Slider
+
+            SliderTitle.Name = "SliderTitle"
+            SliderTitle.Parent = Slider
+            SliderTitle.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+            SliderTitle.BackgroundTransparency = 1.000
+            SliderTitle.Position = UDim2.new(0.0358126722, 0, 0, 0)
+            SliderTitle.Size = UDim2.new(0, 187, 0, 42)
+            SliderTitle.Font = Enum.Font.Gotham
+            SliderTitle.Text = text
+            SliderTitle.TextColor3 = Color3.fromRGB(255, 255, 255)
+            SliderTitle.TextSize = 14.000
+            SliderTitle.TextXAlignment = Enum.TextXAlignment.Left
+
+            SliderValue.Name = "SliderValue"
+            SliderValue.Parent = Slider
+            SliderValue.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+            SliderValue.BackgroundTransparency = 1.000
+            SliderValue.Position = UDim2.new(0.0358126722, 0, 0, 0)
+            SliderValue.Size = UDim2.new(0, 335, 0, 42)
+            SliderValue.Font = Enum.Font.Gotham
+            SliderValue.Text = tostring(start and math.floor((start / max) * (max - min) + min) or 0)
+            SliderValue.TextColor3 = Color3.fromRGB(255, 255, 255)
+            SliderValue.TextSize = 14.000
+            SliderValue.TextXAlignment = Enum.TextXAlignment.Right
+
+            SlideFrame.Name = "SlideFrame"
+            SlideFrame.Parent = Slider
+            SlideFrame.BackgroundColor3 = Color3.fromRGB(50, 50, 50)
+            SlideFrame.BorderSizePixel = 0
+            SlideFrame.Position = UDim2.new(0.0342647657, 0, 0.686091602, 0)
+            SlideFrame.Size = UDim2.new(0, 335, 0, 3)
+
+            CurrentValueFrame.Name = "CurrentValueFrame"
+            CurrentValueFrame.Parent = SlideFrame
+            CurrentValueFrame.BackgroundColor3 = PresetColor
+            CurrentValueFrame.BorderSizePixel = 0
+            CurrentValueFrame.Size = UDim2.new((start or 0) / max, 0, 0, 3)
+
             SlideCircle.Name = "SlideCircle"
-            SlideCircle.Parent = SliderMain.SliderFrame.SliderCurrentFrame
+            SlideCircle.Parent = CurrentValueFrame
             SlideCircle.AnchorPoint = Vector2.new(1, 0.5)
             SlideCircle.BackgroundColor3 = PresetColor
             SlideCircle.BackgroundTransparency = 1.000
@@ -935,24 +988,24 @@ function lib:Window(text, preset, closebind)
             SlideCircle.Image = "rbxassetid://3570695787"
             SlideCircle.ImageColor3 = PresetColor
 
-            SliderMain.BackgroundColor3 = Color3.fromRGB(34, 34, 34)
-            SliderMain.SliderFrame.BackgroundColor3 = Color3.fromRGB(50, 50, 50)
-            SliderMain.SliderFrame.SliderCurrentFrame.BackgroundColor3 = PresetColor
-            SliderMain.SliderText.TextColor3 = Color3.fromRGB(255, 255, 255)
-            SliderMain.SliderVal.TextColor3 = Color3.fromRGB(255, 255, 255)
-            SliderMain.Size = UDim2.new(0, 363, 0, 44)
+            coroutine.wrap(
+                function()
+                    while wait() do
+                        CurrentValueFrame.BackgroundColor3 = PresetColor
+                        SlideCircle.ImageColor3 = PresetColor
+                    end
+                end
+            )()
+
+            local Slider = { Value = start }
 
             local function move(Input)
-                local XSize = math.clamp((Input.Position.X - SliderMain.SliderFrame.AbsolutePosition.X) /
-                    SliderMain.SliderFrame.AbsoluteSize.X, 0, 1)
-                local Increment = inc and (max / ((max - min) / (inc * 4))) or (max >= 50 and max / ((max - min) / 4)) or
-                    (max >= 25 and max / ((max - min) / 2)) or (max / (max - min))
-                local SizeRounded = UDim2.new((math.round(XSize * ((max / Increment) * 4)) / ((max / Increment) * 4)), 0
-                    , 1, 0)
-                TweenService:Create(SliderMain.SliderFrame.SliderCurrentFrame,
-                    TweenInfo.new(0.15, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), { Size = SizeRounded }):Play()
+                local XSize = math.clamp((Input.Position.X - SlideFrame.AbsolutePosition.X) /SlideFrame.AbsoluteSize.X, 0, 1)
+                local Increment = inc and (max / ((max - min) / (inc * 4))) or (max >= 50 and max / ((max - min) / 4)) or(max >= 25 and max / ((max - min) / 2)) or (max / (max - min))
+                local SizeRounded = UDim2.new((math.round(XSize * ((max / Increment) * 4)) / ((max / Increment) * 4)), 0, 1, 0)
+                TweenService:Create(CurrentValueFrame,TweenInfo.new(0.15, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), { Size = SizeRounded }):Play()
                 local Val = math.round((((SizeRounded.X.Scale * max) / max) * (max - min) + min) * 20) / 20
-                SliderMain.SliderVal.Text = tostring(Val)
+                SliderValue.Text = tostring(Val)
                 Slider.Value = Val
                 callback(Slider.Value)
             end
@@ -969,8 +1022,8 @@ function lib:Window(text, preset, closebind)
 
             function Slider:Set(val)
                 local a = tostring(val and (val / max) * (max - min) + min) or 0
-                SliderMain.SliderVal.Text = tostring(a)
-                SliderMain.SliderFrame.SliderCurrentFrame.Size = UDim2.new((val or 0) / max, 0, 1, 0)
+                SliderValue.Text = tostring(a)
+                CurrentValueFrame.Size = UDim2.new((val or 0) / max, 0, 1, 0)
                 Slider.Value = val
                 return callback(Slider.Value)
             end
@@ -1061,7 +1114,7 @@ function lib:Window(text, preset, closebind)
                         TweenService:Create(
                             ArrowImg,
                             TweenInfo.new(.3, Enum.EasingStyle.Quad, Enum.EasingDirection.Out),
-                            {Rotation = 270}
+                            { Rotation = 270 }
                         ):Play()
                         wait(.2)
                         Tab.CanvasSize = UDim2.new(0, 0, 0, TabLayout.AbsoluteContentSize.Y)
@@ -1076,7 +1129,7 @@ function lib:Window(text, preset, closebind)
                         TweenService:Create(
                             ArrowImg,
                             TweenInfo.new(.3, Enum.EasingStyle.Quad, Enum.EasingDirection.Out),
-                            {Rotation = 0}
+                            { Rotation = 0 }
                         ):Play()
                         wait(.2)
                         Tab.CanvasSize = UDim2.new(0, 0, 0, TabLayout.AbsoluteContentSize.Y)
@@ -1114,7 +1167,7 @@ function lib:Window(text, preset, closebind)
                         TweenService:Create(
                             Item,
                             TweenInfo.new(.3, Enum.EasingStyle.Quad, Enum.EasingDirection.Out),
-                            {BackgroundColor3 = Color3.fromRGB(37, 37, 37)}
+                            { BackgroundColor3 = Color3.fromRGB(37, 37, 37) }
                         ):Play()
                     end
                 )
@@ -1124,7 +1177,7 @@ function lib:Window(text, preset, closebind)
                         TweenService:Create(
                             Item,
                             TweenInfo.new(.3, Enum.EasingStyle.Quad, Enum.EasingDirection.Out),
-                            {BackgroundColor3 = Color3.fromRGB(34, 34, 34)}
+                            { BackgroundColor3 = Color3.fromRGB(34, 34, 34) }
                         ):Play()
                     end
                 )
@@ -1144,7 +1197,7 @@ function lib:Window(text, preset, closebind)
                         TweenService:Create(
                             ArrowImg,
                             TweenInfo.new(.3, Enum.EasingStyle.Quad, Enum.EasingDirection.Out),
-                            {Rotation = 0}
+                            { Rotation = 0 }
                         ):Play()
                         wait(.2)
                         Tab.CanvasSize = UDim2.new(0, 0, 0, TabLayout.AbsoluteContentSize.Y)
