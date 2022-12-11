@@ -13,7 +13,7 @@ pls join on officiall server discord: https://discord.gg/cn7HAncu55 <img src="ht
 ## Eng
 
 ```lua
-local key = loadstring(game:HttpGet("https://raw.githubusercontent.com/HoyoGey/My-Lua-Project/main/UiLibs/KeySysUiLib.lua%22))()
+local key = loadstring(game:HttpGet("https://raw.githubusercontent.com/HoyoGey/My-Lua-Project/main/UiLibs/KeySysUiLib.lua"))()
 key:MakeUI({
   Title = "Ur Title",
   KeyLinkName = "CocoNigga",
