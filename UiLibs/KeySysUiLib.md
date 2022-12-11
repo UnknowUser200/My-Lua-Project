@@ -26,9 +26,6 @@ key:MakeUI({
 How find KeyLinkName
 <img src="https://media.discordapp.net/attachments/1035523592630308927/1040630995684171878/image.png" width="100%" height="100%">
 
-How find DiscordID
-<img src="https://media.discordapp.net/attachments/1035523592630308927/1040631092761346068/image.png" width="100%" height="100%">
-
 How to use ScriptLink
 Add link on next script and add on ur script this code
 
