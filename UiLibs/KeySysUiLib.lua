@@ -1,16 +1,3 @@
---[[
-local key = loadstring(game:HttpGet("https://raw.githubusercontent.com/HoyoGey/My-Lua-Project/main/UiLibs/KeySysUiLib.lua%22))()
-
-key:MakeUI({
-  Title = "Ur Title",
-  KeyLinkName = "CocoNigga",
-  DiscordLink = "discord.gg/123123123",
-  ScriptLink = "link"
-  FileKey = "Sex.lua"
-})
-
-]]
-
 local Keysys = {}
 
 local UserInputService = game:GetService("UserInputService")
@@ -60,7 +47,7 @@ function Keysys:MakeUI(KeySettings)
     KeyMain.NoteMessage.DiscordBtn.TextTransparency = 1
     KeyMain.Hide.ImageTransparency = 1
 
-    KeyMain.NoteMessage.DiscordBtn.Text = KeySettings.DiscordID
+    KeyMain.NoteMessage.DiscordBtn.Text = KeySettings.DiscordLink
 
     local function AddDraggingFunctionality(DragPoint, Main)
         pcall(function()
