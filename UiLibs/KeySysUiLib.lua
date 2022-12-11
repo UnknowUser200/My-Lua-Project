@@ -1,3 +1,16 @@
+--[[
+local key = loadstring(game:HttpGet("https://raw.githubusercontent.com/HoyoGey/My-Lua-Project/main/UiLibs/KeySysUiLib.lua%22))()
+
+key:MakeUI({
+  Title = "Ur Title",
+  KeyLinkName = "CocoNigga",
+  DiscordLink = "discord.gg/123123123",
+  ScriptLink = "link"
+  FileKey = "Sex.lua"
+})
+
+]]
+
 local Keysys = {}
 
 local UserInputService = game:GetService("UserInputService")
@@ -28,6 +41,11 @@ local KeyMain = KeyUI.Main
 
 function Keysys:MakeUI(KeySettings)
     -- Title, KeyLink, DiscordLink, ScriptLink
+    KeySettings.Title = KeySettings.Title or "Title"
+    KeySettings.DiscordLink = KeySettings.DiscordLink or "Not Have"
+    KeySettings.ScriptLink = KeySettings.ScriptLink or ""
+    KeySettings.FileKey = KeySettings.FileKey or "KeySystem.lua"
+
     KeyMain.Size = UDim2.new(0, 467, 0, 175)
     KeyMain.BackgroundTransparency = 1
     KeyMain.Shadow.Image.ImageTransparency = 1
@@ -42,8 +60,7 @@ function Keysys:MakeUI(KeySettings)
     KeyMain.NoteMessage.DiscordBtn.TextTransparency = 1
     KeyMain.Hide.ImageTransparency = 1
 
-    KeyMain.Title.Text = KeySettings.Title or "Unknow Title"
-    KeyMain.NoteMessage.DiscordBtn.Text = "discord.gg/" ..KeySettings.DiscordID
+    KeyMain.NoteMessage.DiscordBtn.Text = KeySettings.DiscordID
 
     local function AddDraggingFunctionality(DragPoint, Main)
         pcall(function()
@@ -131,7 +148,7 @@ function Keysys:MakeUI(KeySettings)
 
     -- copy dicord server
     KeyMain.NoteMessage.DiscordBtn.MouseButton1Click:Connect(function()
-        setclipboard("https://discord.gg/" .. KeySettings.DiscordID)
+        setclipboard(KeySettings.DiscordLink)
     end)
 
     KeyMain.NoteMessage.DiscordBtn.MouseEnter:Connect(function()
@@ -146,10 +163,11 @@ function Keysys:MakeUI(KeySettings)
 
     --key valid
     KeyUI.Main.Input.InputBox.FocusLost:Connect(function()
-        local is_key_present = isfile(KeySettings.Title .. ".txt");
+        local is_key_present = isfile(KeySettings.FileKey);
         if is_key_present == true then
-            local kery = readfile(KeySettings.Title .. ".txt");
-            local onl_key = game:HttpGet("https://keysystem.ml/verify/".. KeySettings.KeyLinkName .."?verify_key=" .. kery)
+            local kery = readfile(KeySettings.FileKey);
+            local onl_key = game:HttpGet("https://1.kelprepl.repl.co/verify/" ..
+                KeySettings.KeyLinkName .. "?verify_key=" .. kery)
             if kery == onl_key then
                 notif:Notification("Sucefful", "Key valid lets start", 3)
                 loadstring(game:HttpGet(KeySettings.ScriptLink))()
@@ -205,7 +223,8 @@ function Keysys:MakeUI(KeySettings)
             end
         else
             if KeyMain.Input.InputBox.Text ==
-                game:HttpGet("https://keysystem.ml/verify/".. KeySettings.KeyLinkName .."?verify_key=" .. KeyMain.Input.InputBox.Text) then
+                game:HttpGet("https://1.kelprepl.repl.co/verify/" ..
+                    KeySettings.KeyLinkName .. "?verify_key=" .. KeyMain.Input.InputBox.Text) then
                 TweenService:Create(KeyMain, TweenInfo.new(0.6, Enum.EasingStyle.Quint), { BackgroundTransparency = 1 })
                     :
                     Play()
@@ -250,11 +269,13 @@ function Keysys:MakeUI(KeySettings)
                     :
                     Play()
                 wait(0.51)
-                writefile(KeySettings.Title .. ".txt", KeyMain.Input.InputBox.Text)
-                local readfilekey = readfile(KeySettings.Title .. ".txt");
-                if KeyMain.Input.InputBox.Text == game:HttpGet("https://keysystem.ml/verify/".. KeySettings.KeyLinkName .."?verify_key=" .. KeyMain.Input.InputBox.Text) then -- checkkey no have file
+                writefile(KeySettings.FileKey, KeyMain.Input.InputBox.Text)
+                local readfilekey = readfile(KeySettings.FileKey);
+                if KeyMain.Input.InputBox.Text ==
+                    game:HttpGet("https://1.kelprepl.repl.co/verify/" ..
+                        KeySettings.KeyLinkName .. "?verify_key=" .. KeyMain.Input.InputBox.Text) then -- checkkey no have file
                     loadstring(game:HttpGet(KeySettings.ScriptLink))()
-                    appendfile(KeySettings.Title .. ".txt", KeyMain.Input.InputBox.Text);
+                    appendfile(KeySettings.FileKey, KeyMain.Input.InputBox.Text);
                     notif:Notification("Sucefful", "Key valid lets start", 3)
                     TweenService:Create(KeyMain, TweenInfo.new(0.6, Enum.EasingStyle.Quint),
                         { BackgroundTransparency = 1 })
@@ -310,7 +331,8 @@ function Keysys:MakeUI(KeySettings)
                 else -- wrong key
                     notif:Notification("Warning", "Key not valid try again", 3)
                 end
-                if game:HttpGet("https://keysystem.ml/verify/".. KeySettings.KeyLinkName .."?verify_key=" .. KeyMain.Input.InputBox.Text)
+                if game:HttpGet("https://1.kelprepl.repl.co/verify/" ..
+                    KeySettings.KeyLinkName .. "?verify_key=" .. KeyMain.Input.InputBox.Text)
                     ==
                     readfilekey then -- check key on maked file
                     loadstring(game:HttpGet(KeySettings.ScriptLink))()
@@ -387,7 +409,8 @@ function Keysys:MakeUI(KeySettings)
     local is_key_present = isfile(KeySettings.Title .. ".txt");
     if is_key_present == true then
         local kery = readfile(KeySettings.Title .. ".txt");
-        local onl_key = game:HttpGet("https://keysystem.ml/verify/".. KeySettings.KeyLinkName .."?verify_key=" .. kery)
+        local onl_key = game:HttpGet("https://1.kelprepl.repl.co/verify/" ..
+            KeySettings.KeyLinkName .. "?verify_key=" .. kery)
         if kery == onl_key then
             notif:Notification("Sucefful", "Key valid lets start", 3)
             loadstring(game:HttpGet(KeySettings.ScriptLink))()
