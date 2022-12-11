@@ -916,7 +916,7 @@ function lib:Window(text, preset, closebind)
             return Toggle
         end
 
-        function tabcontent:Slider(text, min, max, start, callback)
+        function tabcontent:Slider(text, min, max, start, inc, callback)
             local dragging = false
             local Slider = Instance.new("TextButton")
             local SliderCorner = Instance.new("UICorner")
