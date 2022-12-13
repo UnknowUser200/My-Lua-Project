@@ -1785,7 +1785,7 @@ function lib:Window(text, preset, closebind)
             Textbox.Parent = Tab
             Textbox.BackgroundColor3 = Color3.fromRGB(34, 34, 34)
             Textbox.ClipsDescendants = true
-            Textbox.Size = UDim2.new(1, 0, 0.0123456791, 32)
+            Textbox.Size = UDim2.new(0, 363, 0.0123456791, 32)
 
             Title.Name = "Title"
             Title.Parent = Textbox
@@ -1854,7 +1854,7 @@ function lib:Window(text, preset, closebind)
             Bindd.Name = "Bind"
             Bindd.Parent = Tab
             Bindd.BackgroundColor3 = Color3.fromRGB(34, 34, 34)
-            Bindd.Size = UDim2.new(1, 0, 0, 42)
+            Bindd.Size = UDim2.new(0, 363, 0, 42)
             Bindd.AutoButtonColor = false
             Bindd.Font = Enum.Font.SourceSans
             Bindd.TextColor3 = Color3.fromRGB(0, 0, 0)
