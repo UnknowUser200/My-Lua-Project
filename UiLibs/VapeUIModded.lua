@@ -307,15 +307,16 @@ function lib:Window(text, preset, closebind)
     HiText.TextTransparency = 1
 
     TweenService:Create(HiText, TweenInfo.new(0.3), { TextTransparency = 0 }):Play()
-    task.wait(0.3)
+    task.wait(1)
     TweenService:Create(HiText, TweenInfo.new(0.3), { TextTransparency = 1 }):Play()
     task.wait(0.3)
     HiText.Text = "Thanks for using Strike Hub"
     task.wait(0.1)
     TweenService:Create(HiText, TweenInfo.new(0.3), { TextTransparency = 0 }):Play()
-    wait(0.5)
-    TweenService:Create(HideFrame, TweenInfo.new(0.3), { BackgroundTransparency = 1 }):Play()
+    wait(1)
     TweenService:Create(HiText, TweenInfo.new(0.3), { TextTransparency = 1 }):Play()
+    task.wait(0.3)
+    TweenService:Create(HideFrame, TweenInfo.new(0.3), { BackgroundTransparency = 1 }):Play()
 
     MakeDraggable(DragFrame, Main)
 
@@ -1851,7 +1852,7 @@ function lib:Window(text, preset, closebind)
             local UICorner = Instance.new("UICorner")
 
             Bindd.Name = "Bind"
-            Bindd.Parent = game.StarterGui.ScreenGui
+            Bindd.Parent = Tab
             Bindd.BackgroundColor3 = Color3.fromRGB(34, 34, 34)
             Bindd.Size = UDim2.new(1, 0, 0, 42)
             Bindd.AutoButtonColor = false
