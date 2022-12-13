@@ -148,7 +148,7 @@ function lib:Notif(NotificationConfig)
     spawn(function()
         NotificationConfig.Name = NotificationConfig.Name or "Notification"
         NotificationConfig.Content = NotificationConfig.Content or "Test"
-        NotificationConfig.Image = NotificationConfig.Image or "rbxassetid://4384403532"
+        NotificationConfig.Image = NotificationConfig.Image or ""
         NotificationConfig.Time = NotificationConfig.Time or 15
 
         local Notify = Instance.new("Frame")
@@ -212,8 +212,8 @@ function lib:Notif(NotificationConfig)
         Title.AutomaticSize = Enum.AutomaticSize.Y
         Title.Text = NotificationConfig.Content
 
-        if NotificationConfig.Image == "rbxassetid://4384403532" then
-            Label.Position = UDim2.new(0, 5, 0, 0)
+        if NotificationConfig.Image == "" then
+            Title.Position = UDim2.new(0, 0, 0, 5)
         end
 
         TweenService:Create(Notify, TweenInfo.new(0.5, Enum.EasingStyle.Quint), { Position = UDim2.new(0, 0, 0, 0) }):Play()
@@ -470,13 +470,11 @@ function lib:Window(text, preset, closebind)
         end)
 
         UICorner_2.CornerRadius = UDim.new(0, 5)
-        UICorner_2.Parent = Okbtn
+        UICorner_2.Parent = Ok
 
         UIPadding.Parent = Modal
         UIPadding.PaddingBottom = UDim.new(0, 8)
         UIPadding.PaddingTop = UDim.new(0, 2)
-
-        NotifHold.Visible = false
 
         TweenService:Create(
             NotifHold,
