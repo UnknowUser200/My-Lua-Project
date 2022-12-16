@@ -148,7 +148,7 @@ function lib:Notif(NotificationConfig)
     spawn(function()
         NotificationConfig.Name = NotificationConfig.Name or "Notification"
         NotificationConfig.Content = NotificationConfig.Content or "Test"
-        NotificationConfig.Image = NotificationConfig.Image or ""
+        NotificationConfig.Image = NotificationConfig.Image or "rbxassetid://10897014055"
         NotificationConfig.Time = NotificationConfig.Time or 15
 
         local Notify = Instance.new("Frame")
@@ -211,10 +211,6 @@ function lib:Notif(NotificationConfig)
         Title.TextXAlignment = Enum.TextXAlignment.Left
         Title.AutomaticSize = Enum.AutomaticSize.Y
         Title.Text = NotificationConfig.Content
-
-        if NotificationConfig.Image == "" then
-            Title.Position = UDim2.new(0, 0, 0, 5)
-        end
 
         TweenService:Create(Notify, TweenInfo.new(0.5, Enum.EasingStyle.Quint), { Position = UDim2.new(0, 0, 0, 0) }):Play()
 
@@ -470,11 +466,13 @@ function lib:Window(text, preset, closebind)
         end)
 
         UICorner_2.CornerRadius = UDim.new(0, 5)
-        UICorner_2.Parent = Ok
+        UICorner_2.Parent = Okbtn
 
         UIPadding.Parent = Modal
         UIPadding.PaddingBottom = UDim.new(0, 8)
         UIPadding.PaddingTop = UDim.new(0, 2)
+
+        NotifHold.Visible = false
 
         TweenService:Create(
             NotifHold,
@@ -993,7 +991,6 @@ function lib:Window(text, preset, closebind)
             SliderValue.Position = UDim2.new(0.0358126722, 0, 0, 0)
             SliderValue.Size = UDim2.new(0, 335, 0, 42)
             SliderValue.Font = Enum.Font.Gotham
-            SliderValue.Text = tostring(start and math.floor((start / max) * (max - min) + min) or 0)
             SliderValue.TextColor3 = Color3.fromRGB(255, 255, 255)
             SliderValue.TextSize = 14.000
             SliderValue.TextXAlignment = Enum.TextXAlignment.Right
@@ -1009,7 +1006,6 @@ function lib:Window(text, preset, closebind)
             CurrentValueFrame.Parent = SlideFrame
             CurrentValueFrame.BackgroundColor3 = PresetColor
             CurrentValueFrame.BorderSizePixel = 0
-            CurrentValueFrame.Size = UDim2.new((start or 0) / max, 0, 0, 3)
 
             SlideCircle.Name = "SlideCircle"
             SlideCircle.Parent = CurrentValueFrame
