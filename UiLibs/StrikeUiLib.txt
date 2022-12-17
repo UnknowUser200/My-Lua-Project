@@ -199,7 +199,7 @@ function lib:Notif(NotificationConfig)
 
         Title.Name = "Title"
         Title.Parent = Notify
-        Title.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+        Title.BackgroundColor3 = Color3.fromRGB(220, 220, 220)
         Title.BackgroundTransparency = 1.000
         Title.BorderSizePixel = 0
         Title.Position = UDim2.new(0, 0, 0, 25)
@@ -364,6 +364,10 @@ function lib:Window(text, preset, closebind)
         NotifHold.ZIndex = 99
         NotifHold.Visible = false
 
+        task.wait(0.1)
+
+        NotifHold.Visible = true
+
         Modal.Name = "Modal"
         Modal.Parent = NotifHold
         Modal.AnchorPoint = Vector2.new(0.5, 0.5)
@@ -449,6 +453,25 @@ function lib:Window(text, preset, closebind)
         Okbtn.TextColor3 = Color3.fromRGB(34, 34, 34)
         Okbtn.TextSize = 12.000
 
+        UICorner_2.CornerRadius = UDim.new(0, 5)
+        UICorner_2.Parent = Okbtn
+
+        UIPadding.Parent = Modal
+        UIPadding.PaddingBottom = UDim.new(0, 8)
+        UIPadding.PaddingTop = UDim.new(0, 2)
+
+        TweenService:Create(
+            NotifHold,
+            TweenInfo.new(.2, Enum.EasingStyle.Quad, Enum.EasingDirection.Out),
+            { BackgroundTransparency = 0.5 }
+        ):Play()
+        task.wait(0.3)
+        TweenService:Create(
+            Modal,
+            TweenInfo.new(.4, Enum.EasingStyle.Quad, Enum.EasingDirection.Out),
+            { Position = UDim2.new(0.5, 0, 0.498432606, 0) }
+        ):Play()
+
         Okbtn.MouseButton1Click:Connect(function()
             TweenService:Create(
                 Modal,
@@ -464,27 +487,6 @@ function lib:Window(text, preset, closebind)
             task.wait(0.3)
             NotifHold.Visible = false
         end)
-
-        UICorner_2.CornerRadius = UDim.new(0, 5)
-        UICorner_2.Parent = Okbtn
-
-        UIPadding.Parent = Modal
-        UIPadding.PaddingBottom = UDim.new(0, 8)
-        UIPadding.PaddingTop = UDim.new(0, 2)
-
-        NotifHold.Visible = false
-
-        TweenService:Create(
-            NotifHold,
-            TweenInfo.new(.2, Enum.EasingStyle.Quad, Enum.EasingDirection.Out),
-            { BackgroundTransparency = 0.5 }
-        ):Play()
-        task.wait(0.3)
-        TweenService:Create(
-            Modal,
-            TweenInfo.new(.4, Enum.EasingStyle.Quad, Enum.EasingDirection.Out),
-            { Position = UDim2.new(0.5, 0, 0.498432606, 0) }
-        ):Play()
     end
 
     local tabhold = {}
