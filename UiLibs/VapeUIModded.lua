@@ -199,7 +199,7 @@ function lib:Notif(NotificationConfig)
 
         Title.Name = "Title"
         Title.Parent = Notify
-        Title.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+        Title.BackgroundColor3 = Color3.fromRGB(220, 220, 220)
         Title.BackgroundTransparency = 1.000
         Title.BorderSizePixel = 0
         Title.Position = UDim2.new(0, 0, 0, 25)
@@ -449,6 +449,24 @@ function lib:Window(text, preset, closebind)
         Okbtn.TextColor3 = Color3.fromRGB(34, 34, 34)
         Okbtn.TextSize = 12.000
 
+        NotifHold.Visible = true
+
+        NotifHold.MouseButton1Click:Connect(function()
+            TweenService:Create(
+                Modal,
+                TweenInfo.new(.4, Enum.EasingStyle.Quad, Enum.EasingDirection.Out),
+                { Position = UDim2.new(-0.335, 0, 0.498, 0) }
+            ):Play()
+            task.wait(0.4)
+            TweenService:Create(
+                NotifHold,
+                TweenInfo.new(.2, Enum.EasingStyle.Quad, Enum.EasingDirection.Out),
+                { BackgroundTransparency = 1 }
+            ):Play()
+            task.wait(0.3)
+            NotifHold.Visible = false
+        end)
+
         Okbtn.MouseButton1Click:Connect(function()
             TweenService:Create(
                 Modal,
@@ -471,8 +489,6 @@ function lib:Window(text, preset, closebind)
         UIPadding.Parent = Modal
         UIPadding.PaddingBottom = UDim.new(0, 8)
         UIPadding.PaddingTop = UDim.new(0, 2)
-
-        NotifHold.Visible = false
 
         TweenService:Create(
             NotifHold,
