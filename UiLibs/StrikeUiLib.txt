@@ -39,7 +39,7 @@ local WhitelistedMouse = { Enum.UserInputType.MouseButton1, Enum.UserInputType.M
     Enum.UserInputType.MouseButton3 }
 local BlacklistedKeys = { Enum.KeyCode.Unknown, Enum.KeyCode.W, Enum.KeyCode.A, Enum.KeyCode.S, Enum.KeyCode.D,
     Enum.KeyCode.Up, Enum.KeyCode.Left, Enum.KeyCode.Down, Enum.KeyCode.Right, Enum.KeyCode.Slash, Enum.KeyCode.Tab,
-    Enum.KeyCode.Backspace, Enum.KeyCode.Escape, Enum.KeyCode.RightAlt }
+    Enum.KeyCode.Backspace, Enum.KeyCode.Escape }
 
 local function CheckKey(tab, key)
     for i, v in next, tab do
@@ -212,8 +212,7 @@ function lib:Notif(NotificationConfig)
         Title.AutomaticSize = Enum.AutomaticSize.Y
         Title.Text = NotificationConfig.Content
 
-        TweenService:Create(Notify, TweenInfo.new(0.5, Enum.EasingStyle.Quint), { Position = UDim2.new(0, 0, 0, 0) }):
-            Play()
+        TweenService:Create(Notify, TweenInfo.new(0.5, Enum.EasingStyle.Quint), { Position = UDim2.new(0, 0, 0, 0) }):Play()
 
         wait(NotificationConfig.Time - 0.88)
         TweenService:Create(Icon, TweenInfo.new(0.4, Enum.EasingStyle.Quint), { ImageTransparency = 1 }):Play()
@@ -310,12 +309,6 @@ function lib:Window(text, preset, closebind)
     HiText.Text = "Thanks for using Strike Hub"
     task.wait(0.1)
     TweenService:Create(HiText, TweenInfo.new(0.3), { TextTransparency = 0 }):Play()
-    task.wait(1)
-    TweenService:Create(HiText, TweenInfo.new(0.3), { TextTransparency = 1 }):Play()
-    task.wait(0.3)
-    HiText.Text = "For Open Search Click On RightAlt"
-    task.wait(1)
-    TweenService:Create(HiText, TweenInfo.new(0.3), { TextTransparency = 0 }):Play()
     wait(1)
     TweenService:Create(HiText, TweenInfo.new(0.3), { TextTransparency = 1 }):Play()
     task.wait(0.3)
@@ -336,146 +329,6 @@ function lib:Window(text, preset, closebind)
                     Main.Visible = true
                     TweenService:Create(HideFrame, TweenInfo.new(0.3), { BackgroundTransparency = 1 }):Play()
                     uitoggled = false
-                end
-            end
-        end
-    )
-
-    local ShadowBg = Instance.new("Frame")
-    local SearchFrame = Instance.new("Frame")
-    local UICorner = Instance.new("UICorner")
-    local TopBar = Instance.new("ImageLabel")
-    local TopFrameTitle = Instance.new("TextLabel")
-    local ButtonHolder = Instance.new("Frame")
-    local UIListLayout = Instance.new("UIListLayout")
-    local CloseBtn = Instance.new("TextButton")
-    local Ico = Instance.new("ImageLabel")
-    local TopBarLine = Instance.new("Frame")
-    local SearchBox = Instance.new("TextBox")
-    local UICorner_2 = Instance.new("UICorner")
-
-    ShadowBg.Name = "ShadowBg"
-    ShadowBg.Parent = Main
-    ShadowBg.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
-    ShadowBg.BackgroundTransparency = 0.700
-    ShadowBg.BorderSizePixel = 0
-    ShadowBg.Size = UDim2.new(1, 0, 1, 0)
-    ShadowBg.Visible = false
-    ShadowBg.Position = UDim2.new(0, 0, 0, 0)
-
-    SearchFrame.Name = "SearchFrame"
-    SearchFrame.Parent = ShadowBg
-    SearchFrame.AnchorPoint = Vector2.new(0.5, 0)
-    SearchFrame.BackgroundColor3 = Color3.fromRGB(24, 24, 24)
-    SearchFrame.Position = UDim2.new(0.5, 0, 0, 22)
-    SearchFrame.Size = UDim2.new(0, 268, 0, 97)
-
-    UICorner.CornerRadius = UDim.new(0, 4)
-    UICorner.Parent = SearchFrame
-
-    TopBar.Name = "TopBar"
-    TopBar.Parent = SearchFrame
-    TopBar.BackgroundColor3 = Color3.fromRGB(248, 248, 248)
-    TopBar.BackgroundTransparency = 1.000
-    TopBar.BorderSizePixel = 0
-    TopBar.Size = UDim2.new(1, 0, 0, 40)
-    TopBar.ZIndex = 3
-    TopBar.Image = "rbxassetid://6276641225"
-    TopBar.ImageColor3 = Color3.fromRGB(20, 20, 20)
-    TopBar.ImageTransparency = 1.000
-    TopBar.ScaleType = Enum.ScaleType.Slice
-    TopBar.SliceCenter = Rect.new(256, 256, 256, 256)
-    TopBar.SliceScale = 0.022
-
-    TopFrameTitle.Name = "TopFrameTitle"
-    TopFrameTitle.Parent = TopBar
-    TopFrameTitle.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-    TopFrameTitle.BackgroundTransparency = 1.000
-    TopFrameTitle.Position = UDim2.new(0, 10, 0, 0)
-    TopFrameTitle.Size = UDim2.new(1.03538465, -33, 1, 0)
-    TopFrameTitle.Font = Enum.Font.Gotham
-    TopFrameTitle.Text = "Search"
-    TopFrameTitle.TextColor3 = Color3.fromRGB(240, 240, 240)
-    TopFrameTitle.TextSize = 14.000
-    TopFrameTitle.TextTransparency = 0.290
-    TopFrameTitle.TextXAlignment = Enum.TextXAlignment.Left
-
-    ButtonHolder.Name = "ButtonHolder"
-    ButtonHolder.Parent = TopBar
-    ButtonHolder.AnchorPoint = Vector2.new(1, 0)
-    ButtonHolder.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-    ButtonHolder.BackgroundTransparency = 1.000
-    ButtonHolder.Position = UDim2.new(0.999999762, 0, 0, 0)
-    ButtonHolder.Size = UDim2.new(-0.302537382, 120, 1, 0)
-
-    UIListLayout.Parent = ButtonHolder
-    UIListLayout.FillDirection = Enum.FillDirection.Horizontal
-    UIListLayout.SortOrder = Enum.SortOrder.LayoutOrder
-
-    CloseBtn.Name = "CloseBtn"
-    CloseBtn.Parent = ButtonHolder
-    CloseBtn.AnchorPoint = Vector2.new(1, 0.5)
-    CloseBtn.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-    CloseBtn.BackgroundTransparency = 1.000
-    CloseBtn.LayoutOrder = 3
-    CloseBtn.Position = UDim2.new(1, 0, 0.5, 0)
-    CloseBtn.Size = UDim2.new(0, 38, 0, 38)
-    CloseBtn.Font = Enum.Font.SourceSans
-    CloseBtn.Text = ""
-    CloseBtn.TextColor3 = Color3.fromRGB(0, 0, 0)
-    CloseBtn.TextSize = 14.000
-
-    Ico.Name = "Ico"
-    Ico.Parent = CloseBtn
-    Ico.AnchorPoint = Vector2.new(0.5, 0.5)
-    Ico.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-    Ico.BackgroundTransparency = 1.000
-    Ico.Position = UDim2.new(0.5, 0, 0.5, 0)
-    Ico.Size = UDim2.new(0, 20, 0, 20)
-    Ico.Image = "http://www.roblox.com/asset/?id=6031094678"
-    Ico.ImageColor3 = Color3.fromRGB(170, 170, 170)
-
-    TopBarLine.Name = "TopBarLine"
-    TopBarLine.Parent = TopBar
-    TopBarLine.AnchorPoint = Vector2.new(0.5, 1)
-    TopBarLine.BackgroundColor3 = Color3.fromRGB(175, 175, 175)
-    TopBarLine.BackgroundTransparency = 0.900
-    TopBarLine.BorderSizePixel = 0
-    TopBarLine.Position = UDim2.new(0.5, 0, 1, 0)
-    TopBarLine.Size = UDim2.new(0.899999976, 0, 0, 1)
-
-    SearchBox.Name = "SearchBox"
-    SearchBox.Parent = SearchFrame
-    SearchBox.AnchorPoint = Vector2.new(0.5, 0.5)
-    SearchBox.BackgroundColor3 = Color3.fromRGB(28, 28, 28)
-    SearchBox.Position = UDim2.new(0.5, 0, 0.407216489, 29)
-    SearchBox.Size = UDim2.new(0, 249, 0, 38)
-    SearchBox.Font = Enum.Font.SourceSans
-    SearchBox.PlaceholderText = "Here Text"
-    SearchBox.Text = ""
-    SearchBox.TextColor3 = Color3.fromRGB(0, 0, 0)
-    SearchBox.TextSize = 14.000
-
-    UICorner_2.CornerRadius = UDim.new(0, 4)
-    UICorner_2.Parent = SearchBox
-
-    local TogglSearch = false
-    UserInputService.InputBegan:Connect(
-        function(io, p)
-            if io.KeyCode == Enum.KeyCode.RightAlt then
-                if uitoggled == false then
-                    TweenService:Create(ShadowBg, TweenInfo.new(0.3), { BackgroundTransparency = 0 }):Play()
-                    task.wait(.3)
-                    TweenService:Create(SearchFrame, TweenInfo.new(0.3), { Position = UDim2.new(0.5, 0, 0, 22) }):Play()
-                    TogglSearch = true
-                    wait(0.5)
-                    ShadowBg.Visible = false
-                else
-                    ShadowBg.Visible = true
-                    TweenService:Create(SearchFrame, TweenInfo.new(0.3), { Position = UDim2.new(0.5, 0, 0, 22) }):Play()
-                    task.wait(.3)
-                    TweenService:Create(ShadowBg, TweenInfo.new(0.2), { BackgroundTransparency = 1 }):Play()
-                    TogglSearch = false
                 end
             end
         end
@@ -716,63 +569,6 @@ function lib:Window(text, preset, closebind)
         end)
 
         Tab.CanvasSize = UDim2.new(0, 0, 0, TabLayout.AbsoluteContentSize.Y)
-
-        function Result()
-            local search = string.lower(SearchBox.Text)
-            for i, v in pairs(Tab:GetChildren()) do
-                if v:IsA("Frame") then
-                    if search ~= "" then
-                        if v.Name == "Button" then
-                            local item = string.lower(v.ButtonTitle.Text)
-                            if string.find(item, search) then
-                                v.Visible = true
-                            else
-                                v.Visible = false
-                            end
-                        elseif v.Name == "Label" then
-                            local item = string.lower(v.LabelTitle.Text)
-                            if string.find(item, search) then
-                                v.Visible = true
-                            else
-                                v.Visible = false
-                            end
-                        elseif v.Name == "Slider" then
-                            local item = string.lower(v.SliderTitle.Text)
-                            if string.find(item, search) then
-                                v.Visible = true
-                            else
-                                v.Visible = false
-                            end
-                        elseif v.Name == "Textbox" then
-                            local item = string.lower(v.TextboxTitle.Text)
-                            if string.find(item, search) then
-                                v.Visible = true
-                            else
-                                v.Visible = false
-                            end
-                        elseif v.Name == "Bind" then
-                            local item = string.lower(v.BindTitle.Text)
-                            if string.find(item, search) then
-                                v.Visible = true
-                            else
-                                v.Visible = false
-                            end
-                        elseif v.Name == "Toggle" then
-                            local item = string.lower(v.ToggleTitle.Text)
-                            if string.find(item, search) then
-                                v.Visible = true
-                            else
-                                v.Visible = false
-                            end
-                        end
-                    else
-                        v.Visible = true
-                    end
-                end
-            end
-        end
-    
-        SearchBox.Changed:Connect(UpdateResults)
 
         TabBtn.MouseButton1Click:Connect(
             function()
