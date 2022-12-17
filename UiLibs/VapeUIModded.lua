@@ -364,6 +364,10 @@ function lib:Window(text, preset, closebind)
         NotifHold.ZIndex = 99
         NotifHold.Visible = false
 
+        task.wait(0.1)
+
+        NotifHold.Visible = true
+
         Modal.Name = "Modal"
         Modal.Parent = NotifHold
         Modal.AnchorPoint = Vector2.new(0.5, 0.5)
@@ -449,40 +453,6 @@ function lib:Window(text, preset, closebind)
         Okbtn.TextColor3 = Color3.fromRGB(34, 34, 34)
         Okbtn.TextSize = 12.000
 
-        NotifHold.Visible = true
-
-        NotifHold.MouseButton1Click:Connect(function()
-            TweenService:Create(
-                Modal,
-                TweenInfo.new(.4, Enum.EasingStyle.Quad, Enum.EasingDirection.Out),
-                { Position = UDim2.new(-0.335, 0, 0.498, 0) }
-            ):Play()
-            task.wait(0.4)
-            TweenService:Create(
-                NotifHold,
-                TweenInfo.new(.2, Enum.EasingStyle.Quad, Enum.EasingDirection.Out),
-                { BackgroundTransparency = 1 }
-            ):Play()
-            task.wait(0.3)
-            NotifHold.Visible = false
-        end)
-
-        Okbtn.MouseButton1Click:Connect(function()
-            TweenService:Create(
-                Modal,
-                TweenInfo.new(.4, Enum.EasingStyle.Quad, Enum.EasingDirection.Out),
-                { Position = UDim2.new(-0.335, 0, 0.498, 0) }
-            ):Play()
-            task.wait(0.4)
-            TweenService:Create(
-                NotifHold,
-                TweenInfo.new(.2, Enum.EasingStyle.Quad, Enum.EasingDirection.Out),
-                { BackgroundTransparency = 1 }
-            ):Play()
-            task.wait(0.3)
-            NotifHold.Visible = false
-        end)
-
         UICorner_2.CornerRadius = UDim.new(0, 5)
         UICorner_2.Parent = Okbtn
 
@@ -501,6 +471,22 @@ function lib:Window(text, preset, closebind)
             TweenInfo.new(.4, Enum.EasingStyle.Quad, Enum.EasingDirection.Out),
             { Position = UDim2.new(0.5, 0, 0.498432606, 0) }
         ):Play()
+
+        Okbtn.MouseButton1Click:Connect(function()
+            TweenService:Create(
+                Modal,
+                TweenInfo.new(.4, Enum.EasingStyle.Quad, Enum.EasingDirection.Out),
+                { Position = UDim2.new(-0.335, 0, 0.498, 0) }
+            ):Play()
+            task.wait(0.4)
+            TweenService:Create(
+                NotifHold,
+                TweenInfo.new(.2, Enum.EasingStyle.Quad, Enum.EasingDirection.Out),
+                { BackgroundTransparency = 1 }
+            ):Play()
+            task.wait(0.3)
+            NotifHold.Visible = false
+        end)
     end
 
     local tabhold = {}
