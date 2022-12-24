@@ -976,7 +976,7 @@ function lib:Window(text, preset, closebind)
             local UIListLayout = Instance.new("UIListLayout")
 
             Dropdown.Name = "Dropdown"
-            Dropdown.Parent = game.StarterGui.ScreenGui
+            Dropdown.Parent = Tab
             Dropdown.BackgroundColor3 = Color3.fromRGB(34, 34, 34)
             Dropdown.Size = UDim2.new(0, 363, 0, 42)
 
