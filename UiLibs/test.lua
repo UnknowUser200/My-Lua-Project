@@ -1087,7 +1087,7 @@ function lib:Window(text, preset, closebind)
                 TweenService:Create(
                     ArrowImg,
                     TweenInfo.new(.3, Enum.EasingStyle.Quad, Enum.EasingDirection.Out),
-                    { Rotation = Dropdown.Toggled and 270 or 180 }
+                    { Rotation = FuncDropdown.Toggled and 270 or 180 }
                 ):Play()
 
                 if FuncDropdown.Toggled == true then
