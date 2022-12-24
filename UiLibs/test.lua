@@ -965,6 +965,8 @@ function lib:Window(text, preset, closebind)
         end
 
         function tabcontent:Dropdown(text, list, def, callback)
+            local Unvis = Instance.new("Frame")
+
             local Dropdown = Instance.new("Frame")
             local UICorner = Instance.new("UICorner")
             local DropBtn = Instance.new("TextButton")
@@ -975,8 +977,13 @@ function lib:Window(text, preset, closebind)
             local itemdrop = Instance.new("Frame")
             local UIListLayout = Instance.new("UIListLayout")
 
+            Unvis.Name = "Unvis"
+            Unvis.Parent = Tab
+            Unvis.BackgroundColor3 = Color3.fromRGB(34, 34, 34)
+            Unvis.Size = UDim2.new(0, 363, 0, 42)
+
             Dropdown.Name = "Dropdown"
-            Dropdown.Parent = Tab
+            Dropdown.Parent = Unvis
             Dropdown.BackgroundColor3 = Color3.fromRGB(34, 34, 34)
             Dropdown.Size = UDim2.new(0, 363, 0, 42)
 
@@ -1042,6 +1049,7 @@ function lib:Window(text, preset, closebind)
             itemdrop.BorderSizePixel = 0
             itemdrop.Position = UDim2.new(-0.00399998855, 0, 1.05000019, 0)
             itemdrop.Size = UDim2.new(0, 364, 0, 188)
+            itemdrop.Visible = false
 
             UIListLayout.Parent = itemdrop
             UIListLayout.SortOrder = Enum.SortOrder.LayoutOrder
@@ -1081,6 +1089,12 @@ function lib:Window(text, preset, closebind)
                     TweenInfo.new(.3, Enum.EasingStyle.Quad, Enum.EasingDirection.Out),
                     { Rotation = Dropdown.Toggled and 270 or 180 }
                 ):Play()
+
+                if FuncDropdown.Toggled == true then
+                    Unvis.Size = UDim2.new(0, 363, 0, 191)
+                else
+                    Unvis.Size = UDim2.new(0, 363, 0, 42)
+                end
             end
 
             local function AddOptions(opts)
