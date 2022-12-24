@@ -759,7 +759,7 @@ function lib:Window(text, preset, closebind)
                 end
             )()
 
-            
+
             local Toggle = {}
 
             function Toggle:Set(value)
@@ -838,7 +838,7 @@ function lib:Window(text, preset, closebind)
             Toggleg.MouseButton1Click:Connect(function()
                 Ripple(Toggle)
                 Toggle.Value = not Toggle.Value
-				Toggle:Set(Toggle.Value)
+                Toggle:Set(Toggle.Value)
             end)
 
             Toggle:Set(default)
@@ -965,169 +965,132 @@ function lib:Window(text, preset, closebind)
         end
 
         function tabcontent:Dropdown(text, list, def, callback)
-            local Unvis = Instance.new("Frame")
-
             local Dropdown = Instance.new("Frame")
-            local UICorner = Instance.new("UICorner")
-            local DropBtn = Instance.new("TextButton")
-            local NameDrop = Instance.new("TextLabel")
+            local DropdownCorner = Instance.new("UICorner")
+            local DropdownBtn = Instance.new("TextButton")
+            local DropdownTitle = Instance.new("TextLabel")
             local ArrowImg = Instance.new("ImageLabel")
-            local Search = Instance.new("TextBox")
-            local UICorner_2 = Instance.new("UICorner")
-            local itemdrop = Instance.new("Frame")
-            local UIListLayout = Instance.new("UIListLayout")
-
-            Unvis.Name = "Unvis"
-            Unvis.Parent = Tab
-            Unvis.Size = UDim2.new(0, 363, 0, 42)
-            Unvis.BackgroundTransparency = 1.000
+            local DropItemHolder = Instance.new("ScrollingFrame")
+            local DropLayout = Instance.new("UIListLayout")
 
             Dropdown.Name = "Dropdown"
-            Dropdown.Parent = Unvis
+            Dropdown.Parent = Tab
             Dropdown.BackgroundColor3 = Color3.fromRGB(34, 34, 34)
+            Dropdown.ClipsDescendants = true
+            Dropdown.Position = UDim2.new(-0.541071415, 0, -0.532915354, 0)
             Dropdown.Size = UDim2.new(0, 363, 0, 42)
 
-            UICorner.CornerRadius = UDim.new(0, 5)
-            UICorner.Parent = Dropdown
+            DropdownCorner.CornerRadius = UDim.new(0, 5)
+            DropdownCorner.Name = "DropdownCorner"
+            DropdownCorner.Parent = Dropdown
 
-            DropBtn.Name = "DropBtn"
-            DropBtn.Parent = Dropdown
-            DropBtn.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-            DropBtn.BackgroundTransparency = 1.000
-            DropBtn.BorderSizePixel = 0
-            DropBtn.Size = UDim2.new(0, 363, 0, 42)
-            DropBtn.AutoButtonColor = false
-            DropBtn.Font = Enum.Font.SourceSans
-            DropBtn.Text = ""
-            DropBtn.TextColor3 = Color3.fromRGB(0, 0, 0)
-            DropBtn.TextSize = 14.000
+            DropdownBtn.Name = "DropdownBtn"
+            DropdownBtn.Parent = Dropdown
+            DropdownBtn.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+            DropdownBtn.BackgroundTransparency = 1.000
+            DropdownBtn.Size = UDim2.new(0, 363, 0, 42)
+            DropdownBtn.Font = Enum.Font.SourceSans
+            DropdownBtn.Text = ""
+            DropdownBtn.TextColor3 = Color3.fromRGB(0, 0, 0)
+            DropdownBtn.TextSize = 14.000
 
-            NameDrop.Name = "NameDrop"
-            NameDrop.Parent = DropBtn
-            NameDrop.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-            NameDrop.BackgroundTransparency = 1.000
-            NameDrop.Position = UDim2.new(0.0275482088, 0, 0, 0)
-            NameDrop.Size = UDim2.new(0, 258, 0, 42)
-            NameDrop.Font = Enum.Font.Gotham
-            NameDrop.Text = text
-            NameDrop.TextColor3 = Color3.fromRGB(255, 255, 255)
-            NameDrop.TextSize = 14.000
-            NameDrop.TextXAlignment = Enum.TextXAlignment.Left
+            DropdownTitle.Name = "DropdownTitle"
+            DropdownTitle.Parent = Dropdown
+            DropdownTitle.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+            DropdownTitle.BackgroundTransparency = 1.000
+            DropdownTitle.Position = UDim2.new(0.0358126722, 0, 0, 0)
+            DropdownTitle.Size = UDim2.new(0, 187, 0, 42)
+            DropdownTitle.Font = Enum.Font.Gotham
+            DropdownTitle.Text = text
+            DropdownTitle.TextColor3 = Color3.fromRGB(255, 255, 255)
+            DropdownTitle.TextSize = 14.000
+            DropdownTitle.TextXAlignment = Enum.TextXAlignment.Left
 
             ArrowImg.Name = "ArrowImg"
-            ArrowImg.Parent = DropBtn
+            ArrowImg.Parent = DropdownTitle
             ArrowImg.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
             ArrowImg.BackgroundTransparency = 1.000
-            ArrowImg.Position = UDim2.new(0.905849993, 0, 0.190476194, 0)
+            ArrowImg.Position = UDim2.new(1.65240645, 0, 0.190476194, 0)
             ArrowImg.Size = UDim2.new(0, 26, 0, 26)
             ArrowImg.Image = "http://www.roblox.com/asset/?id=6034818375"
-            TweenService:Create(
-                ArrowImg,
-                TweenInfo.new(.3, Enum.EasingStyle.Quad, Enum.EasingDirection.Out),
-                { Rotation = 180 }
-            ):Play()
+            ArrowImg.Rotation = 180
 
-            Search.Name = "Search"
-            Search.Parent = DropBtn
-            Search.AnchorPoint = Vector2.new(1, 0.5)
-            Search.BackgroundColor3 = Color3.fromRGB(38, 38, 38)
-            Search.Position = UDim2.new(1, -42, 0.5, 0)
-            Search.Size = UDim2.new(0, 50, 0, 26)
-            Search.Font = Enum.Font.SourceSans
-            Search.PlaceholderText = "Search"
-            Search.Text = ""
-            Search.TextColor3 = Color3.fromRGB(255, 255, 255)
-            Search.TextSize = 14.000
+            DropItemHolder.Name = "DropItemHolder"
+            DropItemHolder.Parent = DropdownTitle
+            DropItemHolder.Active = true
+            DropItemHolder.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+            DropItemHolder.BackgroundTransparency = 1.000
+            DropItemHolder.BorderSizePixel = 0
+            DropItemHolder.Position = UDim2.new(-0.00400000019, 0, 1.04999995, 0)
+            DropItemHolder.Size = UDim2.new(0, 342, 0, 0)
+            DropItemHolder.CanvasSize = UDim2.new(0, 0, 0, 0)
+            DropItemHolder.ScrollBarThickness = 3
 
-            UICorner_2.CornerRadius = UDim.new(0, 4)
-            UICorner_2.Parent = Search
-
-            itemdrop.Name = "itemdrop"
-            itemdrop.Parent = Dropdown
-            itemdrop.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-            itemdrop.BackgroundTransparency = 1.000
-            itemdrop.BorderSizePixel = 0
-            itemdrop.Position = UDim2.new(-0.00399998855, 0, 1.05000019, 0)
-            itemdrop.Size = UDim2.new(0, 364, 0, 188)
-            itemdrop.Visible = false
-
-            UIListLayout.Parent = itemdrop
-            UIListLayout.SortOrder = Enum.SortOrder.LayoutOrder
+            DropLayout.Name = "DropLayout"
+            DropLayout.Parent = DropItemHolder
+            DropLayout.SortOrder = Enum.SortOrder.LayoutOrder
 
             local FuncDropdown = { Value = nil, Toggled = false, Options = list, SelectedItem }
 
-            function UpdateResults()
-				local searchItem = string.lower(Search.Text)
-				for i, v in pairs(itemdrop:GetChildren()) do
-					if v:IsA("Frame") then
-						if searchItem ~= "" then
-							if v.Name == "DropBtn" then
-								local itemText = string.lower(v.Label.Text)
-								if string.find(itemText, searchItem) then
-									v.Visible = true
-								else
-									v.Visible = false
-								end
-                            end
-						else
-							v.Visible = true
-						end
-					end
-				end
-			end
-
-            Search.Changed:Connect(function()
-                UpdateResults()
-                Search.Size = UDim2.new(0, Search.TextBounds.X + 16, 0, 56)
-            end)
-
             local function ToggleDrop()
                 FuncDropdown.Toggled = not FuncDropdown.Toggled
-                itemdrop.Visible = FuncDropdown.Toggled
-                TweenService:Create(
-                    ArrowImg,
-                    TweenInfo.new(.3, Enum.EasingStyle.Quad, Enum.EasingDirection.Out),
-                    { Rotation = FuncDropdown.Toggled and 270 or 180 }
-                ):Play()
+                DropItemHolder.Size = FuncDropdown.Toggled and UDim2.new(0, 363, 0, 6 + DropLayout.AbsoluteContentSize.Y)
+                    or UDim2.new(0, 363, 0, 0)
+                TweenService:Create(DropMain, TweenInfo.new(0.15, Enum.EasingStyle.Quad, Enum.EasingDirection.Out),
+                    { Size = FuncDropdown.Toggled and UDim2.new(0, 363, 0, 38 + DropLayout.AbsoluteContentSize.Y) or
+                        UDim2.new(0, 363, 0, 32) }):Play()
+                TweenService:Create(DropMain.Btn.Ico,
+                    TweenInfo.new(0.15, Enum.EasingStyle.Quad, Enum.EasingDirection.Out),
+                    { Rotation = FuncDropdown.Toggled and 270 or 180 }):Play()
+                DropItemHolder.Visible = FuncDropdown.Toggled
             end
 
             local function AddOptions(opts)
                 for _, option in pairs(opts) do
-                    local DropBtn_2 = Instance.new("TextButton")
-                    local UICorner_3 = Instance.new("UICorner")
-                    local Label = Instance.new("TextLabel")
+                    local Item = Instance.new("TextButton")
+                    local ItemCorner = Instance.new("UICorner")
 
-                    DropBtn_2.Name = "DropBtn"
-                    DropBtn_2.Parent = itemdrop
-                    DropBtn_2.BackgroundColor3 = FuncDropdown.SelectedItem == option and PresetColor or  Color3.fromRGB(40, 40, 40)
-                    DropBtn_2.Size = UDim2.new(0, 364, 0, 35)
-                    DropBtn_2.AutoButtonColor = false
-                    DropBtn_2.Font = Enum.Font.SourceSans
-                    DropBtn_2.Text = ""
-                    DropBtn_2.TextColor3 = Color3.fromRGB(0, 0, 0)
-                    DropBtn_2.TextSize = 14.000
+                    Item.Name = "Item"
+                    Item.Parent = DropItemHolder
+                    Item.BackgroundColor3 = FuncDropdown.SelectedItem == option and PresetColor or  Color3.fromRGB(34, 34, 34)
+                    Item.ClipsDescendants = true
+                    Item.Size = UDim2.new(0, 335, 0, 25)
+                    Item.AutoButtonColor = false
+                    Item.Font = Enum.Font.Gotham
+                    Item.Text = option
+                    Item.TextColor3 = Color3.fromRGB(255, 255, 255)
+                    Item.TextSize = 15.000
 
-                    UICorner_3.CornerRadius = UDim.new(0, 4)
-                    UICorner_3.Parent = DropBtn_2
+                    ItemCorner.CornerRadius = UDim.new(0, 4)
+                    ItemCorner.Name = "ItemCorner"
+                    ItemCorner.Parent = Item
 
-                    Label.Name = "Label"
-                    Label.Parent = DropBtn_2
-                    Label.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-                    Label.BackgroundTransparency = 1.000
-                    Label.Position = UDim2.new(0.0314615257, 0, 0, 0)
-                    Label.Size = UDim2.new(0, 352, 0, 35)
-                    Label.Font = Enum.Font.Gotham
-                    Label.Text = option
-                    Label.TextColor3 = Color3.fromRGB(255, 255, 255)
-                    Label.TextSize = 12.000
-                    Label.TextXAlignment = Enum.TextXAlignment.Left
-                    DropBtn_2.ClipsDescendants = true
+                    Item.MouseEnter:Connect(
+                        function()
+                            TweenService:Create(
+                                Item,
+                                TweenInfo.new(.3, Enum.EasingStyle.Quad, Enum.EasingDirection.Out),
+                                { BackgroundColor3 = Color3.fromRGB(37, 37, 37) }
+                            ):Play()
+                        end
+                    )
 
-                    DropBtn_2.MouseButton1Click:Connect(function()
+                    Item.MouseLeave:Connect(
+                        function()
+                            TweenService:Create(
+                                Item,
+                                TweenInfo.new(.3, Enum.EasingStyle.Quad, Enum.EasingDirection.Out),
+                                { BackgroundColor3 = Color3.fromRGB(34, 34, 34) }
+                            ):Play()
+                        end
+                    )
+
+                    Item.MouseButton1Click:Connect(function()
                         if FuncDropdown.SelectedItem and option ~= FuncDropdown.SelectedItem then
-                            for _, v in pairs(itemdrop:GetChildren()) do
+                            for _, v in pairs(DropItemHolder:GetChildren()) do
                                 if v:IsA("TextButton") and v.Label.Text == tostring(FuncDropdown.SelectedItem) then
-                                    TweenService:Create(v, TweenInfo.new(0.3, Enum.EasingStyle.Sine), {BackgroundColor3 = Color3.fromRGB(40, 40, 40)}):Play()
+                                    TweenService:Create(v, TweenInfo.new(0.3, Enum.EasingStyle.Sine),
+                                        { BackgroundColor3 = Color3.fromRGB(34, 34, 34) }):Play()
                                 end
                             end
                         end
@@ -1135,7 +1098,8 @@ function lib:Window(text, preset, closebind)
                         FuncDropdown.SelectedItem = v ~= FuncDropdown.SelectedItem and option or nil
 
                         FuncDropdown.Value = option
-                        Ripple(DropBtn_2)
+                        DropdownTitle.Text = text .. " - " .. option
+                        Ripple(Option)
                         return callback(FuncDropdown.Value)
                     end)
                 end
@@ -1143,32 +1107,26 @@ function lib:Window(text, preset, closebind)
 
             function FuncDropdown:Refresh(opts, del)
                 if del then
-                    for _, v in pairs(itemdrop:GetChildren()) do
+                    for _, v in pairs(DropItemHolder:GetChildren()) do
                         if v:IsA "TextButton" then
                             v:Destroy()
-                            itemdrop.Visible = FuncDropdown.Toggled
-                            TweenService:Create(
-                                ArrowImg,
-                                TweenInfo.new(.3, Enum.EasingStyle.Quad, Enum.EasingDirection.Out),
-                                { Rotation = FuncDropdown.Toggled and 270 or 180 }
-                            ):Play()
+                            DropItemHolder.Size = Dropdown.Toggled and
+                                UDim2.new(0, 363, 0, 6 + DropLayout.AbsoluteContentSize.Y) or UDim2.new(0, 363, 0, 0)
+                            Dropdown.Size = Dropdown.Toggled and UDim2.new(0, 363, 0, 38 +
+                                DropLayout.AbsoluteContentSize.Y) or UDim2.new(0, 363, 0, 32)
                         end
                     end
                 end
                 AddOptions(opts)
             end
 
-            DropBtn.MouseButton1Click:Connect(function()
+            DropdownBtn.MouseButton1Click:Connect(function()
                 ToggleDrop()
-                if FuncDropdown.Toggled == true then
-                    Unvis.Size = UDim2.new(0, 363, 0, 191)
-                else
-                    Unvis.Size = UDim2.new(0, 363, 0, 42)
-                end
             end)
 
             function FuncDropdown:Set(val)
                 FuncDropdown.Value = val
+                DropdownTitle.Text = text .. " - " .. val
                 return callback(FuncDropdown.Value)
             end
 
