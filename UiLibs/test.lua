@@ -1078,7 +1078,7 @@ function lib:Window(text, preset, closebind)
 
             Search.Changed:Connect(function()
                 UpdateResults()
-                Search.Size = UDim2.new(0, Search.TextBounds.X + 16, 0, 22)
+                Search.Size = UDim2.new(0, Search.TextBounds.X + 16, 0, 56)
             end)
 
             local function ToggleDrop()
