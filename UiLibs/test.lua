@@ -1089,12 +1089,6 @@ function lib:Window(text, preset, closebind)
                     TweenInfo.new(.3, Enum.EasingStyle.Quad, Enum.EasingDirection.Out),
                     { Rotation = FuncDropdown.Toggled and 270 or 180 }
                 ):Play()
-
-                if FuncDropdown.Toggled == true then
-                    Unvis.Size = UDim2.new(0, 363, 0, 191)
-                else
-                    Unvis.Size = UDim2.new(0, 363, 0, 42)
-                end
             end
 
             local function AddOptions(opts)
@@ -1166,6 +1160,11 @@ function lib:Window(text, preset, closebind)
 
             DropBtn.MouseButton1Click:Connect(function()
                 ToggleDrop()
+                if FuncDropdown.Toggled == true then
+                    Unvis.Size = UDim2.new(0, 363, 0, 191)
+                else
+                    Unvis.Size = UDim2.new(0, 363, 0, 42)
+                end
             end)
 
             function FuncDropdown:Set(val)
