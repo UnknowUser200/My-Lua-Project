@@ -701,10 +701,10 @@ function lib:Window(text, preset, closebind)
 
             ToggleCorner.CornerRadius = UDim.new(0, 5)
             ToggleCorner.Name = "ToggleCorner"
-            ToggleCorner.Parent = Toggle
+            ToggleCorner.Parent = Toggleg
 
             ToggleTitle.Name = "ToggleTitle"
-            ToggleTitle.Parent = Toggle
+            ToggleTitle.Parent = Toggleg
             ToggleTitle.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
             ToggleTitle.BackgroundTransparency = 1.000
             ToggleTitle.Position = UDim2.new(0.0358126722, 0, 0, 0)
@@ -716,7 +716,7 @@ function lib:Window(text, preset, closebind)
             ToggleTitle.TextXAlignment = Enum.TextXAlignment.Left
 
             FrameToggle1.Name = "FrameToggle1"
-            FrameToggle1.Parent = Toggle
+            FrameToggle1.Parent = Toggleg
             FrameToggle1.BackgroundColor3 = Color3.fromRGB(50, 50, 50)
             FrameToggle1.Position = UDim2.new(0.859504104, 0, 0.285714298, 0)
             FrameToggle1.Size = UDim2.new(0, 37, 0, 18)
