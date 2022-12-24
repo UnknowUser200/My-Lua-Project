@@ -1036,10 +1036,10 @@ function lib:Window(text, preset, closebind)
                 FuncDropdown.Toggled = not FuncDropdown.Toggled
                 DropItemHolder.Size = FuncDropdown.Toggled and UDim2.new(0, 363, 0, 6 + DropLayout.AbsoluteContentSize.Y)
                     or UDim2.new(0, 363, 0, 0)
-                TweenService:Create(DropMain, TweenInfo.new(0.15, Enum.EasingStyle.Quad, Enum.EasingDirection.Out),
+                TweenService:Create(Dropdown, TweenInfo.new(0.15, Enum.EasingStyle.Quad, Enum.EasingDirection.Out),
                     { Size = FuncDropdown.Toggled and UDim2.new(0, 363, 0, 38 + DropLayout.AbsoluteContentSize.Y) or
                         UDim2.new(0, 363, 0, 32) }):Play()
-                TweenService:Create(DropMain.Btn.Ico,
+                TweenService:Create(ArrowImg,
                     TweenInfo.new(0.15, Enum.EasingStyle.Quad, Enum.EasingDirection.Out),
                     { Rotation = FuncDropdown.Toggled and 270 or 180 }):Play()
                 DropItemHolder.Visible = FuncDropdown.Toggled
