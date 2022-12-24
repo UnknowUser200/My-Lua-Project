@@ -675,7 +675,7 @@ function lib:Window(text, preset, closebind)
         function tabcontent:Toggle(text, default, callback)
             local toggled = false
 
-            local Toggle = Instance.new("TextButton")
+            local Toggleg = Instance.new("TextButton")
             local ToggleCorner = Instance.new("UICorner")
             local ToggleTitle = Instance.new("TextLabel")
             local FrameToggle1 = Instance.new("Frame")
@@ -687,17 +687,17 @@ function lib:Window(text, preset, closebind)
             local FrameToggleCircle = Instance.new("Frame")
             local FrameToggleCircleCorner = Instance.new("UICorner")
 
-            Toggle.Name = "Toggle"
-            Toggle.Parent = Tab
-            Toggle.BackgroundColor3 = Color3.fromRGB(34, 34, 34)
-            Toggle.Position = UDim2.new(0.215625003, 0, 0.446271926, 0)
-            Toggle.Size = UDim2.new(0, 363, 0, 42)
-            Toggle.AutoButtonColor = false
-            Toggle.Font = Enum.Font.SourceSans
-            Toggle.Text = ""
-            Toggle.TextColor3 = Color3.fromRGB(0, 0, 0)
-            Toggle.TextSize = 14.000
-            Toggle.ClipsDescendants = true
+            Toggleg.Name = "Toggle"
+            Toggleg.Parent = Tab
+            Toggleg.BackgroundColor3 = Color3.fromRGB(34, 34, 34)
+            Toggleg.Position = UDim2.new(0.215625003, 0, 0.446271926, 0)
+            Toggleg.Size = UDim2.new(0, 363, 0, 42)
+            Toggleg.AutoButtonColor = false
+            Toggleg.Font = Enum.Font.SourceSans
+            Toggleg.Text = ""
+            Toggleg.TextColor3 = Color3.fromRGB(0, 0, 0)
+            Toggleg.TextSize = 14.000
+            Toggleg.ClipsDescendants = true
 
             ToggleCorner.CornerRadius = UDim.new(0, 5)
             ToggleCorner.Name = "ToggleCorner"
@@ -767,7 +767,7 @@ function lib:Window(text, preset, closebind)
 
                 if Toggle.Value == false then
                     TweenService:Create(
-                        Toggle,
+                        Toggleg,
                         TweenInfo.new(.3, Enum.EasingStyle.Quad, Enum.EasingDirection.Out),
                         { BackgroundColor3 = Color3.fromRGB(37, 37, 37) }
                     ):Play()
@@ -800,7 +800,7 @@ function lib:Window(text, preset, closebind)
                     )
                 else
                     TweenService:Create(
-                        Toggle,
+                        Toggleg,
                         TweenInfo.new(.3, Enum.EasingStyle.Quad, Enum.EasingDirection.Out),
                         { BackgroundColor3 = Color3.fromRGB(34, 34, 34) }
                     ):Play()
@@ -835,7 +835,7 @@ function lib:Window(text, preset, closebind)
                 return callback(Toggle.Value)
             end
 
-            Toggle.MouseButton1Click:Connect(function()
+            Toggleg.MouseButton1Click:Connect(function()
                 Ripple(Toggle)
                 Toggle.Value = not Toggle.Value
 				Toggle:Set(Toggle.Value)
