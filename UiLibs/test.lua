@@ -979,8 +979,8 @@ function lib:Window(text, preset, closebind)
 
             Unvis.Name = "Unvis"
             Unvis.Parent = Tab
-            Unvis.BackgroundColor3 = Color3.fromRGB(34, 34, 34)
             Unvis.Size = UDim2.new(0, 363, 0, 42)
+            Unvis.BackgroundTransparency = 1.000
 
             Dropdown.Name = "Dropdown"
             Dropdown.Parent = Unvis
