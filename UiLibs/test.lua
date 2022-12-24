@@ -1074,8 +1074,8 @@ function lib:Window(text, preset, closebind)
             end)
 
             local function ToggleDrop()
-                Dropdown.Toggled = not Dropdown.Toggled
-                itemdrop.Visible = Dropdown.Toggled
+                FuncDropdown.Toggled = not FuncDropdown.Toggled
+                itemdrop.Visible = FuncDropdown.Toggled
                 TweenService:Create(
                     ArrowImg,
                     TweenInfo.new(.3, Enum.EasingStyle.Quad, Enum.EasingDirection.Out),
