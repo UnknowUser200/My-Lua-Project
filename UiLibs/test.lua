@@ -1068,7 +1068,10 @@ function lib:Window(text, preset, closebind)
 				end
 			end
 
-            Search.Changed:Connect(UpdateResults)
+            Search.Changed:Connect(function()
+                UpdateResults()
+                Search.Size = UDim2.new(0, Box.TextBounds.X + 16, 0, 22)
+            end)
 
             local function ToggleDrop()
                 Dropdown.Toggled = not Dropdown.Toggled
@@ -1123,9 +1126,9 @@ function lib:Window(text, preset, closebind)
 
                         FuncDropdown.SelectedItem = v ~= FuncDropdown.SelectedItem and option or nil
 
-                        Dropdown.Value = option
+                        FuncDropdown.Value = option
                         Ripple(DropBtn_2)
-                        return callback(Dropdown.Value)
+                        return callback(FuncDropdown.Value)
                     end)
                 end
             end
@@ -1135,11 +1138,11 @@ function lib:Window(text, preset, closebind)
                     for _, v in pairs(itemdrop:GetChildren()) do
                         if v:IsA "TextButton" then
                             v:Destroy()
-                            itemdrop.Visible = Dropdown.Toggled
+                            itemdrop.Visible = FuncDropdown.Toggled
                             TweenService:Create(
                                 ArrowImg,
                                 TweenInfo.new(.3, Enum.EasingStyle.Quad, Enum.EasingDirection.Out),
-                                { Rotation = Dropdown.Toggled and 270 or 180 }
+                                { Rotation = FuncDropdown.Toggled and 270 or 180 }
                             ):Play()
                         end
                     end
@@ -1152,8 +1155,8 @@ function lib:Window(text, preset, closebind)
             end)
 
             function FuncDropdown:Set(val)
-                Dropdown.Value = val
-                return callback(Dropdown.Value)
+                FuncDropdown.Value = val
+                return callback(FuncDropdown.Value)
             end
 
             FuncDropdown:Refresh(list, false)
