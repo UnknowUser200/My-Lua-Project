@@ -1030,29 +1030,58 @@ function lib:Window(text, preset, closebind)
             DropLayout.Parent = DropItemHolder
             DropLayout.SortOrder = Enum.SortOrder.LayoutOrder
 
-            local FuncDropdown = { Value = nil, Toggled = false, Options = list, SelectedItem }
+            local FuncDropdown = { Value = nil, Toggled = false, Options = list, SelectedItem, FrameSize = 0, ItemCount = 0 }
 
             local function ToggleDrop()
+                if FuncDropdown.Toggled == false then
+                    Dropdown:TweenSize(
+                        UDim2.new(0, 363, 0, 55 + FuncDropdown.FrameSize),
+                        Enum.EasingDirection.Out,
+                        Enum.EasingStyle.Quart,
+                        .2,
+                        true
+                    )
+                    TweenService:Create(
+                        ArrowImg,
+                        TweenInfo.new(.3, Enum.EasingStyle.Quad, Enum.EasingDirection.Out),
+                        { Rotation = 270 }
+                    ):Play()
+                    wait(.2)
+                    Tab.CanvasSize = UDim2.new(0, 0, 0, TabLayout.AbsoluteContentSize.Y)
+                else
+                    Dropdown:TweenSize(
+                        UDim2.new(0, 363, 0, 42),
+                        Enum.EasingDirection.Out,
+                        Enum.EasingStyle.Quart,
+                        .2,
+                        true
+                    )
+                    TweenService:Create(
+                        ArrowImg,
+                        TweenInfo.new(.3, Enum.EasingStyle.Quad, Enum.EasingDirection.Out),
+                        { Rotation = 180 }
+                    ):Play()
+                    wait(.2)
+                    Tab.CanvasSize = UDim2.new(0, 0, 0, TabLayout.AbsoluteContentSize.Y)
+                end
+
                 FuncDropdown.Toggled = not FuncDropdown.Toggled
-                DropItemHolder.Size = FuncDropdown.Toggled and UDim2.new(0, 363, 0, 6 + DropLayout.AbsoluteContentSize.Y)
-                    or UDim2.new(0, 363, 0, 0)
-                TweenService:Create(Dropdown, TweenInfo.new(0.15, Enum.EasingStyle.Quad, Enum.EasingDirection.Out),
-                    { Size = FuncDropdown.Toggled and UDim2.new(0, 363, 0, 38 + DropLayout.AbsoluteContentSize.Y) or
-                        UDim2.new(0, 363, 0, 32) }):Play()
-                TweenService:Create(ArrowImg,
-                    TweenInfo.new(0.15, Enum.EasingStyle.Quad, Enum.EasingDirection.Out),
-                    { Rotation = FuncDropdown.Toggled and 270 or 180 }):Play()
-                DropItemHolder.Visible = FuncDropdown.Toggled
             end
 
             local function AddOptions(opts)
                 for _, option in pairs(opts) do
+                    FuncDropdown.ItemCount =  FuncDropdown.ItemCount + 1
+                    if FuncDropdown.ItemCount <= 3 then
+                        FuncDropdown.FrameSize = FuncDropdown.FrameSize + 26
+                        DropItemHolder.Size = UDim2.new(0, 342, 0, FuncDropdown.FrameSize)
+                    end
                     local Item = Instance.new("TextButton")
                     local ItemCorner = Instance.new("UICorner")
 
                     Item.Name = "Item"
                     Item.Parent = DropItemHolder
-                    Item.BackgroundColor3 = FuncDropdown.SelectedItem == option and PresetColor or  Color3.fromRGB(34, 34, 34)
+                    Item.BackgroundColor3 = FuncDropdown.SelectedItem == option and PresetColor or
+                        Color3.fromRGB(34, 34, 34)
                     Item.ClipsDescendants = true
                     Item.Size = UDim2.new(0, 335, 0, 25)
                     Item.AutoButtonColor = false
