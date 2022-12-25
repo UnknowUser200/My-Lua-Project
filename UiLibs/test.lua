@@ -1070,7 +1070,7 @@ function lib:Window(text, preset, closebind)
 
             local function AddOptions(opts)
                 for _, option in pairs(opts) do
-                    FuncDropdown.ItemCount =  FuncDropdown.ItemCount + 1
+                    FuncDropdown.ItemCount = FuncDropdown.ItemCount + 1
                     if FuncDropdown.ItemCount <= 3 then
                         FuncDropdown.FrameSize = FuncDropdown.FrameSize + 26
                         DropItemHolder.Size = UDim2.new(0, 342, 0, FuncDropdown.FrameSize)
@@ -1114,6 +1114,20 @@ function lib:Window(text, preset, closebind)
                     )
 
                     Item.MouseButton1Click:Connect(function()
+                        for i, v in next, TabHold:GetChildren() do
+                            if v.Name == "Item" then
+                                TweenService:Create(
+                                    v,
+                                    TweenInfo.new(.3, Enum.EasingStyle.Quad, Enum.EasingDirection.Out),
+                                    { BackgroundColor3 = Color3.fromRGB(34, 34, 34) }
+                                ):Play()
+                                TweenService:Create(
+                                    Item,
+                                    TweenInfo.new(.3, Enum.EasingStyle.Quad, Enum.EasingDirection.Out),
+                                    { BackgroundColor3 = PresetColor }
+                                ):Play()
+                            end
+                        end
                         FuncDropdown.Value = option
                         DropdownTitle.Text = text .. " - " .. option
                         Ripple(Item)
@@ -1127,8 +1141,10 @@ function lib:Window(text, preset, closebind)
                     for _, v in pairs(DropItemHolder:GetChildren()) do
                         if v:IsA "TextButton" then
                             v:Destroy()
-                            DropItemHolder.Size = Dropdown.Toggled and UDim2.new(0, 363, 0, 42) or UDim2.new(0, 363, 0, 55 + FuncDropdown.FrameSize)
-                            Dropdown.Size = Dropdown.Toggled and UDim2.new(0, 363, 0, 38 + DropLayout.AbsoluteContentSize.Y) or UDim2.new(0, 363, 0, 32)
+                            DropItemHolder.Size = Dropdown.Toggled and UDim2.new(0, 363, 0, 42) or
+                                UDim2.new(0, 363, 0, 55 + FuncDropdown.FrameSize)
+                            Dropdown.Size = Dropdown.Toggled and
+                                UDim2.new(0, 363, 0, 38 + DropLayout.AbsoluteContentSize.Y) or UDim2.new(0, 363, 0, 32)
                         end
                     end
                 end
