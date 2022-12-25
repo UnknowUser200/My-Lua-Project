@@ -765,7 +765,7 @@ function lib:Window(text, preset, closebind)
             function Toggle:Set(value)
                 Toggle.Value = value
 
-                if Toggle.Value == false then
+                if Toggle.Value == true then
                     TweenService:Create(
                         Toggleg,
                         TweenInfo.new(.3, Enum.EasingStyle.Quad, Enum.EasingDirection.Out),
@@ -1030,7 +1030,7 @@ function lib:Window(text, preset, closebind)
             DropLayout.Parent = DropItemHolder
             DropLayout.SortOrder = Enum.SortOrder.LayoutOrder
 
-            local FuncDropdown = { Value = nil, Toggled = false, Options = list, SelectedItem, FrameSize = 0, ItemCount = 0 }
+            local FuncDropdown = { Value = nil, Toggled = false, Options = list, FrameSize = 0, ItemCount = 0 }
 
             local function ToggleDrop()
                 if FuncDropdown.Toggled == false then
@@ -1080,8 +1080,7 @@ function lib:Window(text, preset, closebind)
 
                     Item.Name = "Item"
                     Item.Parent = DropItemHolder
-                    Item.BackgroundColor3 = FuncDropdown.SelectedItem == option and PresetColor or
-                        Color3.fromRGB(34, 34, 34)
+                    Item.BackgroundColor3 = Color3.fromRGB(34, 34, 34)
                     Item.ClipsDescendants = true
                     Item.Size = UDim2.new(0, 335, 0, 25)
                     Item.AutoButtonColor = false
@@ -1115,20 +1114,9 @@ function lib:Window(text, preset, closebind)
                     )
 
                     Item.MouseButton1Click:Connect(function()
-                        if FuncDropdown.SelectedItem and option ~= FuncDropdown.SelectedItem then
-                            for _, v in pairs(DropItemHolder:GetChildren()) do
-                                if v:IsA("TextButton") and v.Label.Text == tostring(FuncDropdown.SelectedItem) then
-                                    TweenService:Create(v, TweenInfo.new(0.3, Enum.EasingStyle.Sine),
-                                        { BackgroundColor3 = Color3.fromRGB(34, 34, 34) }):Play()
-                                end
-                            end
-                        end
-
-                        FuncDropdown.SelectedItem = v ~= FuncDropdown.SelectedItem and option or nil
-
                         FuncDropdown.Value = option
                         DropdownTitle.Text = text .. " - " .. option
-                        Ripple(Option)
+                        Ripple(Item)
                         return callback(FuncDropdown.Value)
                     end)
                 end
@@ -1139,10 +1127,8 @@ function lib:Window(text, preset, closebind)
                     for _, v in pairs(DropItemHolder:GetChildren()) do
                         if v:IsA "TextButton" then
                             v:Destroy()
-                            DropItemHolder.Size = Dropdown.Toggled and
-                                UDim2.new(0, 363, 0, 6 + DropLayout.AbsoluteContentSize.Y) or UDim2.new(0, 363, 0, 0)
-                            Dropdown.Size = Dropdown.Toggled and UDim2.new(0, 363, 0, 38 +
-                                DropLayout.AbsoluteContentSize.Y) or UDim2.new(0, 363, 0, 32)
+                            DropItemHolder.Size = Dropdown.Toggled and UDim2.new(0, 363, 0, 42) or UDim2.new(0, 363, 0, 55 + FuncDropdown.FrameSize)
+                            Dropdown.Size = Dropdown.Toggled and UDim2.new(0, 363, 0, 38 + DropLayout.AbsoluteContentSize.Y) or UDim2.new(0, 363, 0, 32)
                         end
                     end
                 end
