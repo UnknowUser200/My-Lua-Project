@@ -482,7 +482,7 @@ function UILibrary:Main(PrjName, HideKey)
         TabButtonText.Font = Enum.Font.Gotham
         TabButtonText.Text = TabName
         TabButtonText.TextColor3 = Color3.fromRGB(255, 255, 255)
-        TabButtonText.TextSize = 23.000
+        TabButtonText.TextSize = 20.000
         TabButtonText.TextWrapped = true
         TabButtonText.TextXAlignment = Enum.TextXAlignment.Left
 
@@ -562,7 +562,7 @@ function UILibrary:Main(PrjName, HideKey)
             SectionLabel.Font = Enum.Font.GothamBold
             SectionLabel.Text = SectionName
             SectionLabel.TextColor3 = Color3.fromRGB(209, 209, 209)
-            SectionLabel.TextSize = 16.000
+            SectionLabel.TextSize = 15.000
             SectionLabel.TextXAlignment = Enum.TextXAlignment.Left
 
             SectionElements.Name = "SectionElements"
@@ -1151,7 +1151,7 @@ function UILibrary:Main(PrjName, HideKey)
                     SelectableText.Font = Enum.Font.Gotham
                     SelectableText.Text = "    " .. Text
                     SelectableText.TextColor3 = Color3.fromRGB(255, 255, 255)
-                    SelectableText.TextSize = 18.000
+                    SelectableText.TextSize = 16
                     SelectableText.TextWrapped = true
                     SelectableText.TextXAlignment = Enum.TextXAlignment.Left
 
@@ -1314,7 +1314,7 @@ function UILibrary:Main(PrjName, HideKey)
                 ButtonText.Font = Enum.Font.Gotham
                 ButtonText.Text = btnText
                 ButtonText.TextColor3 = Color3.fromRGB(255, 255, 255)
-                ButtonText.TextSize = 18
+                ButtonText.TextSize = 16
                 ButtonText.TextWrapped = true
                 ButtonText.TextXAlignment = Enum.TextXAlignment.Left
 
