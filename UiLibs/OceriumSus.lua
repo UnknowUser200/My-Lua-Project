@@ -582,7 +582,7 @@ function UILibrary:Main(PrjName, HideKey)
 
             local InSection = {}
 
-            function InSection:Toggle(ToggleText, defbool)
+            function InSection:Toggle(ToggleText, defbool, callback)
 
                 local Toggle = Instance.new("TextButton")
                 local ToggleLabel = Instance.new("TextLabel")
