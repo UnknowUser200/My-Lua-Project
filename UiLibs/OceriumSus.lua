@@ -467,7 +467,7 @@ function UILibrary:Main(PrjName, HideKey)
         TabButton.Position = UDim2.new(0.0412844047, 0, 0, 0)
         TabButton.Size = UDim2.new(0, 200, 0, 38)
         TabButton.AutoButtonColor = false
-        TabButton.Font = Enum.Font.SourceSansSemibold
+        TabButton.Font = Enum.Font.Gotham
         TabButton.Text = ""
         TabButton.TextColor3 = Color3.fromRGB(255, 255, 255)
         TabButton.TextSize = 19.000
@@ -479,7 +479,7 @@ function UILibrary:Main(PrjName, HideKey)
         TabButtonText.BorderSizePixel = 0
         TabButtonText.Position = UDim2.new(0.0799999982, 0, 0, 0)
         TabButtonText.Size = UDim2.new(0.920000017, 0, 1, 0)
-        TabButtonText.Font = Enum.Font.SourceSansSemibold
+        TabButtonText.Font = Enum.Font.Gotham
         TabButtonText.Text = TabName
         TabButtonText.TextColor3 = Color3.fromRGB(255, 255, 255)
         TabButtonText.TextSize = 23.000
@@ -1136,7 +1136,7 @@ function UILibrary:Main(PrjName, HideKey)
                     SelectableButton.Position = UDim2.new(0.0412844047, 0, 0, 0)
                     SelectableButton.Size = UDim2.new(1, 0, 0, 40)
                     SelectableButton.AutoButtonColor = false
-                    SelectableButton.Font = Enum.Font.SourceSansSemibold
+                    SelectableButton.Font = Enum.Font.Gotham
                     SelectableButton.Text = ""
                     SelectableButton.TextColor3 = Color3.fromRGB(255, 255, 255)
                     SelectableButton.TextSize = 16.000
@@ -1148,7 +1148,7 @@ function UILibrary:Main(PrjName, HideKey)
                     SelectableText.BorderSizePixel = 0
                     SelectableText.Position = UDim2.new(0.0799999982, 0, 0, 0)
                     SelectableText.Size = UDim2.new(0.920000017, 0, 1, 0)
-                    SelectableText.Font = Enum.Font.SourceSansSemibold
+                    SelectableText.Font = Enum.Font.Gotham
                     SelectableText.Text = "    " .. Text
                     SelectableText.TextColor3 = Color3.fromRGB(255, 255, 255)
                     SelectableText.TextSize = 18.000
@@ -1299,7 +1299,7 @@ function UILibrary:Main(PrjName, HideKey)
                 Button.Position = UDim2.new(0.0412844047, 0, 0, 0)
                 Button.Size = UDim2.new(1, 0, 0, 40)
                 Button.AutoButtonColor = false
-                Button.Font = Enum.Font.SourceSansSemibold
+                Button.Font = Enum.Font.Gotham
                 Button.Text = ""
                 Button.TextColor3 = Color3.fromRGB(255, 255, 255)
                 Button.TextSize = 19.000
@@ -1311,7 +1311,7 @@ function UILibrary:Main(PrjName, HideKey)
                 ButtonText.BorderSizePixel = 0
                 ButtonText.Position = UDim2.new(0.05, 0, 0, 0)
                 ButtonText.Size = UDim2.new(1, 0, 1, 0)
-                ButtonText.Font = Enum.Font.SourceSansSemibold
+                ButtonText.Font = Enum.Font.Gotham
                 ButtonText.Text = btnText
                 ButtonText.TextColor3 = Color3.fromRGB(255, 255, 255)
                 ButtonText.TextSize = 18
