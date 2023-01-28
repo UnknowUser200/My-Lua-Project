@@ -1,14 +1,4 @@
 -- This User Interface Library is brought to you by Solaris Software.
-local Solaris = Instance.new("ScreenGui")
-Solaris.Name = "cens6r's solaris gui"
-Solaris.Parent = game.CoreGui
-Solaris.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
-
-local NotificationHolder = Instance.new("ScreenGui")
-NotificationHolder.Name = "notiHolder"
-NotificationHolder.Parent = game.CoreGui
-NotificationHolder.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
-
 local UserInputService = game:GetService("UserInputService")
 local TweenService = game:GetService("TweenService")
 local RunService = game:GetService("RunService")
@@ -20,10 +10,20 @@ local WhitelistedMouse = {Enum.UserInputType.MouseButton1, Enum.UserInputType.Mo
 local BlacklistedKeys = {Enum.KeyCode.Unknown,Enum.KeyCode.W,Enum.KeyCode.A,Enum.KeyCode.S,Enum.KeyCode.D,Enum.KeyCode.Up,Enum.KeyCode.Left,Enum.KeyCode.Down,Enum.KeyCode.Right,Enum.KeyCode.Slash,Enum.KeyCode.Tab,Enum.KeyCode.Backspace,Enum.KeyCode.Escape}
 
 for i, v in next, game.CoreGui:GetChildren() do
-    if v.Name == "Solaris" then
+    if v.Name == "Clococo" then
         v:Destroy()
     end
 end
+
+local Solaris = Instance.new("ScreenGui")
+Solaris.Name = "Clococo"
+Solaris.Parent = game.CoreGui
+Solaris.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
+
+local NotificationHolder = Instance.new("ScreenGui")
+NotificationHolder.Name = "notiHolder"
+NotificationHolder.Parent = game.CoreGui
+NotificationHolder.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
 
 local function CheckKey(tab, key)
 	for i, v in next, tab do
