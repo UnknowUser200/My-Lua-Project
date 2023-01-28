@@ -9,12 +9,6 @@ local http = game:GetService("HttpService")
 local WhitelistedMouse = {Enum.UserInputType.MouseButton1, Enum.UserInputType.MouseButton2,Enum.UserInputType.MouseButton3}
 local BlacklistedKeys = {Enum.KeyCode.Unknown,Enum.KeyCode.W,Enum.KeyCode.A,Enum.KeyCode.S,Enum.KeyCode.D,Enum.KeyCode.Up,Enum.KeyCode.Left,Enum.KeyCode.Down,Enum.KeyCode.Right,Enum.KeyCode.Slash,Enum.KeyCode.Tab,Enum.KeyCode.Backspace,Enum.KeyCode.Escape}
 
-for i, v in next, game.CoreGui:GetChildren() do
-    if v.Name == "Clococo" then
-        v:Destroy()
-    end
-end
-
 local Solaris = Instance.new("ScreenGui")
 Solaris.Name = "Clococo"
 Solaris.Parent = game.CoreGui
