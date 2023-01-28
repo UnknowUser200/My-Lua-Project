@@ -694,13 +694,6 @@ function SolarisLib:New(Config)
         CloseTabMenu()
     end)
 
-    MFrame.TabMenu.Menu.Top.MenuCloseBtn.MouseEnter:Connect(function()
-        TweenService:Create(MFrame.TabMenu.Menu.Top.MenuCloseBtn,TweenInfo.new(0.15, Enum.EasingStyle.Quad, Enum.EasingDirection.Out),{BackgroundTransparency = 0.9}):Play()
-    end)
-    MFrame.TabMenu.Menu.Top.MenuCloseBtn.MouseEnter:Connect(function()
-        TweenService:Create(MFrame.TabMenu.Menu.Top.MenuCloseBtn,TweenInfo.new(0.15, Enum.EasingStyle.Quad, Enum.EasingDirection.Out),{BackgroundTransparency = 1}):Play()
-    end)
-
     MFrame.TopBar.ButtonHolder.SearchBtn.MouseButton1Click:Connect(function()
         MFrame.TopBar.ButtonHolder.SearchBtn.TextBox.Visible = not MFrame.TopBar.ButtonHolder.SearchBtn.TextBox.Visible
         MFrame.TopBar.TopFrameTitle.Visible = not MFrame.TopBar.TopFrameTitle.Visible
