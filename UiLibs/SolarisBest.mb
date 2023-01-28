@@ -1,5 +1,5 @@
-```lua
-local SolarisLib = loadstring(game:HttpGet(""))('Sex')
+```
+local SolarisLib = loadstring(game:HttpGet("https://raw.githubusercontent.com/HoyoGey/My-Lua-Project/main/UiLibs/SolarisBest.lua"))('Sex')
 
 local Window = SolarisLib:New({
     Title = "Solaris - <b>Slave Simulator</b>", -- Supported Rich Text
