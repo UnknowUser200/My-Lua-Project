@@ -1075,7 +1075,7 @@ function lib:Window(text, preset, closebind)
             end)
 
             function createopts(opts)
-                for i, v in next, opts do
+                for i, v in pairs(opts) do
                     itemcount = itemcount + 1
                     if itemcount <= 3 then
                         framesize = framesize + 26
