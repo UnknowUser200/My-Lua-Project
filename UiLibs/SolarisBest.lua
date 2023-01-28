@@ -672,7 +672,7 @@ function SolarisLib:New(Config)
         general:BindSetting("Close Bind", "Hides/Shows the main window when pressed.", Enum.KeyCode.RightControl, "CloseBind")
         
         local appearance = Settings:Tab("Appearance")
-        appearance:Dropdown("Theme", "The look of the user interface", {"Default", "Discord", "Red", "Green", "Blue"}, "Default", "Theme")
+        appearance:Dropdown("Theme", "The look of the user interface", {"Default", "Discord", "Red", "Green", "Blue", "Vape"}, "Default", "Theme")
 
     end 
     MusicConstructor()
