@@ -19,6 +19,12 @@ local http = game:GetService("HttpService")
 local WhitelistedMouse = {Enum.UserInputType.MouseButton1, Enum.UserInputType.MouseButton2,Enum.UserInputType.MouseButton3}
 local BlacklistedKeys = {Enum.KeyCode.Unknown,Enum.KeyCode.W,Enum.KeyCode.A,Enum.KeyCode.S,Enum.KeyCode.D,Enum.KeyCode.Up,Enum.KeyCode.Left,Enum.KeyCode.Down,Enum.KeyCode.Right,Enum.KeyCode.Slash,Enum.KeyCode.Tab,Enum.KeyCode.Backspace,Enum.KeyCode.Escape}
 
+for i, v in next, game.CoreGui:GetChildren() do
+    if v.Name == "Solaris" then
+        v:Destroy()
+    end
+end
+
 local function CheckKey(tab, key)
 	for i, v in next, tab do
 		if v == key then
@@ -694,9 +700,23 @@ function SolarisLib:New(Config)
         CloseTabMenu()
     end)
 
+    MFrame.TabMenu.Menu.Top.MenuCloseBtn.MouseEnter:Connect(function()
+        TweenService:Create(MFrame.TabMenu.Menu.Top.MenuCloseBtn,TweenInfo.new(0.15, Enum.EasingStyle.Quad, Enum.EasingDirection.Out),{BackgroundTransparency = 0.9}):Play()
+    end)
+    MFrame.TabMenu.Menu.Top.MenuCloseBtn.MouseEnter:Connect(function()
+        TweenService:Create(MFrame.TabMenu.Menu.Top.MenuCloseBtn,TweenInfo.new(0.15, Enum.EasingStyle.Quad, Enum.EasingDirection.Out),{BackgroundTransparency = 1}):Play()
+    end)
+
     MFrame.TopBar.ButtonHolder.SearchBtn.MouseButton1Click:Connect(function()
         MFrame.TopBar.ButtonHolder.SearchBtn.TextBox.Visible = not MFrame.TopBar.ButtonHolder.SearchBtn.TextBox.Visible
         MFrame.TopBar.TopFrameTitle.Visible = not MFrame.TopBar.TopFrameTitle.Visible
+    end)
+
+    MFrame.TabMenu.Menu.Top.SearchBtn.MouseEnter:Connect(function()
+        TweenService:Create(MFrame.TabMenu.Menu.Top.SearchBtn,TweenInfo.new(0.15, Enum.EasingStyle.Quad, Enum.EasingDirection.Out),{BackgroundTransparency = 0.9}):Play()
+    end)
+    MFrame.TabMenu.Menu.Top.SearchBtn.MouseEnter:Connect(function()
+        TweenService:Create(MFrame.TabMenu.Menu.Top.SearchBtn,TweenInfo.new(0.15, Enum.EasingStyle.Quad, Enum.EasingDirection.Out),{BackgroundTransparency = 1}):Play()
     end)
 
     MFrame.TopBar.ButtonHolder.CloseBtn.MouseEnter:Connect(function() TweenService:Create(MFrame.TopBar.ButtonHolder.CloseBtn.Ico,TweenInfo.new(0.15, Enum.EasingStyle.Quad, Enum.EasingDirection.Out),{ImageTransparency = 0}):Play() end)
@@ -708,6 +728,20 @@ function SolarisLib:New(Config)
     MFrame.TopBar.TabListBtn.MouseEnter:Connect(function() TweenService:Create(MFrame.TopBar.TabListBtn,TweenInfo.new(0.15, Enum.EasingStyle.Quad, Enum.EasingDirection.Out),{ImageTransparency = 0}):Play() end)
     MFrame.TopBar.TabListBtn.MouseLeave:Connect(function() TweenService:Create(MFrame.TopBar.TabListBtn,TweenInfo.new(0.15, Enum.EasingStyle.Quad, Enum.EasingDirection.Out),{ImageTransparency = 0.4}):Play() end)
     MFrame.TopBar.ButtonHolder.MenuBtn.MouseButton1Click:Connect(function() MFrame.TopBar.ButtonHolder.MenuBtn.MenuFrame.Visible = not MFrame.TopBar.ButtonHolder.MenuBtn.MenuFrame.Visible end)
+
+    MFrame.TabMenu.Menu.Top.TabListBtn.MouseEnter:Connect(function()
+        TweenService:Create(MFrame.TabMenu.Menu.Top.SearchBtn,TweenInfo.new(0.15, Enum.EasingStyle.Quad, Enum.EasingDirection.Out),{BackgroundTransparency = 0.9}):Play()
+    end)
+    MFrame.TabMenu.Menu.Top.TabListBtn.MouseEnter:Connect(function()
+        TweenService:Create(MFrame.TabMenu.Menu.Top.SearchBtn,TweenInfo.new(0.15, Enum.EasingStyle.Quad, Enum.EasingDirection.Out),{BackgroundTransparency = 1}):Play()
+    end)
+
+    MFrame.TabMenu.Menu.Top.MenuBtn.MouseEnter:Connect(function()
+        TweenService:Create(MFrame.TabMenu.Menu.Top.SearchBtn,TweenInfo.new(0.15, Enum.EasingStyle.Quad, Enum.EasingDirection.Out),{BackgroundTransparency = 0.9}):Play()
+    end)
+    MFrame.TabMenu.Menu.Top.MenuBtn.MouseEnter:Connect(function()
+        TweenService:Create(MFrame.TabMenu.Menu.Top.SearchBtn,TweenInfo.new(0.15, Enum.EasingStyle.Quad, Enum.EasingDirection.Out),{BackgroundTransparency = 1}):Play()
+    end)
 
     MFrame.TopBar.ButtonHolder.CloseBtn.MouseButton1Click:Connect(function()
         uitoggled = not uitoggled
