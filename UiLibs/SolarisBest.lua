@@ -1,4 +1,4 @@
--- Dawid Cool
+-- Dawid cool
 local Solaris = Instance.new("ScreenGui")
 Solaris.Name = "cens6r's solaris gui"
 Solaris.Parent = game.CoreGui
@@ -883,7 +883,7 @@ function SolarisLib:New(Config)
                 end)
 
             end    
-            function ItemHold:Toggle(text,def,callback)
+            function ItemHold:Toggle(text,def,flag,callback)
                 local Toggle,ToggleMain = {Value = false}, game:GetObjects("rbxassetid://6963155498")[1]
                 ToggleMain.Parent = Section
                 ToggleMain.ToggleText.Text = text
@@ -911,9 +911,10 @@ function SolarisLib:New(Config)
                 end)
 
 				Toggle:Set(def)
+                SolarisLib.Flags[flag] = Toggle
                 return Toggle
             end    
-            function ItemHold:Slider(text,min,max,start,inc,callback)
+            function ItemHold:Slider(text,min,max,start,inc,flag,callback)
                 local Slider,SliderMain = {Value = start}, game:GetObjects("rbxassetid://6967573727")[1]
                 SliderMain.Parent = Section
                 SliderMain.SliderText.Text = text
@@ -954,9 +955,10 @@ function SolarisLib:New(Config)
 
 
                 Slider:Set(start)
+                SolarisLib.Flags[flag] = Slider
                 return Slider
             end    
-            function ItemHold:Dropdown(text,list,def,callback)
+            function ItemHold:Dropdown(text,list,def,flag,callback)
                 local Dropdown,DropMain,OptionPreset = {Value = nil, Toggled = false, Options = list}, game:GetObjects("rbxassetid://7027964359")[1], game:GetObjects("rbxassetid://7021432326")[1]
                 DropMain.Parent = Section
                 DropMain.Btn.Title.Text = text
@@ -1028,6 +1030,7 @@ function SolarisLib:New(Config)
 
                 Dropdown:Refresh(list,false)
                 Dropdown:Set(def)
+                SolarisLib.Flags[flag] = Dropdown
                 return Dropdown
             end   
             function ItemHold:MultiDropdown(text,list,def,flag,callback)
@@ -1108,9 +1111,10 @@ function SolarisLib:New(Config)
 
                 Dropdown:Refresh(list,false)
                 Dropdown:Set(def)
+                SolarisLib.Flags[flag] = Dropdown
                 return Dropdown
             end    
-            function ItemHold:Colorpicker(text,preset,callback)
+            function ItemHold:Colorpicker(text,preset,flag,callback)
                 local ColorH, ColorS, ColorV = 1, 1, 1
                 local ColorPicker, ColorPreset, DragPreset = {Value = preset, Toggled = false}, game:GetObjects("rbxassetid://7329998014")[1]
                 ColorPreset.Hue.Visible, ColorPreset.Color.Visible = ColorPicker.Toggled, ColorPicker.Toggled
@@ -1265,7 +1269,7 @@ function SolarisLib:New(Config)
                 end)
                 return Textbox
             end    
-            function ItemHold:Bind(text,preset,holdmode,callback)
+            function ItemHold:Bind(text,preset,holdmode,flag,callback)
                 local Bind, BindFrame = {Value, Binding = false, Holding = false}, game:GetObjects("rbxassetid://7126874744")[1]
                 BindFrame.Parent = Section
                 BindFrame.Title.Text = text
@@ -1332,8 +1336,9 @@ function SolarisLib:New(Config)
                 end)
 
 				Bind:Set(preset)
+                SolarisLib.Flags[flag] = Bind
                 return Bind
-            end    
+            end   
             return ItemHold
         end    
         return SectionHold
