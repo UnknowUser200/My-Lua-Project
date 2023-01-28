@@ -1,4 +1,4 @@
--- Dawid cool
+-- This User Interface Library is brought to you by Solaris Software.
 local Solaris = Instance.new("ScreenGui")
 Solaris.Name = "cens6r's solaris gui"
 Solaris.Parent = game.CoreGui
@@ -164,7 +164,7 @@ local SolarisLib = {
             TopBar = Color3.fromRGB(30, 30, 30),
             TextColor =  Color3.fromRGB(255,255,255),
             Menu = Color3.fromRGB(30, 30, 30),
-            TabToggled = Color3.fromRGB(53,53,68),
+            TabToggled = Color3.fromRGB(44, 120, 224),
             Button = Color3.fromRGB(34, 34, 34),
             ButtonHold = Color3.fromRGB(44, 120, 224),
             Toggle = Color3.fromRGB(34, 34, 34),
