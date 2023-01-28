@@ -1099,7 +1099,7 @@ function lib:Window(text, preset, closebind)
                         TweenService:Create(
                             Item,
                             TweenInfo.new(.3, Enum.EasingStyle.Quad, Enum.EasingDirection.Out),
-                            { BackgroundColor3 = Color3.fromRGB(37, 37, 37) }
+                            { BackgroundColor3 = Color3.fromRGB(37, 37, 37) and not PresetColor }
                         ):Play()
                     end
                 )
@@ -1109,7 +1109,7 @@ function lib:Window(text, preset, closebind)
                         TweenService:Create(
                             Item,
                             TweenInfo.new(.3, Enum.EasingStyle.Quad, Enum.EasingDirection.Out),
-                            { BackgroundColor3 = Color3.fromRGB(34, 34, 34) }
+                            { BackgroundColor3 = Color3.fromRGB(34, 34, 34)  and not PresetColor }
                         ):Play()
                     end
                 )
