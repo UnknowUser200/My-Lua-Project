@@ -205,11 +205,11 @@ script = oldScript
 
 spawn(function()
     while wait() do
-        NotificationFrame.NotificationBody.NotificationFrame.BackgroundColor3 = SolarisLib.Themes[SolarisLib.Settings.Theme].NotificationBg
-        NotificationFrame.NotificationBody.NotificationFrame.NotificationTopFrame.BackgroundColor3 = SolarisLib.Themes[SolarisLib.Settings.Theme].NotificationTopBar
-        NotificationFrame.NotificationBody.NotificationFrame.NotificationTopFrame.NotificationTitle.TextColor = SolarisLib.Themes[SolarisLib.Settings.Theme].TextColor
-        NotificationFrame.NotificationBody.NotificationFrame.NotificationTopFrame.time.TextColor = SolarisLib.Themes[SolarisLib.Settings.Theme].DescriptColorNotif
-        NotificationFrame.NotificationBody.NotificationFrame.NotificationTextFrame.NotificationText.TextColor = SolarisLib.Themes[SolarisLib.Settings.Theme].DescriptColorNotif
+        NotificationFrame.NotificationBody.NotificationFrame.BackgroundColor3 = Color3.fromRGB(34, 34, 34)
+        NotificationFrame.NotificationBody.NotificationFrame.NotificationTopFrame.BackgroundColor3 = Color3.fromRGB(34, 34, 34)
+        NotificationFrame.NotificationBody.NotificationFrame.NotificationTopFrame.NotificationTitle.TextColor3 = Color3.fromRGB(230, 230, 230)
+        NotificationFrame.NotificationBody.NotificationFrame.NotificationTopFrame.time.TextColor3 = Color3.fromRGB(230, 230, 230)
+        NotificationFrame.NotificationBody.NotificationFrame.NotificationTextFrame.NotificationText.TextColor3 = Color3.fromRGB(230, 230, 230)
     end
 end)
 
@@ -268,8 +268,8 @@ function Ripple(Object)
 	end)
 end
 
-function SolarisLib:Notification(title, desc)
-    Notify:New(title,desc)
+function SolarisLib:Notification(title, desc, time)
+    Notify:New(title,desc, time)
 end    
 
 function SolarisLib:New(Config)
