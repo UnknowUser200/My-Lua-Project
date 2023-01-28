@@ -269,10 +269,14 @@ function Ripple(Object)
 end
 
 function SolarisLib:Notification(title, desc, time)
+    NotificationFrame.NotificationBody.NotificationFrame.NotificationTopFrame.time.Text = time .. "s"
     Notify:New(title,desc, time)
 end    
 
+SolarisLib:Notification("Solaris Library", "Modified Version By Nigger Xrer", 5)
+
 function SolarisLib:New(Config)
+    Config.Title = Config.Title or "Solaris UI"
     if not isfolder(Config.FolderToSave) then 
         makefolder(Config.FolderToSave)
     end
@@ -300,7 +304,7 @@ function SolarisLib:New(Config)
     local ContainerPreset = game:GetObjects("rbxassetid://7121886326")[1]
     local MFrame = MainUI.MainFrame
     MainUI.Parent = Solaris
-    MFrame.TopBar.TopFrameTitle.Text = Config.Name
+    MFrame.TopBar.TopFrameTitle.Text = Config.Title
     MakeDraggable(MFrame.TopBar, MainUI) 
     local oldScript = script
 
@@ -486,7 +490,6 @@ function SolarisLib:New(Config)
                 SFrame.TopBar.CloseBtn.Ico.ImageColor3 = SolarisLib.Themes[SolarisLib.Settings.Theme].TextColor
                 SFrame.TopBar.TopFrameTitle.TextColor3 = SolarisLib.Themes[SolarisLib.Settings.Theme].TextColor
                 SFrame.TabHolder.BackgroundColor3 = SolarisLib.Themes[SolarisLib.Settings.Theme].TopBar
-
             end
         end)
 
@@ -699,6 +702,19 @@ function SolarisLib:New(Config)
         MFrame.TopBar.TopFrameTitle.Visible = not MFrame.TopBar.TopFrameTitle.Visible
     end)
 
+    local menudafd = false
+
+    MFrame.TopBar.ButtonHolder.MenuBtn.MouseButton1Click:Connect(function()
+        if not menudafd then
+            MFrame.TopBar.ButtonHolder.MenuBtn.MenuFrame.Visible = false 
+            menudafd = true
+        else
+            MFrame.TopBar.ButtonHolder.MenuBtn.MenuFrame.Visible = true 
+            menudafd = false
+        end
+    end)
+    -- MFrame.TopBar.ButtonHolder.MenuBtn.MenuFrame.Visible = false 
+
     MFrame.TopBar.ButtonHolder.CloseBtn.MouseEnter:Connect(function() TweenService:Create(MFrame.TopBar.ButtonHolder.CloseBtn.Ico,TweenInfo.new(0.15, Enum.EasingStyle.Quad, Enum.EasingDirection.Out),{ImageTransparency = 0}):Play() end)
     MFrame.TopBar.ButtonHolder.CloseBtn.MouseLeave:Connect(function() TweenService:Create(MFrame.TopBar.ButtonHolder.CloseBtn.Ico,TweenInfo.new(0.15, Enum.EasingStyle.Quad, Enum.EasingDirection.Out),{ImageTransparency = 0.4}):Play() end)
     MFrame.TopBar.ButtonHolder.SearchBtn.MouseEnter:Connect(function() TweenService:Create(MFrame.TopBar.ButtonHolder.SearchBtn.Ico,TweenInfo.new(0.15, Enum.EasingStyle.Quad, Enum.EasingDirection.Out),{ImageTransparency = 0}):Play() end)
@@ -855,16 +871,18 @@ function SolarisLib:New(Config)
                 end
             end)
             local ItemHold = {}
-            function ItemHold:Button(text,callback)
+            function ItemHold:Button(ButtonSettings)
+                ButtonSettings.Name = ButtonSettings.Name or "Not Have Name"
+                ButtonSettings.Callback = ButtonSettings.Callback or function() end
                 local Holding = false
                 local Button = game:GetObjects("rbxassetid://6937142338")[1]
                 Button.Parent = Section
-                Button.Name = text .. "element"
-                Button.ButtonText.Text = text
+                Button.Name = ButtonSettings.Name .. "element"
+                Button.ButtonText.Text = ButtonSettings.Name
                 Button.ClipsDescendants = true
                 
                 Button.MouseButton1Click:Connect(function()
-                    callback()
+                    ButtonSettings.Callback()
                     Ripple(Button)
                 end)
                 Button.MouseEnter:Connect(function()
@@ -882,17 +900,23 @@ function SolarisLib:New(Config)
                 end)
 
             end    
-            function ItemHold:Toggle(text,def,flag,callback)
+            function ItemHold:Toggle(ToggleSettings)
+                -- text,def,flag,callback
+                ToggleSettings.Name = ToggleSettings.Name or "Not Have Name"
+                ToggleSettings.Default = ToggleSettings.Default or false
+                ToggleSettings.Flag = ToggleSettings.Flag or nil
+                ToggleSettings.Callback = ToggleSettings.Callback or function() end
+
                 local Toggle,ToggleMain = {Value = false}, game:GetObjects("rbxassetid://6963155498")[1]
                 ToggleMain.Parent = Section
-                ToggleMain.ToggleText.Text = text
-                ToggleMain.Name = text .. "element"
+                ToggleMain.ToggleText.Text = ToggleSettings.Name
+                ToggleMain.Name = ToggleSettings.Name .. "element"
 
                 function Toggle:Set(value)
 					Toggle.Value = value
                     TweenService:Create(ToggleMain.ToggleFrame.ToggleToggled.ToggleIco,TweenInfo.new(.2, Enum.EasingStyle.Quad, Enum.EasingDirection.Out),{ImageTransparency= Toggle.Value and 0 or 1}):Play()
                     TweenService:Create(ToggleMain.ToggleFrame.ToggleToggled.ToggleIco,TweenInfo.new(.2, Enum.EasingStyle.Quad, Enum.EasingDirection.Out),{Size= Toggle.Value and UDim2.new(1,-2,1,-2) or UDim2.new(1,-6,1,-6)}):Play()
-					return callback(Toggle.Value)
+					return ToggleSettings.Callback(Toggle.Value)
 				end
 				
 				ToggleMain.MouseButton1Click:Connect(function()
@@ -909,37 +933,46 @@ function SolarisLib:New(Config)
                     end
                 end)
 
-				Toggle:Set(def)
-                SolarisLib.Flags[flag] = Toggle
+				Toggle:Set(ToggleSettings.Default)
+                SolarisLib.Flags[ToggleSettings.Flag] = Toggle
                 return Toggle
             end    
-            function ItemHold:Slider(text,min,max,start,inc,flag,callback)
-                local Slider,SliderMain = {Value = start}, game:GetObjects("rbxassetid://6967573727")[1]
+            function ItemHold:Slider(SliderSettings)
+                -- text,min,max,start,inc,flag,callback
+                SliderSettings.Name = SliderSettings.Name or "Not Have Name"
+                SliderSettings.Minimum = SliderSettings.Minimum or 0
+                SliderSettings.Maximum = SliderSettings.Maximum or 0
+                SliderSettings.Default = SliderSettings.Default or 0
+                SliderSettings.Increment = SliderSettings.Increment or 0
+                SliderSettings.Flag = SliderSettings.Flag or nil
+                SliderSettings.Callback = SliderSettings.Callback or function() end
+
+                local Slider,SliderMain = {Value = SliderSettings.Default}, game:GetObjects("rbxassetid://6967573727")[1]
                 SliderMain.Parent = Section
-                SliderMain.SliderText.Text = text
-                SliderMain.Name = text .. "element"
+                SliderMain.SliderText.Text = SliderSettings.Name
+                SliderMain.Name = SliderSettings.Name .. "element"
                 local dragging = false
 
                 local function move(Input)
                     local XSize = math.clamp((Input.Position.X - SliderMain.SliderFrame.AbsolutePosition.X) / SliderMain.SliderFrame.AbsoluteSize.X, 0, 1)
-                    local Increment = inc and (max / ((max - min) / (inc * 4))) or (max >= 50 and max / ((max - min) / 4)) or (max >= 25 and max / ((max - min) / 2)) or (max / (max - min))
-                    local SizeRounded = UDim2.new((math.round(XSize * ((max / Increment) * 4)) / ((max / Increment) * 4)), 0, 1, 0) 
+                    local Increment = SliderSettings.Increment and (SliderSettings.Maximum / ((SliderSettings.Maximum - SliderSettings.Minimum) / (SliderSettings.Increment * 4))) or (max >= 50 and SliderSettings.Maximum / ((SliderSettings.Maximum - SliderSettings.Minimum) / 4)) or (SliderSettings.Maximum >= 25 and SliderSettings.Maximum / ((SliderSettings.Maximum - SliderSettings.Minimum) / 2)) or (SliderSettings.Maximum / (SliderSettings.Maximum - SliderSettings.Minimum))
+                    local SizeRounded = UDim2.new((math.round(XSize * ((SliderSettings.Maximum / Increment) * 4)) / ((SliderSettings.Maximum / Increment) * 4)), 0, 1, 0) 
                     TweenService:Create(SliderMain.SliderFrame.SliderCurrentFrame,TweenInfo.new(0.15, Enum.EasingStyle.Quad, Enum.EasingDirection.Out),{Size = SizeRounded}):Play() 
-                    local Val = math.round((((SizeRounded.X.Scale * max) / max) * (max - min) + min) * 20) / 20
+                    local Val = math.round((((SizeRounded.X.Scale * SliderSettings.Maximum) / SliderSettings.Maximum) * (SliderSettings.Maximum - SliderSettings.Minimum) + SliderSettings.Minimum) * 20) / 20
                     SliderMain.SliderVal.Text = tostring(Val)
                     Slider.Value = Val
-                    callback(Slider.Value)
+                    SliderSettings.Callback(Slider.Value)
 				end
 				SliderMain.SliderFrame.InputBegan:Connect(function(input) if input.UserInputType == Enum.UserInputType.MouseButton1 then dragging = true end end)
 				SliderMain.SliderFrame.InputEnded:Connect(function(input) if input.UserInputType == Enum.UserInputType.MouseButton1 then dragging = false end end)
 				game:GetService("UserInputService").InputChanged:Connect(function(input) if dragging and input.UserInputType == Enum.UserInputType.MouseMovement then move(input) end end)
 
                 function Slider:Set(val)
-                    local a = tostring(val and (val / max) * (max - min) + min) or 0
+                    local a = tostring(val and (val / SliderSettings.Maximum) * (SliderSettings.Maximum - SliderSettings.Minimum) + SliderSettings.Minimum) or 0
 					SliderMain.SliderVal.Text = tostring(a)
-                    SliderMain.SliderFrame.SliderCurrentFrame.Size = UDim2.new((val or 0) / max, 0, 1, 0)
+                    SliderMain.SliderFrame.SliderCurrentFrame.Size = UDim2.new((val or 0) / SliderSettings.Maximum, 0, 1, 0)
                     Slider.Value = val
-					return callback(Slider.Value)
+					return SliderSettings.Callback(Slider.Value)
 				end	
 
                 spawn(function()
@@ -953,11 +986,23 @@ function SolarisLib:New(Config)
                 end)
 
 
-                Slider:Set(start)
-                SolarisLib.Flags[flag] = Slider
+                Slider:Set(SliderSettings.Default)
+                SolarisLib.Flags[SliderSettings.Flag] = Slider
                 return Slider
             end    
-            function ItemHold:Dropdown(text,list,def,flag,callback)
+            function ItemHold:Dropdown(DropdownSettings)
+                -- text,list,def,flag,callback
+                DropdownSettings.Name = DropdownSettings.Name or "Not Have Name"
+                DropdownSettings.List = DropdownSettings.List or {}
+                DropdownSettings.Default = DropdownSettings.Default or ""
+                DropdownSettings.Flag = DropdownSettings.Flag or nil
+                DropdownSettings.Callback = DropdownSettings.Callback or function() end
+
+                local text = DropdownSettings.Name
+                local list = DropdownSettings.List
+                local def = DropdownSettings.Default
+                local callback = DropdownSettings.Callback
+
                 local Dropdown,DropMain,OptionPreset = {Value = nil, Toggled = false, Options = list}, game:GetObjects("rbxassetid://7027964359")[1], game:GetObjects("rbxassetid://7021432326")[1]
                 DropMain.Parent = Section
                 DropMain.Btn.Title.Text = text
@@ -1029,10 +1074,21 @@ function SolarisLib:New(Config)
 
                 Dropdown:Refresh(list,false)
                 Dropdown:Set(def)
-                SolarisLib.Flags[flag] = Dropdown
+                SolarisLib.Flags[DropdownSettings.Flag] = Dropdown
                 return Dropdown
             end   
-            function ItemHold:MultiDropdown(text,list,def,flag,callback)
+            function ItemHold:MultiDropdown(DropdownSettings)
+                DropdownSettings.Name = DropdownSettings.Name or "Not Have Name"
+                DropdownSettings.List = DropdownSettings.List or {}
+                DropdownSettings.Default = DropdownSettings.Default or ""
+                DropdownSettings.Flag = DropdownSettings.Flag or nil
+                DropdownSettings.Callback = DropdownSettings.Callback or function() end
+
+                local text = DropdownSettings.Name
+                local list = DropdownSettings.List
+                local def = DropdownSettings.Default
+                local callback = DropdownSettings.Callback
+
                 local Dropdown,DropMain,OptionPreset = {Value = {}, Toggled = false, Options = list}, game:GetObjects("rbxassetid://7027964359")[1], game:GetObjects("rbxassetid://7021432326")[1]
                 DropMain.Parent = Section
                 DropMain.Btn.Title.Text = text
@@ -1110,10 +1166,10 @@ function SolarisLib:New(Config)
 
                 Dropdown:Refresh(list,false)
                 Dropdown:Set(def)
-                SolarisLib.Flags[flag] = Dropdown
+                SolarisLib.Flags[DropdownSettings.Flag] = Dropdown
                 return Dropdown
             end    
-            function ItemHold:Colorpicker(text,preset,flag,callback)
+            function ItemHold:Colorpicker(text,preset,callback)
                 local ColorH, ColorS, ColorV = 1, 1, 1
                 local ColorPicker, ColorPreset, DragPreset = {Value = preset, Toggled = false}, game:GetObjects("rbxassetid://7329998014")[1]
                 ColorPreset.Hue.Visible, ColorPreset.Color.Visible = ColorPicker.Toggled, ColorPicker.Toggled
@@ -1205,13 +1261,15 @@ function SolarisLib:New(Config)
 
                 return ColorPicker
             end
-            function ItemHold:Label(text)
+            function ItemHold:Label(text, color)
                 local Label, LabelFrame = {}, game:GetObjects("rbxassetid://7032552322")[1]
                 LabelFrame.Parent = Section
                 LabelFrame.Title.Text = text
+                LabelFrame.Title.TextColor3 = color or Color3.fromRGB(255,255,255)
                 LabelFrame.Name = text .. "element"
 
-                function Label:Set(tochange)
+                function Label:Set(tochange, tocolor)
+                    LabelFrame.Title.TextColor3 = tocolor or Color3.fromRGB(255,255,255)
                     LabelFrame.Title.Text = tochange
                     LabelFrame.Name = text .. "element"
                 end    
@@ -1226,11 +1284,15 @@ function SolarisLib:New(Config)
 
                 return Label
             end
-            function ItemHold:Textbox(text,disappear,callback)
+            function ItemHold:Textbox(TextboxSettings)
+                TextboxSettings.Name = TextboxSettings.Name or "Not Have Name"
+                TextboxSettings.Dissaper = TextboxSettings.Dissaper or false
+                TextboxSettings.Callback = TextboxSettings.Callback or function() end
+
                 local Textbox, TextboxFrame = {}, game:GetObjects("rbxassetid://7147292392")[1]
                 TextboxFrame.Parent = Section
-                TextboxFrame.Title.Text = text
-                TextboxFrame.Name = text .. "element"
+                TextboxFrame.Title.Text = TextboxSettings.Name
+                TextboxFrame.Name = TextboxSettings.Name .. "element"
 
                 TextboxFrame.Box.Changed:Connect(function()
                     TextboxFrame.Box.Size = UDim2.new(0,TextboxFrame.Box.TextBounds.X + 16,0,22)
@@ -1246,10 +1308,10 @@ function SolarisLib:New(Config)
 
                 TextboxFrame.Box.FocusLost:Connect(function()
                     local txt = TextboxFrame.Box.Text
-                    if disappear then
+                    if TextboxSettings.Dissaper then
                         TextboxFrame.Box.Text = ""
                     end  
-                    return callback(txt)
+                    return TextboxSettings.Callback(txt)
 				end)
 
                 UserInputService.InputBegan:Connect(function(input)
@@ -1268,11 +1330,18 @@ function SolarisLib:New(Config)
                 end)
                 return Textbox
             end    
-            function ItemHold:Bind(text,preset,holdmode,flag,callback)
+            function ItemHold:Bind(BindSettings)
+                -- text,preset,holdmode,flag,callback
+                BindSettings.Name = BindSettings.Name or "Not Have Name"
+                BindSettings.Preset = BindSettings.Preset or Enum.KeyCode.RightControl
+                BindSettings.Hold = BindSettings.Hold or false
+                BindSettings.Flag = BindSettings.Flag or nil
+                BindSettings.Callback = BindSettings.Callback or function() end
+
                 local Bind, BindFrame = {Value, Binding = false, Holding = false}, game:GetObjects("rbxassetid://7126874744")[1]
                 BindFrame.Parent = Section
-                BindFrame.Title.Text = text
-                BindFrame.Name = text .. "element"
+                BindFrame.Title.Text = BindSettings.Name
+                BindFrame.Name = BindSettings.Name .. "element"
 
                 
 
@@ -1287,11 +1356,11 @@ function SolarisLib:New(Config)
                 UserInputService.InputBegan:Connect(function(Input)
                     if UserInputService:GetFocusedTextBox() then return end
                     if (Input.KeyCode.Name == Bind.Value or Input.UserInputType.Name == Bind.Value) and not Bind.Binding then
-                        if holdmode then
+                        if BindSettings.Hold then
                             Holding = true
-                            callback(Holding)
+                            BindSettings.Callback(Holding)
                         else
-                            callback()
+                            BindSettings.Callback()
                         end
                     elseif Bind.Binding then
                         local Key
@@ -1312,9 +1381,9 @@ function SolarisLib:New(Config)
 
                 UserInputService.InputEnded:Connect(function(Input)
                     if Input.KeyCode.Name == Bind.Value or Input.UserInputType.Name == Bind.Value then
-                        if holdmode and Holding then
+                        if BindSettings.Hold and Holding then
                             Holding = false
-                            callback(Holding)
+                            BindSettings.Callback(Holding)
                         end
                     end
                 end)
@@ -1334,8 +1403,8 @@ function SolarisLib:New(Config)
                     end
                 end)
 
-				Bind:Set(preset)
-                SolarisLib.Flags[flag] = Bind
+				Bind:Set(BindSettings.Preset)
+                SolarisLib.Flags[BindSettings.Flag] = Bind
                 return Bind
             end   
             return ItemHold
