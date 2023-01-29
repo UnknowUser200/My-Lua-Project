@@ -509,7 +509,7 @@ function lib:Window(text, preset, closebind)
     local Pages = make("Frame",{
         Parent = Main;
         Name = "Pages";
-        Position = UDim2.new(0,115,0,65);
+        Position = UDim2.new(0,15,0,165);
         Size = UDim2.new(0, 373, 0, 254);
         BorderSizePixel = 0;
         BackgroundTransparency = 1;
@@ -683,10 +683,11 @@ function lib:Window(text, preset, closebind)
             ButtonTitle.TextColor3 = Color3.fromRGB(255, 255, 255)
             ButtonTitle.TextSize = 14.000
             ButtonTitle.TextXAlignment = Enum.TextXAlignment.Left
+            ButtonTitle.TextTransparency = 1
 
             TweenService:Create(Button, TweenInfo.new(0.3), { BackgroundTransparency = 0 }):Play()
             wait(0.2)
-            TweenService:Create(ButtonTitle, TweenInfo.new(0.3), { BackgroundTransparency = 0 }):Play()
+            TweenService:Create(ButtonTitle, TweenInfo.new(0.3), { TextTransparency = 0 }):Play()
 
             Button.MouseEnter:Connect(
                 function()
@@ -895,7 +896,7 @@ function lib:Window(text, preset, closebind)
             end
 
             Toggleg.MouseButton1Click:Connect(function()
-                Ripple(Toggle)
+                Ripple(Toggleg)
                 Toggle.Value = not Toggle.Value
                 Toggle:Set(Toggle.Value)
                 lib.Flags[flag] = Toggle.Value
