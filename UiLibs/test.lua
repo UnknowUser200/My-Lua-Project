@@ -618,7 +618,7 @@ function lib:Window(text, preset, closebind)
             function()
                 for i, v in next, Pages:GetChildren() do
                     if v.Name == text then
-                        PageLayout:JumpTo(v)
+                        PageLayout:JumpTo(Pages)
                     end
                 end
                 for i, v in next, TabHold:GetChildren() do
