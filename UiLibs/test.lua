@@ -582,7 +582,8 @@ function lib:Window(text, preset, closebind)
         local Tab = Instance.new("ScrollingFrame")
         local TabLayout = Instance.new("UIListLayout")
 
-        Tab.Name = text
+        Tab.Name = "Tab"
+        Tab.Text = text
         Tab.Parent = PagesLayout
         Tab.Active = true
         Tab.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
@@ -617,10 +618,9 @@ function lib:Window(text, preset, closebind)
         TabBtn.MouseButton1Click:Connect(
             function()
                 for i, v in next, Pages:GetChildren() do
-                    if v.Name == "Tab" then
+                    if v.Tab.Text == text then
                         PageLayout:JumpTo(v)
                     end
-                    PageLayout:JumpTo(Tab)
                 end
                 for i, v in next, Pages:GetChildren() do
                     if v.Name == text then
