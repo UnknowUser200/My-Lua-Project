@@ -616,7 +616,7 @@ function lib:Window(text, preset, closebind)
 
         TabBtn.MouseButton1Click:Connect(function()
                 for i, v in next, Pages:GetChildren() do
-                    if v.Tab.Name == TabTitle.Text then
+                    if v.Name == TabTitle.Text then
                         PageLayout:JumpTo(v)
                     end
                 end
