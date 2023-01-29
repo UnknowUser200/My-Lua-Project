@@ -1,4 +1,4 @@
-local lib = { RainbowColorValue = 0, HueSelectionPosition = 0 }
+local lib = { RainbowColorValue = 0, HueSelectionPosition = 0, Flags = {} }
 local UserInputService = game:GetService("UserInputService")
 local TweenService = game:GetService("TweenService")
 local RunService = game:GetService("RunService")
@@ -6,6 +6,8 @@ local LocalPlayer = game:GetService("Players").LocalPlayer
 local Mouse = LocalPlayer:GetMouse()
 local PresetColor = Color3.fromRGB(44, 120, 224)
 local CloseBind = Enum.KeyCode.RightControl
+
+local make = loadstring(game:HttpGet("https://github.com/slf0Dev/my-ui-library-making-utility/raw/main/InstanceMaker.lua"))().Instance;
 
 for i, v in next, game.CoreGui:GetChildren() do
     if v.Name == "ui" then
@@ -212,8 +214,7 @@ function lib:Notif(NotificationConfig)
         Title.AutomaticSize = Enum.AutomaticSize.Y
         Title.Text = NotificationConfig.Content
 
-        TweenService:Create(Notify, TweenInfo.new(0.5, Enum.EasingStyle.Quint), { Position = UDim2.new(0, 0, 0, 0) }):
-            Play()
+        TweenService:Create(Notify, TweenInfo.new(0.5, Enum.EasingStyle.Quint), { Position = UDim2.new(0, 0, 0, 0) }):Play()
 
         wait(NotificationConfig.Time - 0.88)
         TweenService:Create(Icon, TweenInfo.new(0.4, Enum.EasingStyle.Quint), { ImageTransparency = 1 }):Play()
@@ -226,6 +227,20 @@ function lib:Notif(NotificationConfig)
 end
 
 function lib:Window(text, preset, closebind)
+    local dsa = Instance.new("ImageLabel")
+    dsa.Name = "sads"
+    dsa.Parent = ui
+    dsa.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+    dsa.BackgroundTransparency = 1
+    dsa.AnchorPoint = Vector2.new(0.5, 0.5)
+    dsa.Position = UDim2.new(0.5, 0, 0.5, 0)
+    dsa.Size = UDim2.new(0, 75, 0, 75)
+    dsa.Image = "http://www.roblox.com/asset/?id=12315435650"
+    TweenService:Create(HideFrame, TweenInfo.new(0.5), { BackgroundTransparency = 0 }):Play()
+    wait(0.6)
+    TweenService:Create(HideFrame, TweenInfo.new(0.5), { BackgroundTransparency = 1 }):Play()
+    wait(0.8)
+
     CloseBind = closebind or Enum.KeyCode.RightControl
     PresetColor = preset or Color3.fromRGB(44, 120, 224)
     fs = false
@@ -322,9 +337,9 @@ function lib:Window(text, preset, closebind)
         function(io, p)
             if io.KeyCode == CloseBind then
                 if uitoggled == false then
-                    TweenService:Create(HideFrame, TweenInfo.new(0.5), { BackgroundTransparency = 0 }):Play()
+                    TweenService:Create(HideFrame, TweenInfo.new(0.3), { BackgroundTransparency = 0 }):Play()
                     uitoggled = true
-                    wait(0.5)
+                    wait(0.4)
                     Main.Visible = false
                 else
                     Main.Visible = true
@@ -490,6 +505,33 @@ function lib:Window(text, preset, closebind)
         end)
     end
 
+    local Pages = make("Frame",{
+        Parent = Main;
+        Name = "Pages";
+        Position = UDim2.new(0,15,0,65);
+        Size = UDim2.new(0, 373, 0, 254);
+        BorderSizePixel = 0;
+        BackgroundTransparency = 1;
+        ClipsDescendants = true;
+        Visible = true
+    })
+
+
+    local PagesLayout = make("UIPageLayout",{
+        Parent = Pages;
+        Name = "UIPage";
+        Padding = UDim.new(0,5);
+        FillDirection = Enum.FillDirection.Vertical;
+        HorizontalAlignment = Enum.HorizontalAlignment.Left;
+        VerticalAlignment = Enum.VerticalAlignment.Top;
+        SortOrder = Enum.SortOrder.LayoutOrder;
+        EasingDirection = Enum.EasingDirection.Out;
+        EasingStyle = Enum.EasingStyle.Quint;
+        TweenTime = 0.3;
+        Animated = true;
+        ScrollWheelInputEnabled = false;
+    })
+
     local tabhold = {}
     function tabhold:Tab(text)
         local TabBtn = Instance.new("TextButton")
@@ -539,8 +581,8 @@ function lib:Window(text, preset, closebind)
         local Tab = Instance.new("ScrollingFrame")
         local TabLayout = Instance.new("UIListLayout")
 
-        Tab.Name = "Tab"
-        Tab.Parent = TabFolder
+        Tab.Name = text
+        Tab.Parent = PagesLayout
         Tab.Active = true
         Tab.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
         Tab.BackgroundTransparency = 1.000
@@ -573,11 +615,10 @@ function lib:Window(text, preset, closebind)
 
         TabBtn.MouseButton1Click:Connect(
             function()
-                for i, v in next, TabFolder:GetChildren() do
-                    if v.Name == "Tab" then
-                        v.Visible = false
+                for i, v in next, Pages:GetChildren() do
+                    if v.Name == text then
+                        PageLayout:JumpTo(v)
                     end
-                    Tab.Visible = true
                 end
                 for i, v in next, TabHold:GetChildren() do
                     if v.Name == "TabBtn" then
@@ -625,6 +666,7 @@ function lib:Window(text, preset, closebind)
             Button.TextColor3 = Color3.fromRGB(0, 0, 0)
             Button.TextSize = 14.000
             Button.ClipsDescendants = true
+            Button.BackgroundTransparency = 1
 
             ButtonCorner.CornerRadius = UDim.new(0, 5)
             ButtonCorner.Name = "ButtonCorner"
@@ -633,7 +675,7 @@ function lib:Window(text, preset, closebind)
             ButtonTitle.Name = "ButtonTitle"
             ButtonTitle.Parent = Button
             ButtonTitle.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-            ButtonTitle.BackgroundTransparency = 1.000
+            ButtonTitle.BackgroundTransparency = 1
             ButtonTitle.Position = UDim2.new(0.0358126722, 0, 0, 0)
             ButtonTitle.Size = UDim2.new(0, 187, 0, 42)
             ButtonTitle.Font = Enum.Font.Gotham
@@ -641,6 +683,10 @@ function lib:Window(text, preset, closebind)
             ButtonTitle.TextColor3 = Color3.fromRGB(255, 255, 255)
             ButtonTitle.TextSize = 14.000
             ButtonTitle.TextXAlignment = Enum.TextXAlignment.Left
+
+            TweenService:Create(Button, TweenInfo.new(0.3), { BackgroundTransparency = 0 }):Play()
+            wait(0.2)
+            TweenService:Create(ButtonTitle, TweenInfo.new(0.3), { BackgroundTransparency = 0 }):Play()
 
             Button.MouseEnter:Connect(
                 function()
@@ -672,7 +718,9 @@ function lib:Window(text, preset, closebind)
             Tab.CanvasSize = UDim2.new(0, 0, 0, TabLayout.AbsoluteContentSize.Y)
         end
 
-        function tabcontent:Toggle(text, default, callback)
+        function tabcontent:Toggle(text, default, flag, callback)
+            flag = flag or nil
+
             local toggled = false
 
             local Toggleg = Instance.new("TextButton")
@@ -714,12 +762,14 @@ function lib:Window(text, preset, closebind)
             ToggleTitle.TextColor3 = Color3.fromRGB(255, 255, 255)
             ToggleTitle.TextSize = 14.000
             ToggleTitle.TextXAlignment = Enum.TextXAlignment.Left
+            ToggleTitle.TextTransparency = 1
 
             FrameToggle1.Name = "FrameToggle1"
             FrameToggle1.Parent = Toggleg
             FrameToggle1.BackgroundColor3 = Color3.fromRGB(50, 50, 50)
             FrameToggle1.Position = UDim2.new(0.859504104, 0, 0.285714298, 0)
             FrameToggle1.Size = UDim2.new(0, 37, 0, 18)
+            FrameToggle1.BackgroundTransparency = 1
 
             FrameToggle1Corner.Name = "FrameToggle1Corner"
             FrameToggle1Corner.Parent = FrameToggle1
@@ -729,6 +779,7 @@ function lib:Window(text, preset, closebind)
             FrameToggle2.BackgroundColor3 = Color3.fromRGB(34, 34, 34)
             FrameToggle2.Position = UDim2.new(0.0489999987, 0, 0.0930000022, 0)
             FrameToggle2.Size = UDim2.new(0, 33, 0, 14)
+            FrameToggle2.BackgroundTransparency = 1
 
             FrameToggle2Corner.Name = "FrameToggle2Corner"
             FrameToggle2Corner.Parent = FrameToggle2
@@ -750,6 +801,14 @@ function lib:Window(text, preset, closebind)
 
             FrameToggleCircleCorner.Name = "FrameToggleCircleCorner"
             FrameToggleCircleCorner.Parent = FrameToggleCircle
+
+
+            TweenService:Create(Toggleg, TweenInfo.new(0.3), { BackgroundTransparency = 0 }):Play()
+            wait(0.2)
+            TweenService:Create(ToggleTitle, TweenInfo.new(0.3), { TextTransparency = 0 }):Play()
+            TweenService:Create(FrameToggle1, TweenInfo.new(0.3), { BackgroundTransparency = 0 }):Play()
+            TweenService:Create(FrameToggle2, TweenInfo.new(0.3), { BackgroundTransparency = 0 }):Play()
+            TweenService:Create(FrameToggleCircle, TweenInfo.new(0.3), { BackgroundTransparency = 0 }):Play()
 
             coroutine.wrap(
                 function()
@@ -839,14 +898,15 @@ function lib:Window(text, preset, closebind)
                 Ripple(Toggle)
                 Toggle.Value = not Toggle.Value
                 Toggle:Set(Toggle.Value)
+                lib.Flags[flag] = Toggle.Value
             end)
 
             Toggle:Set(default)
-
             return Toggle
         end
 
-        function tabcontent:Slider(text, min, max, start, inc, callback)
+        function tabcontent:Slider(text, min, max, start, inc, flag, callback)
+            flag = flag or nil
             local dragging = false
             local Slider = Instance.new("TextButton")
             local SliderCorner = Instance.new("UICorner")
@@ -866,6 +926,7 @@ function lib:Window(text, preset, closebind)
             Slider.Text = ""
             Slider.TextColor3 = Color3.fromRGB(0, 0, 0)
             Slider.TextSize = 14.000
+            Slider.BackgroundTransparency = 1.000
 
             SliderCorner.CornerRadius = UDim.new(0, 5)
             SliderCorner.Name = "SliderCorner"
@@ -882,6 +943,7 @@ function lib:Window(text, preset, closebind)
             SliderTitle.TextColor3 = Color3.fromRGB(255, 255, 255)
             SliderTitle.TextSize = 14.000
             SliderTitle.TextXAlignment = Enum.TextXAlignment.Left
+            SliderTitle.TextTransparency = 1
 
             SliderValue.Name = "SliderValue"
             SliderValue.Parent = Slider
@@ -893,6 +955,7 @@ function lib:Window(text, preset, closebind)
             SliderValue.TextColor3 = Color3.fromRGB(255, 255, 255)
             SliderValue.TextSize = 14.000
             SliderValue.TextXAlignment = Enum.TextXAlignment.Right
+            SliderValue.TextTransparency = 1
 
             SlideFrame.Name = "SlideFrame"
             SlideFrame.Parent = Slider
@@ -900,11 +963,14 @@ function lib:Window(text, preset, closebind)
             SlideFrame.BorderSizePixel = 0
             SlideFrame.Position = UDim2.new(0.0342647657, 0, 0.686091602, 0)
             SlideFrame.Size = UDim2.new(0, 335, 0, 3)
+            SlideFrame.BackgroundTransparency = 1.000
 
             CurrentValueFrame.Name = "CurrentValueFrame"
             CurrentValueFrame.Parent = SlideFrame
             CurrentValueFrame.BackgroundColor3 = PresetColor
             CurrentValueFrame.BorderSizePixel = 0
+            CurrentValueFrame.BackgroundTransparency = 1.000
+
 
             SlideCircle.Name = "SlideCircle"
             SlideCircle.Parent = CurrentValueFrame
@@ -915,6 +981,15 @@ function lib:Window(text, preset, closebind)
             SlideCircle.Size = UDim2.new(0, 11, 0, 11)
             SlideCircle.Image = "rbxassetid://3570695787"
             SlideCircle.ImageColor3 = PresetColor
+            SlideCircle.ImageTransparency = 1.000
+
+            TweenService:Create(Slider, TweenInfo.new(0.3), { BackgroundTransparency = 0 }):Play()
+            wait(0.2)
+            TweenService:Create(SliderTitle, TweenInfo.new(0.3), { TextTransparency = 0 }):Play()
+            TweenService:Create(SliderValue, TweenInfo.new(0.3), { TextTransparency = 0 }):Play()
+            TweenService:Create(SlideFrame, TweenInfo.new(0.3), { BackgroundTransparency = 0 }):Play()
+            TweenService:Create(CurrentValueFrame, TweenInfo.new(0.3), { BackgroundTransparency = 0 }):Play()
+            TweenService:Create(SlideCircle, TweenInfo.new(0.3), { ImageTransparency = 0 }):Play()
 
             coroutine.wrap(
                 function()
@@ -942,14 +1017,13 @@ function lib:Window(text, preset, closebind)
                 callback(Slider.Value)
             end
 
-            SlideCircle.InputBegan:Connect(function(input) if input.UserInputType ==
-                    Enum.UserInputType.MouseButton1 then dragging = true end
+            SlideCircle.InputBegan:Connect(function(input) if input.UserInputType == Enum.UserInputType.MouseButton1 then dragging = true lib.Flags[flag] = Slider.Value  end
             end)
             SlideCircle.InputEnded:Connect(function(input) if input.UserInputType ==
-                    Enum.UserInputType.MouseButton1 then dragging = false end
+                    Enum.UserInputType.MouseButton1 then dragging = false lib.Flags[flag] = Slider.Value end
             end)
             game:GetService("UserInputService").InputChanged:Connect(function(input) if dragging and
-                    input.UserInputType == Enum.UserInputType.MouseMovement then move(input) end
+                    input.UserInputType == Enum.UserInputType.MouseMovement then move(input) lib.Flags[flag] = Slider.Value end
             end)
 
             function Slider:Set(val)
@@ -957,14 +1031,17 @@ function lib:Window(text, preset, closebind)
                 SliderValue.Text = tostring(a)
                 CurrentValueFrame.Size = UDim2.new((val or 0) / max, 0, 1, 0)
                 Slider.Value = val
+                lib.Flags[flag] = Slider.Value
                 return callback(Slider.Value)
             end
 
+            lib.Flags[flag] = Slider.Value
             Slider:Set(start)
             return Slider
         end
 
-        function tabcontent:Dropdown(text, default, list, callback)
+        function tabcontent:Dropdown(text, list, flag, callback)
+            flag = flag or nil
             local droptog = false
             local framesize = 0
             local itemcount = 0
@@ -1033,126 +1110,123 @@ function lib:Window(text, preset, closebind)
             DropLayout.Parent = DropItemHolder
             DropLayout.SortOrder = Enum.SortOrder.LayoutOrder
 
-            local Dropdown = {Toggled = false, Value = nil, Options = list}
-
-            local function dropdowntoggle()
-                if Dropdown.Toggled == false then
-                    Dropdown:TweenSize(
-                        UDim2.new(0, 363, 0, 55 + framesize),
-                        Enum.EasingDirection.Out,
-                        Enum.EasingStyle.Quart,
-                        .2,
-                        true
-                    )
-                    TweenService:Create(
-                        ArrowImg,
-                        TweenInfo.new(.3, Enum.EasingStyle.Quad, Enum.EasingDirection.Out),
-                        { Rotation = 270 }
-                    ):Play()
-                    wait(.2)
-                    Tab.CanvasSize = UDim2.new(0, 0, 0, TabLayout.AbsoluteContentSize.Y)
-                else
-                    Dropdown:TweenSize(
-                        UDim2.new(0, 363, 0, 42),
-                        Enum.EasingDirection.Out,
-                        Enum.EasingStyle.Quart,
-                        .2,
-                        true
-                    )
-                    TweenService:Create(
-                        ArrowImg,
-                        TweenInfo.new(.3, Enum.EasingStyle.Quad, Enum.EasingDirection.Out),
-                        { Rotation = 0 }
-                    ):Play()
-                    wait(.2)
-                    Tab.CanvasSize = UDim2.new(0, 0, 0, TabLayout.AbsoluteContentSize.Y)
-                end
-                Dropdown.Toggled = not Dropdown.Toggled
-            end
-
-            DropdownBtn.MouseButton1Click:Connect(function()
-                dropdowntoggle()
-            end)
-
-            function createopts(opts)
-                for i, v in pairs(opts) do
-                    itemcount = itemcount + 1
-                    if itemcount <= 3 then
-                        framesize = framesize + 26
-                        DropItemHolder.Size = UDim2.new(0, 342, 0, framesize)
+            DropdownBtn.MouseButton1Click:Connect(
+                function()
+                    if droptog == false then
+                        Dropdown:TweenSize(
+                            UDim2.new(0, 363, 0, 55 + framesize),
+                            Enum.EasingDirection.Out,
+                            Enum.EasingStyle.Quart,
+                            .2,
+                            true
+                        )
+                        TweenService:Create(
+                            ArrowImg,
+                            TweenInfo.new(.3, Enum.EasingStyle.Quad, Enum.EasingDirection.Out),
+                            { Rotation = 270 }
+                        ):Play()
+                        wait(.2)
+                        Tab.CanvasSize = UDim2.new(0, 0, 0, TabLayout.AbsoluteContentSize.Y)
+                    else
+                        Dropdown:TweenSize(
+                            UDim2.new(0, 363, 0, 42),
+                            Enum.EasingDirection.Out,
+                            Enum.EasingStyle.Quart,
+                            .2,
+                            true
+                        )
+                        TweenService:Create(
+                            ArrowImg,
+                            TweenInfo.new(.3, Enum.EasingStyle.Quad, Enum.EasingDirection.Out),
+                            { Rotation = 0 }
+                        ):Play()
+                        wait(.2)
+                        Tab.CanvasSize = UDim2.new(0, 0, 0, TabLayout.AbsoluteContentSize.Y)
                     end
-                    local Item = Instance.new("TextButton")
-                    local ItemCorner = Instance.new("UICorner")
+                    droptog = not droptog
+                end
+            )
+
+            for i, v in next, list do
+                itemcount = itemcount + 1
+                if itemcount <= 3 then
+                    framesize = framesize + 26
+                    DropItemHolder.Size = UDim2.new(0, 342, 0, framesize)
+                end
+                local Item = Instance.new("TextButton")
+                local ItemCorner = Instance.new("UICorner")
+
+                Item.Name = "Item"
+                Item.Parent = DropItemHolder
+                Item.BackgroundColor3 = Color3.fromRGB(34, 34, 34)
+                Item.ClipsDescendants = true
+                Item.Size = UDim2.new(0, 335, 0, 25)
+                Item.AutoButtonColor = false
+                Item.Font = Enum.Font.Gotham
+                Item.Text = v
+                Item.TextColor3 = Color3.fromRGB(255, 255, 255)
+                Item.TextSize = 15.000
+
+                ItemCorner.CornerRadius = UDim.new(0, 4)
+                ItemCorner.Name = "ItemCorner"
+                ItemCorner.Parent = Item
+
+                Dropdown.BackgroundTransparency = 1
+                DropdownTitle.TextTransparency = 1
+                ArrowImg.ImageTransparency = 1
     
-                    Item.Name = "Item"
-                    Item.Parent = DropItemHolder
-                    Item.BackgroundColor3 = Color3.fromRGB(34, 34, 34)
-                    Item.ClipsDescendants = true
-                    Item.Size = UDim2.new(0, 335, 0, 25)
-                    Item.AutoButtonColor = false
-                    Item.Font = Enum.Font.Gotham
-                    Item.Text = v
-                    Item.TextColor3 = Color3.fromRGB(255, 255, 255)
-                    Item.TextSize = 15.000
+                TweenService:Create(Dropdown, TweenInfo.new(0.3), { BackgroundTransparency = 0 }):Play()
+                wait(0.2)
+                TweenService:Create(DropdownTitle, TweenInfo.new(0.3), { TextTransparency = 0 }):Play()
+                TweenService:Create(ArrowImg, TweenInfo.new(0.3), { ImageTransparency = 0 }):Play()
     
-                    ItemCorner.CornerRadius = UDim.new(0, 4)
-                    ItemCorner.Name = "ItemCorner"
-                    ItemCorner.Parent = Item
-    
-                    Item.MouseEnter:Connect(
-                        function()
-                            TweenService:Create(
-                                Item,
-                                TweenInfo.new(.3, Enum.EasingStyle.Quad, Enum.EasingDirection.Out),
-                                { BackgroundColor3 = Color3.fromRGB(37, 37, 37) and not PresetColor }
-                            ):Play()
-                        end
-                    )
-    
-                    Item.MouseLeave:Connect(
-                        function()
-                            TweenService:Create(
-                                Item,
-                                TweenInfo.new(.3, Enum.EasingStyle.Quad, Enum.EasingDirection.Out),
-                                { BackgroundColor3 = Color3.fromRGB(34, 34, 34)  and not PresetColor }
-                            ):Play()
-                        end
-                    )
-    
-                    Item.MouseButton1Click:Connect(function()
-                        dropdowntoggle()
-                        Dropdown.Value = v
+
+                Item.MouseEnter:Connect(
+                    function()
+                        TweenService:Create(
+                            Item,
+                            TweenInfo.new(.3, Enum.EasingStyle.Quad, Enum.EasingDirection.Out),
+                            { BackgroundColor3 = Color3.fromRGB(37, 37, 37) }
+                        ):Play()
+                    end
+                )
+
+                Item.MouseLeave:Connect(
+                    function()
+                        TweenService:Create(
+                            Item,
+                            TweenInfo.new(.3, Enum.EasingStyle.Quad, Enum.EasingDirection.Out),
+                            { BackgroundColor3 = Color3.fromRGB(34, 34, 34) }
+                        ):Play()
+                    end
+                )
+
+                Item.MouseButton1Click:Connect(
+                    function()
+                        droptog = not droptog
                         DropdownTitle.Text = text .. " - " .. v
-                        return callback(Dropdown.Value)
+                        pcall(callback, v)
+                        Dropdown:TweenSize(
+                            UDim2.new(0, 363, 0, 42),
+                            Enum.EasingDirection.Out,
+                            Enum.EasingStyle.Quart,
+                            .2,
+                            true
+                        )
+                        TweenService:Create(
+                            ArrowImg,
+                            TweenInfo.new(.3, Enum.EasingStyle.Quad, Enum.EasingDirection.Out),
+                            { Rotation = 0 }
+                        ):Play()
+                        wait(.2)
+                        lib.Flags[flag] = v
+                        Tab.CanvasSize = UDim2.new(0, 0, 0, TabLayout.AbsoluteContentSize.Y)
                     end
-                    )
-    
-                    DropItemHolder.CanvasSize = UDim2.new(0, 0, 0, DropLayout.AbsoluteContentSize.Y)
-                end
-            end
+                )
 
-            function Dropdown:Refersh(option, delete)
-                delete = delete or false
-                if delete then
-                    for _,v in pairs(DropItemHolder:GetChildren()) do
-                        if v:IsA"TextButton" then
-                            v:Destroy()
-                        end
-                    end    
-                end    
-                createopts(option)
+                DropItemHolder.CanvasSize = UDim2.new(0, 0, 0, DropLayout.AbsoluteContentSize.Y)
             end
-
-            function Dropdown:Set(option)
-                Dropdown.Value = option
-                DropdownTitle.Text = text .. " - " .. v
-				return callback(Dropdown.Value)
-            end
-
-            Dropdown:Set(default)
-            Dropdown:Refersh(list, false)
             Tab.CanvasSize = UDim2.new(0, 0, 0, TabLayout.AbsoluteContentSize.Y)
-            return Dropdown
         end
 
         function tabcontent:Colorpicker(text, preset, callback)
@@ -1671,6 +1745,13 @@ function lib:Window(text, preset, closebind)
             LabelTitle.TextSize = 14.000
             LabelTitle.TextXAlignment = Enum.TextXAlignment.Left
 
+            Label.BackgroundTransparency = 1
+            LabelTitle.TextTransparency = 1
+
+            TweenService:Create(Label, TweenInfo.new(0.3), { BackgroundTransparency = 0 }):Play()
+            wait(0.2)
+            TweenService:Create(LabelTitle, TweenInfo.new(0.3), { TextTransparency = 0 }):Play()
+
             local LabelFuns = {}
 
             function LabelFuns:Set(newtext, newcolor)
@@ -1683,7 +1764,8 @@ function lib:Window(text, preset, closebind)
             return LabelFuns
         end
 
-        function tabcontent:Textbox(text, disapper, callback)
+        function tabcontent:Textbox(text, disapper, flag, callback)
+            flag = flag or nil
             local Textbox = Instance.new("Frame")
             local Title = Instance.new("TextLabel")
             local UICorner = Instance.new("UICorner")
@@ -1727,6 +1809,15 @@ function lib:Window(text, preset, closebind)
             UICorner1.CornerRadius = UDim.new(0, 4)
             UICorner1.Parent = Box
 
+            Textbox.BackgroundTransparency = 1
+            Title.TextTransparency = 1
+            Box.BackgroundTransparency = 1
+
+            TweenService:Create(Textbox, TweenInfo.new(0.3), { BackgroundTransparency = 0 }):Play()
+            wait(0.2)
+            TweenService:Create(Title, TweenInfo.new(0.3), { TextTransparency = 0 }):Play()
+            TweenService:Create(Box, TweenInfo.new(0.3), { BackgroundTransparency = 0 }):Play()
+
             Box.Changed:Connect(function()
                 Box.Size = UDim2.new(0, Box.TextBounds.X + 16, 0, 22)
             end)
@@ -1744,6 +1835,7 @@ function lib:Window(text, preset, closebind)
                 if disapper then
                     Box.Text = ""
                 end
+                lib.Flags[flag] = txt
                 return callback(txt)
             end)
 
@@ -1754,7 +1846,8 @@ function lib:Window(text, preset, closebind)
             end)
         end
 
-        function tabcontent:Bind(text, preset, holdmode, callback)
+        function tabcontent:Bind(text, preset, holdmode, flag, callback)
+            flag = flag or nil
             local Bindd = Instance.new("TextButton")
             local BText = Instance.new("TextLabel")
             local Title = Instance.new("TextLabel")
@@ -1801,6 +1894,15 @@ function lib:Window(text, preset, closebind)
             UICorner.CornerRadius = UDim.new(0, 5)
             UICorner.Parent = Bindd
 
+            Bindd.BackgroundTransparency = 1
+            BText.TextTransparency = 1
+            Title.TextTransparency = 1
+
+            TweenService:Create(Bindd, TweenInfo.new(0.3), { BackgroundTransparency = 0 }):Play()
+            wait(0.2)
+            TweenService:Create(Title, TweenInfo.new(0.3), { TextTransparency = 0 }):Play()
+            TweenService:Create(BText, TweenInfo.new(0.3), { BackgroundTransparency = 0 }):Play()
+
             local Bind = { Value, Binding = false, Holding = false }
 
             Bindd.InputEnded:Connect(function(Input)
@@ -1833,6 +1935,7 @@ function lib:Window(text, preset, closebind)
                         end
                     end)
                     Key = Key or Bind.Value
+                    lib.Flags[flag] = Key
                     Bind:Set(Key)
                 end
             end)
@@ -1841,6 +1944,7 @@ function lib:Window(text, preset, closebind)
                 if Input.KeyCode.Name == Bind.Value or Input.UserInputType.Name == Bind.Value then
                     if holdmode and Holding then
                         Holding = false
+                        lib.Flags[flag] = Bind.Value
                         callback(Holding)
                     end
                 end
@@ -1851,6 +1955,7 @@ function lib:Window(text, preset, closebind)
                 self.Value = key or self.Value
                 self.Value = self.Value.Name or self.Value
                 BText.Text = self.Value
+                lib.Flags[flag] = Bind.Value
             end
 
             Bind:Set(preset)
