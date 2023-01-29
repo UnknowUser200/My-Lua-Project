@@ -583,7 +583,7 @@ function lib:Window(text, preset, closebind)
         local TabLayout = Instance.new("UIListLayout")
 
         Tab.Name = text
-        Tab.Parent = PagesLayout
+        Tab.Parent = Pages
         Tab.Active = true
         Tab.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
         Tab.BackgroundTransparency = 1.000
