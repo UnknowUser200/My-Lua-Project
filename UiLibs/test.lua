@@ -582,8 +582,7 @@ function lib:Window(text, preset, closebind)
         local Tab = Instance.new("ScrollingFrame")
         local TabLayout = Instance.new("UIListLayout")
 
-        Tab.Name = "Tab"
-        Tab.Text = text
+        Tab.Name = text
         Tab.Parent = PagesLayout
         Tab.Active = true
         Tab.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
@@ -616,12 +615,11 @@ function lib:Window(text, preset, closebind)
         Tab.CanvasSize = UDim2.new(0, 0, 0, TabLayout.AbsoluteContentSize.Y)
 
         TabBtn.MouseButton1Click:Connect(function()
-                PageLayout:JumpTo(TabTitle.Text)
-                --[[for i, v in next, Pages:GetChildren() do
-                    if v.Tab.Text == text then
+                for i, v in next, Pages:GetChildren() do
+                    if v.Tab.Name == TabTitle.Text then
                         PageLayout:JumpTo(v)
                     end
-                end]]
+                end
                 for i, v in next, TabHold:GetChildren() do
                     if v.Name == "TabBtn" then
                         v.TabBtnIndicator:TweenSize(
