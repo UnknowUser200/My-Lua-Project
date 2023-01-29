@@ -509,7 +509,7 @@ function lib:Window(text, preset, closebind)
     local Pages = make("Frame",{
         Parent = Main;
         Name = "Pages";
-        Position = UDim2.new(0,15,0,165);
+        Position = UDim2.new(0,115,0,65);
         Size = UDim2.new(0, 373, 0, 254);
         BorderSizePixel = 0;
         BackgroundTransparency = 1;
