@@ -615,18 +615,13 @@ function lib:Window(text, preset, closebind)
 
         Tab.CanvasSize = UDim2.new(0, 0, 0, TabLayout.AbsoluteContentSize.Y)
 
-        TabBtn.MouseButton1Click:Connect(
-            function()
-                for i, v in next, Pages:GetChildren() do
+        TabBtn.MouseButton1Click:Connect(function()
+                PageLayout:JumpTo(TabTitle.Text)
+                --[[for i, v in next, Pages:GetChildren() do
                     if v.Tab.Text == text then
                         PageLayout:JumpTo(v)
                     end
-                end
-                for i, v in next, Pages:GetChildren() do
-                    if v.Name == text then
-                        PageLayout:JumpTo(Pages)
-                    end
-                end
+                end]]
                 for i, v in next, TabHold:GetChildren() do
                     if v.Name == "TabBtn" then
                         v.TabBtnIndicator:TweenSize(
