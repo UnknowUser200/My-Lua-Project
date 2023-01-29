@@ -216,7 +216,7 @@ function lib:Notif(NotificationConfig)
 
         TweenService:Create(Notify, TweenInfo.new(0.5, Enum.EasingStyle.Quint), { Position = UDim2.new(0, 0, 0, 0) }):Play()
 
-        wait(NotificationConfig.Time - 0.88)
+        task.wait(NotificationConfig.Time)
         TweenService:Create(Icon, TweenInfo.new(0.4, Enum.EasingStyle.Quint), { ImageTransparency = 1 }):Play()
         TweenService:Create(Notify, TweenInfo.new(0.4, Enum.EasingStyle.Quint), { BackgroundTransparency = 1 }):Play()
         TweenService:Create(Label, TweenInfo.new(0.4, Enum.EasingStyle.Quint), { TextTransparency = 1 }):Play()
