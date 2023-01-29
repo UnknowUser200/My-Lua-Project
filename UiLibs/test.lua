@@ -232,13 +232,14 @@ function lib:Window(text, preset, closebind)
     dsa.Parent = ui
     dsa.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
     dsa.BackgroundTransparency = 1
+    dsa.ImageTransparency = 1
     dsa.AnchorPoint = Vector2.new(0.5, 0.5)
     dsa.Position = UDim2.new(0.5, 0, 0.5, 0)
     dsa.Size = UDim2.new(0, 75, 0, 75)
     dsa.Image = "http://www.roblox.com/asset/?id=12315435650"
-    TweenService:Create(HideFrame, TweenInfo.new(0.5), { BackgroundTransparency = 0 }):Play()
+    TweenService:Create(dsa, TweenInfo.new(0.5), { ImageTransparency = 0 }):Play()
     wait(0.6)
-    TweenService:Create(HideFrame, TweenInfo.new(0.5), { BackgroundTransparency = 1 }):Play()
+    TweenService:Create(dsa, TweenInfo.new(0.5), { ImageTransparency = 1 }):Play()
     wait(0.8)
 
     CloseBind = closebind or Enum.KeyCode.RightControl
