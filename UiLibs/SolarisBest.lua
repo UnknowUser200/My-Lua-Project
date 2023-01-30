@@ -161,7 +161,7 @@ local SolarisLib = {
         },
         Vape = {
             MainFrame = Color3.fromRGB(30, 30, 30),
-            TopBar = Color3.fromRGB(30, 30, 30),
+            TopBar = Color3.fromRGB(27, 27, 27),
             TextColor =  Color3.fromRGB(255,255,255),
             Menu = Color3.fromRGB(30, 30, 30),
             TabToggled = Color3.fromRGB(44, 120, 224),
