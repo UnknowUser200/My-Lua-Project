@@ -1003,7 +1003,7 @@ function SolarisLib:New(Config)
                 local def = DropdownSettings.Default
                 local callback = DropdownSettings.Callback
 
-                local Dropdown,DropMain,OptionPreset = {Value = nil, Toggled = false, Options = list}, game:GetObjects("rbxassetid://12326920157")[1], game:GetObjects("rbxassetid://7021432326")[1]
+                local Dropdown,DropMain,OptionPreset = {Value = nil, Toggled = false, Options = list}, game:GetObjects("rbxassetid://12327137824")[1], game:GetObjects("rbxassetid://7021432326")[1]
                 DropMain.Parent = Section
                 DropMain.Btn.Title.Text = text
                 DropMain.Name = text .. "element"
@@ -1091,7 +1091,7 @@ function SolarisLib:New(Config)
                 local def = DropdownSettings.Default
                 local callback = DropdownSettings.Callback
 
-                local Dropdown,DropMain,OptionPreset = {Value = {}, Toggled = false, Options = list}, game:GetObjects("rbxassetid://12326920157")[1], game:GetObjects("rbxassetid://7021432326")[1]
+                local Dropdown,DropMain,OptionPreset = {Value = {}, Toggled = false, Options = list}, game:GetObjects("rbxassetid://12327137824")[1], game:GetObjects("rbxassetid://7021432326")[1]
                 DropMain.Parent = Section
                 DropMain.Btn.Title.Text = text
                 DropMain.Name = text .. "element"
