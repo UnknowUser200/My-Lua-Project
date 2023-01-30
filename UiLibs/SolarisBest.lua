@@ -1003,7 +1003,7 @@ function SolarisLib:New(Config)
                 local def = DropdownSettings.Default
                 local callback = DropdownSettings.Callback
 
-                local Dropdown,DropMain,OptionPreset = {Value = nil, Toggled = false, Options = list}, game:GetObjects("rbxassetid://7027964359")[1], game:GetObjects("rbxassetid://7021432326")[1]
+                local Dropdown,DropMain,OptionPreset = {Value = nil, Toggled = false, Options = list}, game:GetObjects("rbxassetid://12326920157")[1], game:GetObjects("rbxassetid://7021432326")[1]
                 DropMain.Parent = Section
                 DropMain.Btn.Title.Text = text
                 DropMain.Name = text .. "element"
@@ -1026,7 +1026,8 @@ function SolarisLib:New(Config)
 
                         Option.MouseButton1Click:Connect(function()
                             Dropdown.Value = option
-                            DropMain.Btn.Title.Text = text .. " - " .. option
+                            DropMain.Btn.Title.Text = text
+                            DropMain.Btn.Value.Text = option
                             Ripple(Option)
                             return callback(Dropdown.Value)
                         end)
@@ -1060,7 +1061,8 @@ function SolarisLib:New(Config)
 
                 function Dropdown:Set(val)
 					Dropdown.Value = val
-                    DropMain.Btn.Title.Text = text .. " - " .. val
+                    DropMain.Btn.Title.Text = text
+                    DropMain.Btn.Value.Text = val
 					return callback(Dropdown.Value)
 				end
 
@@ -1089,7 +1091,7 @@ function SolarisLib:New(Config)
                 local def = DropdownSettings.Default
                 local callback = DropdownSettings.Callback
 
-                local Dropdown,DropMain,OptionPreset = {Value = {}, Toggled = false, Options = list}, game:GetObjects("rbxassetid://7027964359")[1], game:GetObjects("rbxassetid://7021432326")[1]
+                local Dropdown,DropMain,OptionPreset = {Value = {}, Toggled = false, Options = list}, game:GetObjects("rbxassetid://12326920157")[1], game:GetObjects("rbxassetid://7021432326")[1]
                 DropMain.Parent = Section
                 DropMain.Btn.Title.Text = text
                 DropMain.Name = text .. "element"
@@ -1113,11 +1115,13 @@ function SolarisLib:New(Config)
                         Option.MouseButton1Click:Connect(function()
                             if table.find(Dropdown.Value, option) then				
 								table.remove(Dropdown.Value, table.find(Dropdown.Value, option))
-								DropMain.Btn.Title.Text = text .. " - " .. table.concat(Dropdown.Value, ", ")
+								DropMain.Btn.Title.Text = text
+                                DropMain.Btn.Value.Text = table.concat(Dropdown.Value, ", ")
 								callback(Dropdown.Value)
 							else
 								table.insert(Dropdown.Value, option)
-								DropMain.Btn.Title.Text = text .. " - " .. table.concat(Dropdown.Value, ", ")
+								DropMain.Btn.Title.Text = text
+                                DropMain.Btn.Value.Text = table.concat(Dropdown.Value, ", ")
 								callback(Dropdown.Value)
 							end
                             Ripple(Option)
@@ -1152,7 +1156,8 @@ function SolarisLib:New(Config)
 
                 function Dropdown:Set(val)
 					Dropdown.Value = val
-                    DropMain.Btn.Title.Text = text .. " - " .. table.concat(Dropdown.Value, ", ")
+                    DropMain.Btn.Title.Text = text
+                    DropMain.Btn.Value.Text = table.concat(Dropdown.Value, ", ")
 					return callback(Dropdown.Value)
 				end
 
