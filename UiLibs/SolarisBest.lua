@@ -160,8 +160,8 @@ local SolarisLib = {
             DescriptColorNotif = Color3.fromRGB(200, 230, 200),
         },
         Vape = {
-            MainFrame = Color3.fromRGB(c),
-            TopBar = Color3.fromRGB(30, 30, 30),
+            MainFrame = Color3.fromRGB(30,30,30),
+            TopBar = Color3.fromRGB(25, 25, 25),
             TextColor =  Color3.fromRGB(255,255,255),
             Menu = Color3.fromRGB(30, 30, 30),
             TabToggled = Color3.fromRGB(44, 120, 224),
@@ -182,7 +182,7 @@ local SolarisLib = {
             Bind = Color3.fromRGB(34, 34, 34),
             -- Notification
             NotificationBg = Color3.fromRGB(30, 30, 30),
-            NotificationTopBar = Color3.fromRGB(34, 34, 34),
+            NotificationTopBar = Color3.fromRGB(25, 25, 25),
             DescriptColorNotif = Color3.fromRGB(200, 200, 200),
         }
     },
