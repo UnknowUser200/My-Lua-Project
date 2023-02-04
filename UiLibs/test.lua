@@ -1126,7 +1126,7 @@ function lib:Window(text, preset, closebind)
             function Searchdrop()
 				local search = string.lower(DropdownTitle.Text)
 				for i, v in pairs(DropItemHolder:GetChildren()) do
-					if v:IsA("Frame") then
+					if v:IsA("TextButton") then
 						if search ~= "" then
 							if v.Name == "Item" then
 								local item = string.lower(v.Text)
