@@ -1123,30 +1123,6 @@ function lib:Window(text, preset, closebind)
             DropLayout.Parent = DropItemHolder
             DropLayout.SortOrder = Enum.SortOrder.LayoutOrder
 
-            function Searchdrop()
-				local search = string.lower(DropdownTitle.Text)
-				for i, v in pairs(DropItemHolder:GetChildren()) do
-					if v:IsA("TextButton") then
-						if search ~= "" then
-							if v.Name == "Item" then
-								local item = string.lower(v.Text)
-								if string.find(item, search) then
-									v.Visible = true
-								else
-									v.Visible = false
-								end
-                            end
-						else
-							v.Visible = true
-						end
-					end
-				end
-			end
-
-            DropdownTitle.FocusLost:Connect(Searchdrop())
-
-            DropdownTitle.Changed:Connect(Searchdrop())
-
             DropdownBtn.MouseButton1Click:Connect(
                 function()
                     if droptog == false then
@@ -1263,6 +1239,29 @@ function lib:Window(text, preset, closebind)
 
                 DropItemHolder.CanvasSize = UDim2.new(0, 0, 0, DropLayout.AbsoluteContentSize.Y)
             end
+
+            function Searchdrop()
+				local search = string.lower(DropdownTitle.Text)
+				for i, v in pairs(DropItemHolder:GetChildren()) do
+					if v:IsA("TextButton") then
+						if search ~= "" then
+							if v.Name == "Item" then
+								local item = string.lower(v.Text)
+								if string.find(item, search) then
+									v.Visible = true
+								else
+									v.Visible = false
+								end
+                            end
+						else
+							v.Visible = true
+						end
+					end
+				end
+			end
+
+            DropdownTitle.Text.Changed:Connect(Searchdrop())
+            
             Tab.CanvasSize = UDim2.new(0, 0, 0, TabLayout.AbsoluteContentSize.Y)
         end
 
