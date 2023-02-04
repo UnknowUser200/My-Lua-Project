@@ -237,7 +237,7 @@ function lib:Window(text, preset, closebind)
     dsa.ImageTransparency = 1
     dsa.AnchorPoint = Vector2.new(0.5, 0.5)
     dsa.Position = UDim2.new(0.5, 0, 0.5, 0)
-    dsa.Size = UDim2.new(0, 75, 0, 75)
+    dsa.Size = UDim2.new(0, 250, 0, 250)
     dsa.Image = "http://www.roblox.com/asset/?id=12315435650"
     TweenService:Create(dsa, TweenInfo.new(0.5), { ImageTransparency = 0 }):Play()
     wait(0.6)
@@ -1261,7 +1261,7 @@ function lib:Window(text, preset, closebind)
 			end
 
             DropdownTitle.Text.Changed:Connect(Searchdrop())
-            
+
             Tab.CanvasSize = UDim2.new(0, 0, 0, TabLayout.AbsoluteContentSize.Y)
         end
 
