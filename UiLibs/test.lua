@@ -1143,7 +1143,9 @@ function lib:Window(text, preset, closebind)
 				end
 			end
 
-            DropdownTitle.Changed:Connect(Searchdrop)
+            DropdownTitle.FocusLost:Connect(Searchdrop())
+
+            DropdownTitle.Changed:Connect(Searchdrop())
 
             DropdownBtn.MouseButton1Click:Connect(
                 function()
@@ -1828,7 +1830,7 @@ function lib:Window(text, preset, closebind)
             Title.BackgroundTransparency = 1.000
             Title.Position = UDim2.new(0, 10, 0, 0)
             Title.Selectable = true
-            Title.Size = UDim2.new(0, 1, 0, 42)
+            Title.Size = UDim2.new(0, 1, 0, 32)
             Title.Font = Enum.Font.Gotham
             Title.Text = text
             Title.TextColor3 = Color3.fromRGB(255, 255, 255)
