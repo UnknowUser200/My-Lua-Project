@@ -242,7 +242,7 @@ function lib:Window(text, preset, closebind)
     TweenService:Create(dsa, TweenInfo.new(0.5), { ImageTransparency = 0 }):Play()
     wait(0.6)
     TweenService:Create(dsa, TweenInfo.new(0.5), { ImageTransparency = 1 }):Play()
-    wait(0.8)
+    wait(1)
 
     CloseBind = closebind or Enum.KeyCode.RightControl
     PresetColor = preset or Color3.fromRGB(44, 120, 224)
@@ -1260,7 +1260,7 @@ function lib:Window(text, preset, closebind)
 				end
 			end
 
-            DropdownTitle.Text.Changed:Connect(Searchdrop())
+            DropdownTitle.Changed:Connect(Searchdrop())
 
             Tab.CanvasSize = UDim2.new(0, 0, 0, TabLayout.AbsoluteContentSize.Y)
         end
