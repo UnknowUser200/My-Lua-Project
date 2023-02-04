@@ -519,23 +519,23 @@ function lib:Window(text, preset, closebind)
         Visible = true
     })
 
+    local PagesLayout = make("UIPageLayout", {
+        Parent = Pages;
+        Name = "UIPage";
+        Padding = UDim.new(0, 5);
+        FillDirection = Enum.FillDirection.Vertical;
+        HorizontalAlignment = Enum.HorizontalAlignment.Left;
+        VerticalAlignment = Enum.VerticalAlignment.Top;
+        SortOrder = Enum.SortOrder.LayoutOrder;
+        EasingDirection = Enum.EasingDirection.Out;
+        EasingStyle = Enum.EasingStyle.Quint;
+        TweenTime = 0.3;
+        Animated = true;
+        ScrollWheelInputEnabled = false;
+    })
+
     local tabhold = {}
     function tabhold:Tab(text)
-        local PagesLayout = make("UIPageLayout", {
-            Parent = Pages;
-            Name = "UIPage";
-            Padding = UDim.new(0, 5);
-            FillDirection = Enum.FillDirection.Vertical;
-            HorizontalAlignment = Enum.HorizontalAlignment.Left;
-            VerticalAlignment = Enum.VerticalAlignment.Top;
-            SortOrder = Enum.SortOrder.LayoutOrder;
-            EasingDirection = Enum.EasingDirection.Out;
-            EasingStyle = Enum.EasingStyle.Quint;
-            TweenTime = 0.3;
-            Animated = true;
-            ScrollWheelInputEnabled = false;
-        })
-        
         local TabBtn = Instance.new("TextButton")
         local TabTitle = Instance.new("TextLabel")
         local TabBtnIndicator = Instance.new("Frame")
@@ -593,7 +593,7 @@ function lib:Window(text, preset, closebind)
         Tab.Size = UDim2.new(0, 373, 0, 254)
         Tab.CanvasSize = UDim2.new(0, 0, 0, 0)
         Tab.ScrollBarThickness = 3
-        Tab.Visible = false
+        Tab.Visible = true
 
         TabLayout.Name = "TabLayout"
         TabLayout.Parent = Tab
@@ -604,7 +604,6 @@ function lib:Window(text, preset, closebind)
             fs = true
             TabBtnIndicator.Size = UDim2.new(0, 13, 0, 2)
             TabTitle.TextColor3 = Color3.fromRGB(255, 255, 255)
-            Tab.Visible = true
         end
 
         spawn(function()
