@@ -7,7 +7,8 @@ local Mouse = LocalPlayer:GetMouse()
 local PresetColor = Color3.fromRGB(44, 120, 224)
 local CloseBind = Enum.KeyCode.RightControl
 
-local make = loadstring(game:HttpGet("https://github.com/slf0Dev/my-ui-library-making-utility/raw/main/InstanceMaker.lua"))().Instance;
+local make = loadstring(game:HttpGet("https://github.com/slf0Dev/my-ui-library-making-utility/raw/main/InstanceMaker.lua"))()
+    .Instance;
 
 for i, v in next, game.CoreGui:GetChildren() do
     if v.Name == "ui" then
@@ -214,7 +215,8 @@ function lib:Notif(NotificationConfig)
         Title.AutomaticSize = Enum.AutomaticSize.Y
         Title.Text = NotificationConfig.Content
 
-        TweenService:Create(Notify, TweenInfo.new(0.5, Enum.EasingStyle.Quint), { Position = UDim2.new(0, 0, 0, 0) }):Play()
+        TweenService:Create(Notify, TweenInfo.new(0.5, Enum.EasingStyle.Quint), { Position = UDim2.new(0, 0, 0, 0) }):
+            Play()
 
         task.wait(NotificationConfig.Time)
         TweenService:Create(Icon, TweenInfo.new(0.4, Enum.EasingStyle.Quint), { ImageTransparency = 1 }):Play()
@@ -506,7 +508,7 @@ function lib:Window(text, preset, closebind)
         end)
     end
 
-    local Pages = make("Frame",{
+    local Pages = make("Frame", {
         Parent = Main;
         Name = "Pages";
         Position = UDim2.new(0.31400001, 0, 0.147, 0);
@@ -518,10 +520,10 @@ function lib:Window(text, preset, closebind)
     })
 
 
-    local PagesLayout = make("UIPageLayout",{
+    local PagesLayout = make("UIPageLayout", {
         Parent = Pages;
         Name = "UIPage";
-        Padding = UDim.new(0,5);
+        Padding = UDim.new(0, 5);
         FillDirection = Enum.FillDirection.Vertical;
         HorizontalAlignment = Enum.HorizontalAlignment.Left;
         VerticalAlignment = Enum.VerticalAlignment.Top;
@@ -615,40 +617,43 @@ function lib:Window(text, preset, closebind)
         Tab.CanvasSize = UDim2.new(0, 0, 0, TabLayout.AbsoluteContentSize.Y)
 
         TabBtn.MouseButton1Click:Connect(function()
-                for i, v in next, Pages:GetChildren() do
-                    if v.Name == TabTitle.Text and not PagesLayout then
-                        PageLayout:JumpTo(v)
-                    end
-                end
-                for i, v in next, TabHold:GetChildren() do
-                    if v.Name == "TabBtn" then
-                        v.TabBtnIndicator:TweenSize(
-                            UDim2.new(0, 0, 0, 2),
-                            Enum.EasingDirection.Out,
-                            Enum.EasingStyle.Quart,
-                            .2,
-                            true
-                        )
-                        TabBtnIndicator:TweenSize(
-                            UDim2.new(0, 13, 0, 2),
-                            Enum.EasingDirection.Out,
-                            Enum.EasingStyle.Quart,
-                            .2,
-                            true
-                        )
-                        TweenService:Create(
-                            v.TabTitle,
-                            TweenInfo.new(.3, Enum.EasingStyle.Quad, Enum.EasingDirection.Out),
-                            { TextColor3 = Color3.fromRGB(150, 150, 150) }
-                        ):Play()
-                        TweenService:Create(
-                            TabTitle,
-                            TweenInfo.new(.3, Enum.EasingStyle.Quad, Enum.EasingDirection.Out),
-                            { TextColor3 = Color3.fromRGB(255, 255, 255) }
-                        ):Play()
-                    end
+            --PagesLayout:JumpTo(v)
+
+            for i, v in next, Pages:GetChildren() do
+                if v.Name == TabTitle.Text and not PagesLayout then
+                    PagesLayout:JumpTo(v)
                 end
             end
+
+            for i, v in next, TabHold:GetChildren() do
+                if v.Name == "TabBtn" then
+                    v.TabBtnIndicator:TweenSize(
+                        UDim2.new(0, 0, 0, 2),
+                        Enum.EasingDirection.Out,
+                        Enum.EasingStyle.Quart,
+                        .2,
+                        true
+                    )
+                    TabBtnIndicator:TweenSize(
+                        UDim2.new(0, 13, 0, 2),
+                        Enum.EasingDirection.Out,
+                        Enum.EasingStyle.Quart,
+                        .2,
+                        true
+                    )
+                    TweenService:Create(
+                        v.TabTitle,
+                        TweenInfo.new(.3, Enum.EasingStyle.Quad, Enum.EasingDirection.Out),
+                        { TextColor3 = Color3.fromRGB(150, 150, 150) }
+                    ):Play()
+                    TweenService:Create(
+                        TabTitle,
+                        TweenInfo.new(.3, Enum.EasingStyle.Quad, Enum.EasingDirection.Out),
+                        { TextColor3 = Color3.fromRGB(255, 255, 255) }
+                    ):Play()
+                end
+            end
+        end
         )
         local tabcontent = {}
         function tabcontent:Button(text, callback)
@@ -1018,10 +1023,14 @@ function lib:Window(text, preset, closebind)
                 callback(Slider.Value)
             end
 
-            SlideCircle.InputBegan:Connect(function(input) if input.UserInputType == Enum.UserInputType.MouseButton1 then dragging = true lib.Flags[flag] = Slider.Value  end
+            SlideCircle.InputBegan:Connect(function(input) if input.UserInputType == Enum.UserInputType.MouseButton1 then dragging = true
+            lib.Flags[flag] = Slider.Value
+            end
             end)
             SlideCircle.InputEnded:Connect(function(input) if input.UserInputType ==
-                    Enum.UserInputType.MouseButton1 then dragging = false lib.Flags[flag] = Slider.Value end
+                    Enum.UserInputType.MouseButton1 then dragging = false
+                lib.Flags[flag] = Slider.Value
+                end
             end)
             game:GetService("UserInputService").InputChanged:Connect(function(input) if dragging and
                     input.UserInputType == Enum.UserInputType.MouseMovement then move(input) lib.Flags[flag] = Slider.Value end
@@ -1175,12 +1184,12 @@ function lib:Window(text, preset, closebind)
                 Dropdown.BackgroundTransparency = 1
                 DropdownTitle.TextTransparency = 1
                 ArrowImg.ImageTransparency = 1
-    
+
                 TweenService:Create(Dropdown, TweenInfo.new(0.3), { BackgroundTransparency = 0 }):Play()
                 wait(0.2)
                 TweenService:Create(DropdownTitle, TweenInfo.new(0.3), { TextTransparency = 0 }):Play()
                 TweenService:Create(ArrowImg, TweenInfo.new(0.3), { ImageTransparency = 0 }):Play()
-    
+
 
                 Item.MouseEnter:Connect(
                     function()
