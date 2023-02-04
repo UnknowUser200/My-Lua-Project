@@ -1160,6 +1160,28 @@ function lib:Window(text, preset, closebind)
                 end
             )
 
+            function Searchdrop()
+				local search = string.lower(DropdownTitle.Text)
+				for i, v in pairs(DropItemHolder:GetChildren()) do
+					if v:IsA("TextButton") then
+						if search ~= "" then
+							if v.Name == "Item" then
+								local item = string.lower(v.Text)
+								if string.find(item, search) then
+									v.Visible = true
+								else
+									v.Visible = false
+								end
+                            end
+						else
+							v.Visible = true
+						end
+					end
+				end
+			end
+
+            DropdownTitle.Changed:Connect(Searchdrop)
+
             for i, v in next, list do
                 itemcount = itemcount + 1
                 if itemcount <= 3 then
@@ -1239,28 +1261,6 @@ function lib:Window(text, preset, closebind)
 
                 DropItemHolder.CanvasSize = UDim2.new(0, 0, 0, DropLayout.AbsoluteContentSize.Y)
             end
-
-            function Searchdrop()
-				local search = string.lower(DropdownTitle.Text)
-				for i, v in pairs(DropItemHolder:GetChildren()) do
-					if v:IsA("TextButton") then
-						if search ~= "" then
-							if v.Name == "Item" then
-								local item = string.lower(v.Text)
-								if string.find(item, search) then
-									v.Visible = true
-								else
-									v.Visible = false
-								end
-                            end
-						else
-							v.Visible = true
-						end
-					end
-				end
-			end
-
-            DropdownTitle.Changed:Connect(Searchdrop())
 
             Tab.CanvasSize = UDim2.new(0, 0, 0, TabLayout.AbsoluteContentSize.Y)
         end
