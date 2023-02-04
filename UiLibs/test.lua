@@ -617,7 +617,7 @@ function lib:Window(text, preset, closebind)
         Tab.CanvasSize = UDim2.new(0, 0, 0, TabLayout.AbsoluteContentSize.Y)
 
         TabBtn.MouseButton1Click:Connect(function()
-            PagesLayout:JumpTo(v)
+            PagesLayout:JumpTo(Tab)
             --[[
             for i, v in next, Pages:GetChildren() do
                 if v.Name == TabTitle.Text and not PagesLayout then
