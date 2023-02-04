@@ -509,7 +509,7 @@ function lib:Window(text, preset, closebind)
     local Pages = make("Frame",{
         Parent = Main;
         Name = "Pages";
-        Position = UDim2.new(0,265,0,15);
+        Position = UDim2.new(0.31400001, 0, 0.147, 0);
         Size = UDim2.new(0, 373, 0, 254);
         BorderSizePixel = 0;
         BackgroundTransparency = 1;
@@ -588,7 +588,7 @@ function lib:Window(text, preset, closebind)
         Tab.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
         Tab.BackgroundTransparency = 1.000
         Tab.BorderSizePixel = 0
-        Tab.Position = UDim2.new(0.31400001, 0, 0.147, 0)
+        Tab.Position = UDim2.new(0, 0, 0, 0)
         Tab.Size = UDim2.new(0, 373, 0, 254)
         Tab.CanvasSize = UDim2.new(0, 0, 0, 0)
         Tab.ScrollBarThickness = 3
