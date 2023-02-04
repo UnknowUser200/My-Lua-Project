@@ -519,24 +519,23 @@ function lib:Window(text, preset, closebind)
         Visible = true
     })
 
-
-    local PagesLayout = make("UIPageLayout", {
-        Parent = Pages;
-        Name = "UIPage";
-        Padding = UDim.new(0, 5);
-        FillDirection = Enum.FillDirection.Vertical;
-        HorizontalAlignment = Enum.HorizontalAlignment.Left;
-        VerticalAlignment = Enum.VerticalAlignment.Top;
-        SortOrder = Enum.SortOrder.LayoutOrder;
-        EasingDirection = Enum.EasingDirection.Out;
-        EasingStyle = Enum.EasingStyle.Quint;
-        TweenTime = 0.3;
-        Animated = true;
-        ScrollWheelInputEnabled = false;
-    })
-
     local tabhold = {}
     function tabhold:Tab(text)
+        local PagesLayout = make("UIPageLayout", {
+            Parent = Pages;
+            Name = "UIPage";
+            Padding = UDim.new(0, 5);
+            FillDirection = Enum.FillDirection.Vertical;
+            HorizontalAlignment = Enum.HorizontalAlignment.Left;
+            VerticalAlignment = Enum.VerticalAlignment.Top;
+            SortOrder = Enum.SortOrder.LayoutOrder;
+            EasingDirection = Enum.EasingDirection.Out;
+            EasingStyle = Enum.EasingStyle.Quint;
+            TweenTime = 0.3;
+            Animated = true;
+            ScrollWheelInputEnabled = false;
+        })
+        
         local TabBtn = Instance.new("TextButton")
         local TabTitle = Instance.new("TextLabel")
         local TabBtnIndicator = Instance.new("Frame")
@@ -617,7 +616,10 @@ function lib:Window(text, preset, closebind)
         Tab.CanvasSize = UDim2.new(0, 0, 0, TabLayout.AbsoluteContentSize.Y)
 
         TabBtn.MouseButton1Click:Connect(function()
-            PagesLayout:JumpTo(Tab)
+            if PagesLayout.CurrentPage ~= Tab then
+				PagesLayout:JumpTo(Tab)
+			end
+            --PagesLayout:JumpTo(Tab)
             --[[
             for i, v in next, Pages:GetChildren() do
                 if v.Name == TabTitle.Text and not PagesLayout then
