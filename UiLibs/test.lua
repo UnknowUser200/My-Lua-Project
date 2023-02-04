@@ -1060,7 +1060,7 @@ function lib:Window(text, preset, closebind)
             local Dropdown = Instance.new("Frame")
             local DropdownCorner = Instance.new("UICorner")
             local DropdownBtn = Instance.new("TextButton")
-            local DropdownTitle = Instance.new("TextLabel")
+            local DropdownTitle = Instance.new("TextBox")
             local ArrowImg = Instance.new("ImageLabel")
             local DropItemHolder = Instance.new("ScrollingFrame")
             local DropLayout = Instance.new("UIListLayout")
@@ -1097,6 +1097,8 @@ function lib:Window(text, preset, closebind)
             DropdownTitle.TextColor3 = Color3.fromRGB(255, 255, 255)
             DropdownTitle.TextSize = 14.000
             DropdownTitle.TextXAlignment = Enum.TextXAlignment.Left
+            DropdownTitle.PlaceholderText = text
+            DropdownTitle.PlaceholderColor3 = Color3.fromRGB(240, 240, 240)
 
             ArrowImg.Name = "ArrowImg"
             ArrowImg.Parent = DropdownTitle
@@ -1120,6 +1122,28 @@ function lib:Window(text, preset, closebind)
             DropLayout.Name = "DropLayout"
             DropLayout.Parent = DropItemHolder
             DropLayout.SortOrder = Enum.SortOrder.LayoutOrder
+
+            function Searchdrop()
+				local search = string.lower(DropdownTitle.Text)
+				for i, v in pairs(DropItemHolder:GetChildren()) do
+					if v:IsA("Frame") then
+						if search ~= "" then
+							if v.Name == "Item" then
+								local item = string.lower(v.Text)
+								if string.find(item, search) then
+									v.Visible = true
+								else
+									v.Visible = false
+								end
+                            end
+						else
+							v.Visible = true
+						end
+					end
+				end
+			end
+
+            DropdownTitle.Changed:Connect(Searchdrop)
 
             DropdownBtn.MouseButton1Click:Connect(
                 function()
@@ -1215,7 +1239,7 @@ function lib:Window(text, preset, closebind)
                 Item.MouseButton1Click:Connect(
                     function()
                         droptog = not droptog
-                        DropdownTitle.Text = text .. " - " .. v
+                        DropdownTitle.Text = v
                         pcall(callback, v)
                         Dropdown:TweenSize(
                             UDim2.new(0, 363, 0, 42),
@@ -1287,6 +1311,8 @@ function lib:Window(text, preset, closebind)
             Colorpicker.Position = UDim2.new(-0.541071415, 0, -0.532915354, 0)
             Colorpicker.Size = UDim2.new(0, 363, 0, 42)
 
+            Colorpicker.BackgroundTransparency = 1
+
             ColorpickerCorner.CornerRadius = UDim.new(0, 5)
             ColorpickerCorner.Name = "ColorpickerCorner"
             ColorpickerCorner.Parent = Colorpicker
@@ -1302,12 +1328,19 @@ function lib:Window(text, preset, closebind)
             ColorpickerTitle.TextColor3 = Color3.fromRGB(255, 255, 255)
             ColorpickerTitle.TextSize = 14.000
             ColorpickerTitle.TextXAlignment = Enum.TextXAlignment.Left
+            ColorpickerTitle.TextTransparency = 1
 
             BoxColor.Name = "BoxColor"
             BoxColor.Parent = ColorpickerTitle
             BoxColor.BackgroundColor3 = Color3.fromRGB(255, 0, 4)
             BoxColor.Position = UDim2.new(1.60427809, 0, 0.214285716, 0)
             BoxColor.Size = UDim2.new(0, 41, 0, 23)
+            BoxColor.BackgroundTransparency = 1
+
+            TweenService:Create(Colorpicker, TweenInfo.new(0.3), { BackgroundTransparency = 0 }):Play()
+            wait(0.2)
+            TweenService:Create(ColorpickerTitle, TweenInfo.new(0.3), { TextTransparency = 0 }):Play()
+            TweenService:Create(BoxColor, TweenInfo.new(0.3), { BackgroundTransparency = 0 }):Play()
 
             BoxColorCorner.CornerRadius = UDim.new(0, 5)
             BoxColorCorner.Name = "BoxColorCorner"
@@ -1912,7 +1945,7 @@ function lib:Window(text, preset, closebind)
             TweenService:Create(Bindd, TweenInfo.new(0.3), { BackgroundTransparency = 0 }):Play()
             wait(0.2)
             TweenService:Create(Title, TweenInfo.new(0.3), { TextTransparency = 0 }):Play()
-            TweenService:Create(BText, TweenInfo.new(0.3), { BackgroundTransparency = 0 }):Play()
+            TweenService:Create(BText, TweenInfo.new(0.3), { TextTransparency = 0 }):Play()
 
             local Bind = { Value, Binding = false, Holding = false }
 
